@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "531305378076",
+    "firebase_url": "https://modir-d8182-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "modir-d8182",
+    "storage_bucket": "modir-d8182.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531305378076:android:31a98cc7b8d92f337b4ad9",
+        "android_client_info": {
+          "package_name": "com.example.test_qwe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531305378076-jfun0elkfgo5fnv3idrdj37pd1khe2g4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDogzalL_f-tEOiqOrBSfN8Amzc64l_nLw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531305378076-jfun0elkfgo5fnv3idrdj37pd1khe2g4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "531305378076-85e0i3n1m6o4fo36mkv8q1ptovn98aeh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.holyhaibts"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531305378076:android:37813c374cf1e6387b4ad9",
+        "android_client_info": {
+          "package_name": "com.holyhaibts.modirapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531305378076-jfun0elkfgo5fnv3idrdj37pd1khe2g4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDogzalL_f-tEOiqOrBSfN8Amzc64l_nLw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531305378076-jfun0elkfgo5fnv3idrdj37pd1khe2g4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "531305378076-85e0i3n1m6o4fo36mkv8q1ptovn98aeh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.holyhaibts"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

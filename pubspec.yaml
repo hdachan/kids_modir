@@ -1,0 +1,115 @@
+name: holyhabits_modirapp
+description: "A new Flutter project."
+
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_screenutil: ^5.9.0 # 플러터 반응형 라이브러리
+  firebase_core: ^2.25.3 #플러터 파이어베이스를 위한 core
+  firebase_auth: ^4.17.3 #파이어베이스 로그인을 위한 auth
+  firebase_storage: ^11.6.5 #파이어베이스 스토리지를 위한 storage
+  cupertino_icons: ^1.0.2 # 구글 아이콘
+  cloud_firestore: ^4.15.4 # 파이어베이스 데이터 베이스
+  carousel_slider: ^4.2.1 # 화면 넘기기
+  introduction_screen: ^3.1.12 # 슬라이딩 넣기
+  intl: ^0.17.0 #국제 시간 라이브러리
+  image_picker: ^0.8.4+3 #이미지 고르는 라이브러리
+
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^2.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+  assets:
+    - assets/image/logo.png
+    - assets/image/fox.png
+    - assets/image/bad.png
+    - assets/image/tog.png
+    - assets/image/login1.png
+    - assets/image/eng_logo.png
+    - assets/image/on1.png
+    - assets/image/on2.png
+    - assets/image/on3.png
+    - assets/image/back_icon.png
+    - assets/image/check_icon.png
+    - assets/image/checkOn_icon.png
+    - assets/image/Oncheck_icon.png
+    - assets/image/Onbluecheck_icon.png
+    - assets/image/logo_10.png
+    - assets/image/next_line_S.png
+    - assets/image/logout_line_S.png
+    - assets/image/m_logo.png
+    - assets/image/logo_primary.png
+    - assets/image/logo_modi.png
+    - assets/image/123.png
+    - assets/image/456.png
+    - assets/image/carousel_home.png
+    - assets/image/arrow_forward.png
+    - assets/image/1111.png
+  uses-material-design: true
+  fonts:
+    - family: Pretendard
+      fonts:
+        - asset: assets/fonts/Pretendard-Thin.otf
+          weight: 100
+        - asset: assets/fonts/Pretendard-ExtraLight.otf
+          weight: 200
+        - asset: assets/fonts/Pretendard-Light.otf
+          weight: 300
+        - asset: assets/fonts/Pretendard-Regular.otf
+          weight: 400
+        - asset: assets/fonts/Pretendard-Medium.otf
+          weight: 500
+        - asset: assets/fonts/Pretendard-SemiBold.otf
+          weight: 600
+        - asset: assets/fonts/Pretendard-Bold.otf
+          weight: 700
+        - asset: assets/fonts/Pretendard-ExtraBold.otf
+          weight: 800
+        - asset: assets/fonts/Pretendard-Black.otf
+          weight: 900
+
+    - family: NotoSansKR
+      fonts:
+        - asset: assets/fonts/NotoSansKR-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/NotoSansKR-Light.ttf
+          weight: 300
+        - asset: assets/fonts/NotoSansKR-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/NotoSansKR-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/NotoSansKR-Black.ttf
+          weight: 900
