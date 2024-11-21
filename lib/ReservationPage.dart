@@ -169,11 +169,11 @@ class _ReservationPageState extends State<ReservationPage> {
     );
   }
 
-  Widget _buildButton(String text, VoidCallback? onPressed, Color bgColor, Color textColor) {
+  Widget _buildButton(String text, VoidCallback? onPressed, Color bgColor, Color textColor) { //여기업데이트하고바꿈
     return ElevatedButton(
       onPressed: onPressed, // 버튼 클릭 시 동작
       child: Text(text),
-      style: ElevatedButton.styleFrom(primary: bgColor, onPrimary: textColor), // 버튼 스타일
+      style: ElevatedButton.styleFrom(foregroundColor: textColor, backgroundColor: bgColor), // 버튼 스타일
     );
   }
 }
@@ -195,7 +195,7 @@ class ClassificationButton extends StatelessWidget {
       onPressed: isEnabled ? onPressed : null, // 활성화 조건
       child: Text(label), // 버튼 텍스트
       style: ElevatedButton.styleFrom(
-        primary: isEnabled ? Colors.blue : Colors.grey, // 색상 설정
+        backgroundColor: isEnabled ? Colors.blue : Colors.grey, // 색상 설정
       ),
     );
   }

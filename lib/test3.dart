@@ -1,16 +1,23 @@
+// 견적서 2번
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:holyhabits_modirapp/test5.dart';
+
 
 import 'test4.dart';
+import 'test5.dart';
 
 void main() {
-  runApp(Test3());
+  runApp(Test3(designerId: '디자이너 아이디 전달하기 위한 변수'));
 }
 
 
 class Test3 extends StatefulWidget { // Test3를 StatefulWidget으로 변경
+
+  final String designerId; // 디자이너 ID 추가
+
+  const Test3({Key? key, required this.designerId}) : super(key: key);
   @override
   _Test3State createState() => _Test3State(); // 상태 클래스를 생성
 }
@@ -68,34 +75,37 @@ class _Test3State extends State<Test3> {
     super.initState();
     _checkExistingData(); // 기존 데이터 확인
   }
+  String? userId = FirebaseAuth.instance.currentUser?.uid;
 
   void _checkExistingData() async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       var snapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
+          .collection('designer')
+          .doc(widget.designerId)
           .collection('Quotation')
+          .doc(userId) // Quotation 서브컬렉션 내에서 문서 이름도 사용자 UID로 설정
           .get();
 
-      if (snapshot.docs.isNotEmpty) {
+      if (snapshot.exists) { // 수정된 부분: 문서가 존재하는지 확인
         setState(() {
           _isDataSaved = true;
           // 기존 데이터가 있다면 핏 타입을 설정
-          String fitTypeValue = snapshot.docs.first['fitType'];
+          String fitTypeValue = snapshot['fitType'];
           _selectedFit = _mapFitTypeToIndex(fitTypeValue);
 
           // 상의 핏 타입이 있는 경우 설정
-          String upFitTypeValue = snapshot.docs.first['upFitType'];
+          String upFitTypeValue = snapshot['upFitType'];
           _selectedUpFit = _mapUpFitTypeToIndex(upFitTypeValue);
 
           // 하의 핏 타입 설정
-          String bottomFitTypeValue = snapshot.docs.first['bottomFitType'];
+          String bottomFitTypeValue = snapshot['bottomFitType'];
           _selectedBottomFit = _mapBottomFitTypeToIndex(bottomFitTypeValue); // 수정된 부분
         });
       }
     }
   }
+
 
 
   void _saveToServer(String userId) async {
@@ -182,34 +192,35 @@ class _Test3State extends State<Test3> {
       try {
         // 기존 데이터가 있으면 업데이트
         var snapshot = await FirebaseFirestore.instance
-            .collection('users')
-            .doc(userId)
+            .collection('designer')
+            .doc(widget.designerId)
             .collection('Quotation')
             .get();
 
         if (snapshot.docs.isNotEmpty) {
           await FirebaseFirestore.instance
-              .collection('users')
-              .doc(userId)
+              .collection('designer')
+              .doc(widget.designerId)
               .collection('Quotation')
               .doc(snapshot.docs.first.id) // 첫 번째 문서 업데이트
               .update({
             'fitType': fitType,
             'upFitType': upFitType,
-            'bottomFitType': bottomFitType, // 추가된 부분
+            'bottomFitType': bottomFitType,
             'timestamp': FieldValue.serverTimestamp(),
           });
           print('서버에서 업데이트: $fitType, $upFitType, $bottomFitType');
         } else {
           // 새 데이터 추가
           await FirebaseFirestore.instance
-              .collection('users')
-              .doc(userId)
+              .collection('designer')
+              .doc(widget.designerId)
               .collection('Quotation')
-              .add({
+              .doc(userId) // UID로 문서 ID 설정
+              .set({
             'fitType': fitType,
             'upFitType': upFitType,
-            'bottomFitType': bottomFitType, // 추가된 부분
+            'bottomFitType': bottomFitType,
             'timestamp': FieldValue.serverTimestamp(),
           });
           setState(() {
@@ -224,6 +235,7 @@ class _Test3State extends State<Test3> {
       print('핏이 선택되지 않았거나 이미 저장되었습니다.');
     }
   }
+
 
 
   int _mapFitTypeToIndex(String fitType) { // 버튼색 불러오기용
@@ -1243,7 +1255,7 @@ class _Test3State extends State<Test3> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Test5()), // Test3 화면으로 이동
+                    MaterialPageRoute(builder: (context) => Test5(designerId: '',)), // Test3 화면으로 이동
                   );
                 },
                 style: TextButton.styleFrom(
@@ -1277,7 +1289,7 @@ class _Test3State extends State<Test3> {
                     _saveToServer(userId); // 서버에 저장
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Test4()), // Test4 화면으로 이동
+                      MaterialPageRoute(builder: (context) => Test4(designerId:widget.designerId)), // Test4 화면으로 이동
                     );
                   } else {
                     print('사용자가 로그인하지 않았습니다.');

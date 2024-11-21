@@ -23,21 +23,24 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  bootpay_webview_flutter_wkwebview: ^3.4.2  # 최신 버전으로 설정
+  win32: ^5.3.0  # 최신 버전으로 업데이트
+  bootpay: ^4.9.94
   flutter_screenutil: ^5.9.0 # 플러터 반응형 라이브러리
-  firebase_core: ^2.25.3 #플러터 파이어베이스를 위한 core
-  firebase_auth: ^4.17.3 #파이어베이스 로그인을 위한 auth
-  firebase_storage: ^11.6.5 #파이어베이스 스토리지를 위한 storage
+  firebase_core: ^3.4.0 #플러터 파이어베이스를 위한 core
+  firebase_auth: ^5.2.0 #파이어베이스 로그인을 위한 auth
+  firebase_storage: ^12.2.0 #파이어베이스 스토리지를 위한 storage
   cupertino_icons: ^1.0.2 # 구글 아이콘
-  cloud_firestore: ^4.15.4 # 파이어베이스 데이터 베이스
-  carousel_slider: ^4.2.1 # 화면 넘기기
+  cloud_firestore: ^5.4.0 # 파이어베이스 데이터 베이스
+  carousel_slider: ^5.0.0 # 화면 넘기기
   introduction_screen: ^3.1.12 # 슬라이딩 넣기
-  intl: ^0.17.0 #국제 시간 라이브러리
-  image_picker: ^0.8.4+3 #이미지 고르는 라이브러리
+  intl: ^0.19.0 #국제 시간 라이브러리
+  image_picker: ^1.1.2 #이미지 고르는 라이브러리
+  url_launcher: ^6.0.20 #url 이동 라이브러리
 
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -45,7 +48,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -76,8 +79,25 @@ flutter:
     - assets/image/123.png
     - assets/image/456.png
     - assets/image/carousel_home.png
+    - assets/image/carousel_home2.png
+    - assets/image/carousel_home3.png
     - assets/image/arrow_forward.png
     - assets/image/1111.png
+    - assets/image/test_img.png
+    - assets/image/estimate_picture.png
+    - assets/image/image32.png
+
+    - assets/image/card img.png
+    - assets/image/card img (1).png
+    - assets/image/card img (2).png
+    - assets/image/card img (3).png
+    - assets/image/card img (4).png
+    - assets/image/card img (5).png
+    - assets/image/card img (6).png
+    - assets/image/card img (7).png
+
+    - assets/image/titie img.png
+    - assets/image/content.png
   uses-material-design: true
   fonts:
     - family: Pretendard

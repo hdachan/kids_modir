@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:holyhabits_modirapp/Login.dart';
-
+import 'firebase_options.dart'; // 생성된 firebase_options.dart 파일
+import 'Login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -161,7 +161,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     );
                   }
                   _controller.nextPage(
-                    duration: Duration(seconds: 1),
+                    duration: Duration(milliseconds: 250), // 250 고정
                     curve: Curves.easeInOut,
                   );
                 },

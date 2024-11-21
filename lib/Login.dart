@@ -1,28 +1,24 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'Agree_Page.dart';
 import 'New_Password.dart';
 import 'home_screen.dart';
 
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: const FirebaseOptions(
-      apiKey: 'AIzaSyDogzalL_f-tEOiqOrBSfN8Amzc64l_nLw',
-      appId: '1:531305378076:android:31a98cc7b8d92f337b4ad9',
-      messagingSenderId: '531305378076',
-      projectId: 'modir-d8182',
-      storageBucket: 'modir-d8182.appspot.com',
-    ),
-  );
-  runApp(MaterialApp(
-    home: Login(),
-  ));
+class LoadingOverlay extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Color(0x80000000), // 반투명 검은색 (50% 투명도)
+      child: Center(
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+        ),
+      ),
+    );
+  }
 }
-
 
 bool _isObscured = true;
 
@@ -32,6 +28,32 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  bool _isLoading = false; // 로딩 상태 변수
+
+
+  void _setLoading(bool loading) {
+    setState(() {
+      _isLoading = loading;
+    });
+
+    if (loading) {
+      // 로딩 화면 표시
+      showDialog(
+        context: context,
+        barrierDismissible: false, // 바깥 터치로 닫지 않도록 설정
+        builder: (BuildContext context) { //대화 상자를 생성할 때 사용할 위젯
+          return LoadingOverlay(); // builder 표시할 위젯을 반환하는 함수
+        },
+      );
+    } else {
+      // 로딩 화면 닫기
+      Navigator.of(context).pop();
+    }
+  }
+
+
+
+
 
   String errorMessage = '';
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -138,6 +160,68 @@ class _LoginState extends State<Login> {
     }
   }
 
+  Future<UserCredential?> signInWithErrorCodes(String email, String password) async {
+    _setLoading(true); // 로딩 시작
+
+    try {
+      final UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email.trim(),
+        password: password.trim(),
+      );
+      return userCredential;
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'invalid-email':
+          errorMessage = '유효하지 않은 이메일입니다.';
+          _emailborderColor = Color(0xFFFF3333);
+          break;
+        case 'user-disabled':
+          errorMessage = '계정이 비활성화 되었습니다.';
+          _emailborderColor = Color(0xFFFF3333);
+          _passwordBorderColor = Color(0xFFFF3333);
+          break;
+        case 'user-not-found':
+          errorMessage = '사용자를 찾을 수 없습니다.';
+          _emailborderColor = Color(0xFFFF3333);
+          _passwordBorderColor = Color(0xFFFF3333);
+          break;
+        case 'wrong-password':
+          errorMessage = '잘못된 비밀번호입니다.';
+          _passwordBorderColor = Color(0xFFFF3333);
+          break;
+        case 'missing-password':
+          errorMessage = '비밀번호를 입력해야 합니다.';
+          _passwordBorderColor = Color(0xFFFF3333);
+          break;
+        case 'weak-password':
+          errorMessage = '비밀번호는 6자 이상이어야 합니다.';
+          _passwordBorderColor = Color(0xFFFF3333);
+          break;
+        case 'invalid-credential':
+          errorMessage = '인증 자격 증명이 잘못되었습니다.';
+          _emailborderColor = Color(0xFFFF3333);
+          _passwordBorderColor = Color(0xFFFF3333);
+          break;
+        case 'operation-not-allowed':
+          errorMessage = '해당 작업이 허용되지 않습니다.';
+          _emailborderColor = Color(0xFFFF3333);
+          _passwordBorderColor = Color(0xFFFF3333);
+          break;
+        default:
+          errorMessage = '알 수 없는 오류가 발생했습니다.';
+          _emailborderColor = Color(0xFFFF3333);
+          _passwordBorderColor = Color(0xFFFF3333);
+      }
+      return null;
+    } catch (e) {
+      print('로그인 도중 예상치 못한 오류가 발생했습니다: $e');
+      return null;
+    } finally {
+      _setLoading(false); // 로딩 종료
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +249,7 @@ class _LoginState extends State<Login> {
                         height: 48,
                         width: 428,
                         padding:
-                            EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                        EdgeInsets.symmetric(vertical: 12, horizontal: 12),
                         decoration: ShapeDecoration(
                           shape: RoundedRectangleBorder(
                               side: BorderSide(
@@ -204,14 +288,14 @@ class _LoginState extends State<Login> {
                               ),
                               suffixIcon: _textController.text.isNotEmpty
                                   ? IconButton(
-                                      onPressed: () {
-                                        _textController.clear();
-                                        setState(() {});
-                                      },
-                                      padding:
-                                          EdgeInsets.only(bottom: 10, left: 60),
-                                      icon: Icon(Icons.cancel,
-                                          color: Color(0xFF888888)))
+                                  onPressed: () {
+                                    _textController.clear();
+                                    setState(() {});
+                                  },
+                                  padding:
+                                  EdgeInsets.only(bottom: 10, left: 60),
+                                  icon: Icon(Icons.cancel,
+                                      color: Color(0xFF888888)))
                                   : null),
                         ),
                       ),
@@ -220,7 +304,7 @@ class _LoginState extends State<Login> {
                         height: 48,
                         width: 428,
                         padding:
-                            EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                        EdgeInsets.symmetric(vertical: 12, horizontal: 12),
                         decoration: ShapeDecoration(
                           shape: RoundedRectangleBorder(
                               side: BorderSide(
@@ -279,22 +363,22 @@ class _LoginState extends State<Login> {
                       ),
                       SizedBox(height: 4),
                       if (errorMessage.isNotEmpty)
-                      Container(
-                        height: 12,
-                        width: 428,
-                        padding: EdgeInsets.symmetric(horizontal: 4),
-                        child: Text(
-                          errorMessage,
-                          style: TextStyle(
-                            color: Color(0xFFF72828),
-                            fontSize: 12,
-                            fontFamily: 'Pretendard',
-                            fontWeight: FontWeight.w400,
-                            height: 1.0,
-                            letterSpacing: -0.30,
+                        Container(
+                          height: 12,
+                          width: 428,
+                          padding: EdgeInsets.symmetric(horizontal: 4),
+                          child: Text(
+                            errorMessage,
+                            style: TextStyle(
+                              color: Color(0xFFF72828),
+                              fontSize: 12,
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.w400,
+                              height: 1.0,
+                              letterSpacing: -0.30,
+                            ),
                           ),
                         ),
-                      ),
                       SizedBox(height: 24),
                       Container(
                         height: 48,
@@ -302,13 +386,14 @@ class _LoginState extends State<Login> {
                         child: MaterialButton(
                           onPressed: () async {
                             UserCredential? user =
-                            await signIn(
+                            await signInWithErrorCodes(  //여기
                                 _textController.text,
                                 _textController2.text);
                             if (user != null) {
                               print("Login Successful");
                               Navigator.push(
                                 context,
+                                //MaterialPageRoute(builder: (context) => Home_Screen()), // BottomBar로 이동
                                 MaterialPageRoute(builder: (context) => Home_Screen()), // BottomBar로 이동
                               );
                             } else {
@@ -347,8 +432,8 @@ class _LoginState extends State<Login> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Container(
-                            width: 135,
-                            height: 14,
+                            width: 140, //140
+                            height: 20, //20
                             child: Row(
                               children: [
                                 Container(
@@ -365,7 +450,7 @@ class _LoginState extends State<Login> {
                                     style: OutlinedButton.styleFrom(
                                         minimumSize: Size.zero,
                                         padding:
-                                            EdgeInsets.only(top: 3, bottom: 3)),
+                                        EdgeInsets.only(top: 3, bottom: 3)),
                                     child: Text(
                                       "회원가입",
                                       textAlign: TextAlign.center,
@@ -396,7 +481,7 @@ class _LoginState extends State<Login> {
                                     style: OutlinedButton.styleFrom(
                                         minimumSize: Size.zero,
                                         padding:
-                                            EdgeInsets.only(top: 3, bottom: 3)),
+                                        EdgeInsets.only(top: 3, bottom: 3)),
                                     child: Text(
                                       '비밀번호 찾기',
                                       textAlign: TextAlign.center,
