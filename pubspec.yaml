@@ -98,6 +98,9 @@ flutter:
 
     - assets/image/titie img.png
     - assets/image/content.png
+
+    - assets/image/profile img.png
+    - assets/image/baby img.png
   uses-material-design: true
   fonts:
     - family: Pretendard
