@@ -465,7 +465,6 @@ class _HomePageState extends State<_HomePage> {
                                                 ],
                                               ),
                                             ),
-
                                             SizedBox(width: 4),
                                             Container(
                                               width: 24,
@@ -2771,8 +2770,9 @@ class MyPageScreen extends StatefulWidget {
 
 // 마이페이지 화면 위젯
 class _MyPageScreenState extends State<MyPageScreen>
-    with SingleTickerProviderStateMixin{
+    with SingleTickerProviderStateMixin {
   String _nickname = "로그인이 되어있지 않습니다";
+  String _babynickname = "";
   String _formattedDate = "아직 작성된 스타일 정보가 없어요";
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -2857,17 +2857,17 @@ class _MyPageScreenState extends State<MyPageScreen>
                             Container(
                               width: 256,
                               height: 24,
-                                child: Text(
-                                  _nickname,
-                                  style: TextStyle(
-                                    color: Color(0xFF3D3D3D),
-                                    fontSize: 20,
-                                    fontFamily: 'Pretendard',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.2,
-                                    letterSpacing: -0.50,
-                                  ),
+                              child: Text(
+                                _nickname,
+                                style: TextStyle(
+                                  color: Color(0xFF3D3D3D),
+                                  fontSize: 20,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.2,
+                                  letterSpacing: -0.50,
                                 ),
+                              ),
                             ),
 
                             SizedBox(height: 8), // 사이 간격 설정
@@ -2876,7 +2876,8 @@ class _MyPageScreenState extends State<MyPageScreen>
                                 // 버튼 클릭 시 MyPageEdit으로 이동
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => MyPageEdit()),
+                                  MaterialPageRoute(
+                                      builder: (context) => MyPageEdit()),
                                 );
                               },
                               child: Container(
@@ -2890,10 +2891,12 @@ class _MyPageScreenState extends State<MyPageScreen>
                                       width: 18,
                                       height: 18,
                                       child: Container(
-                                        alignment: Alignment.center, // 아이콘을 중앙에 배치
+                                        alignment: Alignment.center,
+                                        // 아이콘을 중앙에 배치
                                         child: Icon(
                                           Icons.chevron_right, // 오른쪽 화살표 아이콘
-                                          color: Colors.black, // 아이콘 색상 (필요에 따라 변경)
+                                          color: Colors.black,
+                                          // 아이콘 색상 (필요에 따라 변경)
                                           size: 18, // 아이콘 크기 조정 (필요에 따라 변경)
                                         ),
                                       ),
@@ -2902,12 +2905,9 @@ class _MyPageScreenState extends State<MyPageScreen>
                                 ),
                               ),
                             ),
-
-
                           ],
                         ),
                       ),
-
                     ],
                   ),
                 ),
@@ -2917,8 +2917,10 @@ class _MyPageScreenState extends State<MyPageScreen>
                   child: TabBar(
                     controller: _tabController,
 
-                    labelColor: Color(0xFF0095F6), // 선택된 탭 색상
-                    unselectedLabelColor: Color(0xFFB0B0B0), // 선택되지 않은 탭 색상
+                    labelColor: Color(0xFF0095F6),
+                    // 선택된 탭 색상
+                    unselectedLabelColor: Color(0xFFB0B0B0),
+                    // 선택되지 않은 탭 색상
                     tabs: [
                       Tab(
                         child: Container(
@@ -2953,24 +2955,21 @@ class _MyPageScreenState extends State<MyPageScreen>
                         ),
                       ),
                     ],
-                    indicatorSize: TabBarIndicatorSize.tab, // 인디케이터의 너비를 탭의 너비로 설정
+                    indicatorSize:
+                        TabBarIndicatorSize.tab, // 인디케이터의 너비를 탭의 너비로 설정
                   ),
                 ),
-
-
                 Container(
                   height: 328,
                   child: TabBarView(
                     controller: _tabController,
                     children: [
-                      ProfileScreen(),  // 프로필 화면 클래스 사용
-                      ShoppingScreen(),  // 쇼핑 화면 클래스 사용
+                      ProfileScreen(), // 프로필 화면 클래스 사용
+                      ShoppingScreen(), // 쇼핑 화면 클래스 사용
                     ],
                   ),
                 ),
                 middleLine,
-
-
                 Container(
                   width: 360,
                   padding:
@@ -3183,117 +3182,193 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        children: [
-          Container(
-            width: 360,
-            height: 328,
-            padding: EdgeInsets.only(left: 16, top: 24, right: 16, bottom: 24),
-            color: Color(0xFF5D5D5D),
-            child: Column(
-              children: [
-                Container(
-                  width: 328,
-                  height: 22,
-                  color: Colors.white,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween, // 양쪽 끝으로 배치
-                    children: [
-                      Container(
-                        width: 277,
-                        height: 22,
-                        child: Text(
-                          '우리 아이 정보',
-                          style: TextStyle(
-                            color: Color(0xFF5D5D5D),
-                            fontSize: 16,
-                            fontFamily: 'Pretendard',
-                            fontWeight: FontWeight.w600,
-                            height: 1.4,
-                            letterSpacing: -0.40,
-                          ),
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.refresh, // 새로고침 아이콘
-                            size: 16, // 아이콘 크기
-                            color: Color(0xFFB0B0B0), // 아이콘 색상
-                          ),
-                          SizedBox(width: 4), // 아이콘과 텍스트 사이의 간격
-                          Text(
-                            '초기화',
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal, // 수평 스크롤 가능하게 설정
+        child: Row(
+          children: [
+            Container(
+              width: 360,
+              height: 328,
+              padding: EdgeInsets.only(left: 16, top: 24, right: 16, bottom: 24),
+              color: Colors.white,
+              child: Column(
+                children: [
+                  Container(
+                    width: 328,
+                    height: 22,
+                    color: Colors.white,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // 양쪽 끝으로 배치
+                      children: [
+                        Container(
+                          width: 277,
+                          height: 22,
+                          child: Text(
+                            '우리 아이 정보',
                             style: TextStyle(
-                              color: Color(0xFFB0B0B0),
-                              fontSize: 12,
+                              color: Color(0xFF5D5D5D),
+                              fontSize: 16,
                               fontFamily: 'Pretendard',
-                              fontWeight: FontWeight.w400,
-                              height: 1.2,
-                              letterSpacing: -0.30,
+                              fontWeight: FontWeight.w600,
+                              height: 1.4,
+                              letterSpacing: -0.40,
                             ),
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-
-
-                SizedBox(height: 24),
-                Container(
-                  width: 328,
-                  height: 80,
-                  color: Colors.red,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 80,
-                        height: 80,
-                        child: Image.asset(
-                          'assets/image/baby img.png',
-                          fit: BoxFit.cover,
                         ),
-                      ),
-                      SizedBox(width: 12), // 박스 사이의 간격 (필요시 조정)
-                      Container(
-                        width: 236,
-                        height: 74,
-                        color: Colors.green, // 박스 색상, 필요에 따라 변경
-                      ),
-                    ],
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.refresh, // 새로고침 아이콘
+                              size: 16, // 아이콘 크기
+                              color: Color(0xFFB0B0B0), // 아이콘 색상
+                            ),
+                            SizedBox(width: 4), // 아이콘과 텍스트 사이의 간격
+                            Text(
+                              '초기화',
+                              style: TextStyle(
+                                color: Color(0xFFB0B0B0),
+                                fontSize: 12,
+                                fontFamily: 'Pretendard',
+                                fontWeight: FontWeight.w400,
+                                height: 1.2,
+                                letterSpacing: -0.30,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                  SizedBox(height: 24),
+                  Container(
+                    width: 328,
+                    height: 80,
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 80,
+                          height: 80,
+                          child: Image.asset(
+                            'assets/image/baby img.png',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        SizedBox(width: 12), // 박스 사이의 간격 (필요시 조정)
+                        Container(
+                          width: 236,
+                          height: 74,
+                          child: Column(
+                            children: [
+                              Container(
+                                width: 236,
+                                height: 22,
+                                child: Text(
+                                  '하늘',
+                                  style: TextStyle(
+                                    color: Color(0xFF5D5D5D),
+                                    fontSize: 16,
+                                    fontFamily: 'Pretendard',
+                                    fontWeight: FontWeight.w600,
+                                    height: 1.4,
+                                    letterSpacing: -0.40,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 8), // 사이 간격
+                              Container(
+                                width: 236,
+                                height: 18,
+                                child: Text(
+                                  '남아 / 2000. 08.16(25개월)',
+                                  style: TextStyle(
+                                    color: Color(0xFF5D5D5D),
+                                    fontSize: 14,
+                                    fontFamily: 'Pretendard',
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.3,
+                                    letterSpacing: -0.35,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 8), // 사이 간격
+                              Container(
+                                width: 236,
+                                height: 18,
+                                child: Text(
+                                  '87cm / 13kg',
+                                  style: TextStyle(
+                                    color: Color(0xFF5D5D5D),
+                                    fontSize: 14,
+                                    fontFamily: 'Pretendard',
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.3,
+                                    letterSpacing: -0.35,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 12),
+                  Container(
+                    width: 328,
+                    height: 56,
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 328,
+                          height: 22,
+                          child: Text(
+                            '관심사',
+                            style: TextStyle(
+                              color: Color(0xFF3D3D3D),
+                              fontSize: 16,
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.w600,
+                              height: 1.4,
+                              letterSpacing: -0.40,
+                            ),
+                          ),
+                        ),
 
-                SizedBox(height: 12),
-                Container(
-                  width: 328,
-                  height: 56,
-                  color: Colors.red,
-                ),
-                SizedBox(height: 24),
-                saveButton('등록하기', () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => BabymypageEdit()), // LoginPage는 본인의 로그인 페이지로 교체
-                  );
-                }),
-
-              ],
+                        SizedBox(height: 8), // 사이 간격
+                        Container(
+                          width: 328,
+                          height: 26,
+                          color: Colors.white, // 두 번째 박스 색상
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 24),
+                  saveButton('등록하기', () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) =>
+                              BabymypageEdit()), // LoginPage는 본인의 로그인 페이지로 교체
+                    );
+                  }),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
 
+
 //쇼핑 화면
 class ShoppingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-    );
+    return ListView();
   }
 }
 
@@ -3309,13 +3384,16 @@ class UserInfoButton extends StatelessWidget {
           // 로그인 페이지로 이동하는 로직 추가
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => Login()), // LoginPage는 본인의 로그인 페이지로 교체
+            MaterialPageRoute(
+                builder: (_) => Login()), // LoginPage는 본인의 로그인 페이지로 교체
           );
         } else {
           // 정보 수정 페이지로 이동하는 로직 추가
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => MyPageEdit()), // EditProfilePage는 본인의 정보 수정 페이지로 교체
+            MaterialPageRoute(
+                builder: (_) =>
+                    MyPageEdit()), // EditProfilePage는 본인의 정보 수정 페이지로 교체
           );
         }
       },
@@ -3366,7 +3444,6 @@ Widget saveButton(String label, VoidCallback onPressed) {
     ),
   );
 }
-
 
 /////////////////////////////////////////////////////////////////////
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 
 import 'home_screen.dart';
 
@@ -27,11 +28,111 @@ class BabymypageEdit extends StatefulWidget {
 }
 
 class _MyPageEditState extends State<BabymypageEdit> {
-  final TextEditingController nicknameController = TextEditingController();
-  final TextEditingController birthDateController = TextEditingController();
+  final TextEditingController nicknameController = TextEditingController(); // Child's Nickname
+  final TextEditingController BirthDateController = TextEditingController(); // Gender
+  final TextEditingController heightController = TextEditingController(); // Height
+  final TextEditingController weightController = TextEditingController(); // Weight
+
 
   bool isFemaleSelected = false; // 여자 버튼 선택 상태
   bool isMaleSelected = false; // 남자 버튼 선택 상태
+
+
+  String loadedNickname = ''; // 로드한 닉네임
+  String loadBirthDate ='';
+  String loadedGender = ''; // 로드한 성별
+  String loadedHeight = ''; // 로드한 키
+  String loadedWeight = ''; // 로드한 몸무게
+
+
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    loadBabyInfo(); // 사용자 데이터 불러오기
+  }
+
+  Future<void> saveBabyInfo() async {
+    try {
+      // 현재 사용자 ID 가져오기
+      String userId = auth.currentUser?.uid ?? ''; // 현재 로그인한 사용자 UID
+
+      if (userId.isEmpty) {
+        print('User is not logged in');
+        return; // 로그인이 되어 있지 않으면 함수 종료
+      }
+
+      String gender = isMaleSelected ? '남자' : '여자'; // 선택된 성별
+
+      // Firestore에서 아기 정보 문서 참조 가져오기
+      // 사용자 UID를 사용하여 문서 ID 생성
+      DocumentReference babyDoc = firestore.collection('users').doc(userId).collection('baby').doc(userId); // 사용자 UID를 문서 ID로 사용
+
+      // Firestore에 데이터 저장 (문서가 없으면 생성하고, 있으면 업데이트)
+      await babyDoc.set({
+        'nickname': nicknameController.text,
+        'BirthDate': BirthDateController.text, // 생년월일
+        'height': heightController.text,
+        'weight': weightController.text,
+        'gender': gender,
+      }, SetOptions(merge: true)); // merge: true로 설정하여 기존 필드에 추가 및 업데이트
+
+      print('Baby info saved successfully!');
+    } catch (e) {
+      print('Error saving baby info: $e');
+    }
+  }
+
+
+  Future<void> loadBabyInfo() async {
+    try {
+      // 현재 사용자 ID 가져오기
+      String userId = auth.currentUser?.uid ?? ''; // 현재 로그인한 사용자 UID
+
+      if (userId.isEmpty) {
+        print('User is not logged in');
+        return; // 로그인이 되어 있지 않으면 함수 종료
+      }
+
+      // Firestore에서 아기 정보 불러오기
+      DocumentSnapshot babyDoc = await firestore.collection('users').doc(userId).collection('baby').doc(userId).get();
+
+      if (babyDoc.exists) {
+        // 문서의 데이터를 가져와서 입력 필드에 설정
+        var babyData = babyDoc.data() as Map<String, dynamic>;
+
+        loadedNickname = babyData['nickname'] ?? '';
+        loadBirthDate = babyData['BirthDate'] ?? ''; // 생년월일
+        loadedHeight = babyData['height'] ?? '';
+        loadedWeight = babyData['weight'] ?? '';
+        loadedGender = babyData['gender'] ?? ''; // 성별 정보 로드
+
+        // 입력 필드에 로드한 데이터 설정
+        nicknameController.text = loadedNickname;
+        BirthDateController.text = loadBirthDate;
+        heightController.text = loadedHeight;
+        weightController.text = loadedWeight;
+
+        // 성별에 따라 버튼 선택 상태 업데이트
+        if (loadedGender == '남자') {
+          selectMale(); // 남자 선택
+        } else if (loadedGender == '여자') {
+          selectFemale(); // 여자 선택
+        }
+
+        print('Baby info loaded successfully!');
+      } else {
+        print('No baby info found for this user.');
+      }
+    } catch (e) {
+      print('Error loading baby info: $e');
+    }
+  }
+
+
+
 
   void selectFemale() {
     setState(() {
@@ -134,21 +235,7 @@ class _MyPageEditState extends State<BabymypageEdit> {
                             left: 16, right: 16, top: 12, bottom: 24),
                         child: Column(
                           children: [
-                            Container(
-                              width: 328,
-                              height: 22,
-                              child: Text(
-                                '아이의 이름이나 별명을 입력해주세요',
-                                style: TextStyle(
-                                  color: Color(0xFF3D3D3D),
-                                  fontSize: 16,
-                                  fontFamily: 'Pretendard',
-                                  fontWeight: FontWeight.w500,
-                                  height: 1.4,
-                                  letterSpacing: -0.40,
-                                ),
-                              ),
-                            ),
+                            SubTitle('아이의 이름이나 별명을 입력해주세요'),
                             SizedBox(height: 8), // 사이즈 박스 8
                             inputField(nicknameController, '모디랑', (value) {
                               setState(() {}); // 텍스트 변화 시 상태 업데이트
@@ -165,21 +252,7 @@ class _MyPageEditState extends State<BabymypageEdit> {
                             left: 16, right: 16, top: 12, bottom: 24),
                         child: Column(
                           children: [
-                            Container(
-                              width: 328,
-                              height: 22,
-                              child: Text(
-                                '아이의 성별을 선택해주세요',
-                                style: TextStyle(
-                                  color: Color(0xFF3D3D3D),
-                                  fontSize: 16,
-                                  fontFamily: 'Pretendard',
-                                  fontWeight: FontWeight.w500,
-                                  height: 1.4,
-                                  letterSpacing: -0.40,
-                                ),
-                              ),
-                            ),
+                            SubTitle('아이의 성별을 선택해주세요'),
                             SizedBox(height: 12),
                             Container(
                               width: 328,
@@ -212,29 +285,16 @@ class _MyPageEditState extends State<BabymypageEdit> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              width: 328,
-                              height: 22,
-                              child: Text(
-                                '아이의 생년월일을 입력해주세요',
-                                style: TextStyle(
-                                  color: Color(0xFF3D3D3D),
-                                  fontSize: 16,
-                                  fontFamily: 'Pretendard',
-                                  fontWeight: FontWeight.w500,
-                                  height: 1.4,
-                                  letterSpacing: -0.40,
-                                ),
-                              ),
-                            ),
+                            SubTitle('아이의 생년월일을 입력해주세요'),
                             SizedBox(height: 12), // 사이즈 박스 8
-                            inputField2(birthDateController, '생년월일', (value) {
+                            inputField2(BirthDateController, '생년월일', (value) {
                               setState(() {}); // 텍스트 변화 시 상태 업데이트
                             }),
                           ],
                         ),
                       ),
 
+                      // 키
                       Container(
                         height: 124,
                         width: 360,
@@ -242,28 +302,15 @@ class _MyPageEditState extends State<BabymypageEdit> {
                             left: 16, right: 16, top: 12, bottom: 24),
                         child: Column(
                           children: [
-                            Container(
-                              width: 328,
-                              height: 22,
-                              child: Text(
-                                '키',
-                                style: TextStyle(
-                                  color: Color(0xFF3D3D3D),
-                                  fontSize: 16,
-                                  fontFamily: 'Pretendard',
-                                  fontWeight: FontWeight.w500,
-                                  height: 1.4,
-                                  letterSpacing: -0.40,
-                                ),
-                              ),
-                            ),
+                            SubTitle('키'),
                             SizedBox(height: 12), // 사이즈 박스 8
-                            inputField2(birthDateController, 'cm', (value) {
+                            inputField3(heightController, 'cm', (value) {
                               setState(() {}); // 텍스트 변화 시 상태 업데이트
                             }),
                           ],
                         ),
                       ),
+                      //몸무게
                       Container(
                         height: 124,
                         width: 360,
@@ -271,23 +318,9 @@ class _MyPageEditState extends State<BabymypageEdit> {
                             left: 16, right: 16, top: 12, bottom: 24),
                         child: Column(
                           children: [
-                            Container(
-                              width: 328,
-                              height: 22,
-                              child: Text(
-                                '몸무게',
-                                style: TextStyle(
-                                  color: Color(0xFF3D3D3D),
-                                  fontSize: 16,
-                                  fontFamily: 'Pretendard',
-                                  fontWeight: FontWeight.w500,
-                                  height: 1.4,
-                                  letterSpacing: -0.40,
-                                ),
-                              ),
-                            ),
+                            SubTitle('몸무게'),
                             SizedBox(height: 12), // 사이즈 박스 8
-                            inputField2(birthDateController, '몸무게', (value) {
+                            inputField3(weightController, '몸무게', (value) {
                               setState(() {}); // 텍스트 변화 시 상태 업데이트
                             }),
                           ],
@@ -326,12 +359,16 @@ class _MyPageEditState extends State<BabymypageEdit> {
                             ),
 
                             SizedBox(width: 4), // 박스 사이의 간격 조정
-                            Container(
-                              width: 162,
-                              height: 50,
-                              decoration: ShapeDecoration(
-                                color: Color(0xFF0095F6),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                            ElevatedButton(
+                              onPressed: () {
+                                saveBabyInfo();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xFF0095F6), // 배경색
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4), // 모서리 둥글게
+                                ),
+                                fixedSize: Size(162, 50), // 버튼 크기 설정
                               ),
                               child: Center(
                                 child: Text(
@@ -347,6 +384,7 @@ class _MyPageEditState extends State<BabymypageEdit> {
                                 ),
                               ),
                             ),
+
                           ],
                         ),
                       ),
@@ -396,6 +434,7 @@ class _MyPageEditState extends State<BabymypageEdit> {
   }
 }
 
+//닉네임 위젯
 Widget inputField(TextEditingController controller, String hintText,
     Function(String) onChanged) {
   return Container(
@@ -436,6 +475,7 @@ Widget inputField(TextEditingController controller, String hintText,
   );
 }
 
+//생년월일 위젯
 Widget inputField2(TextEditingController controller, String hintText,
     Function(String) onChanged) {
   return Container(
@@ -509,6 +549,54 @@ Widget inputField2(TextEditingController controller, String hintText,
     ),
   );
 }
+
+//숫자 위젯
+Widget inputField3(TextEditingController controller, String hintText,
+    Function(String) onChanged) {
+  return Container(
+    width: 328,
+    height: 54,
+    decoration: ShapeDecoration(
+      color: Colors.white,
+      shape: RoundedRectangleBorder(
+        side: BorderSide(width: 1, color: Color(0xFF888888)),
+        borderRadius: BorderRadius.circular(4),
+      ),
+    ),
+    padding: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+    child: TextField(
+      controller: controller,
+      onChanged: onChanged,
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: TextStyle(
+          color: Color(0xFFB0B0B0),
+          fontSize: 14,
+          fontFamily: 'Pretendard',
+          fontWeight: FontWeight.w500,
+          height: 2.7,
+          letterSpacing: -0.35,
+        ),
+        border: InputBorder.none, // 테두리 없음
+      ),
+      style: TextStyle(
+        color: Color(0xFF3D3D3D),
+        fontSize: 14,
+        fontFamily: 'Pretendard',
+        fontWeight: FontWeight.w500,
+        height: 2.7,
+        letterSpacing: -0.35,
+      ),
+      // 숫자만 입력 가능하게 하고 최대 3자리로 제한
+      keyboardType: TextInputType.number,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly, // 숫자만 허용
+        LengthLimitingTextInputFormatter(3), // 최대 3자리 제한
+      ],
+    ),
+  );
+}
+
 
 Widget genderleftButton(String label, VoidCallback onPressed, bool isSelected) {
   return InkWell(
@@ -591,6 +679,27 @@ Widget genderrightButton(
   );
 }
 
+// 제목
+Widget SubTitle(String text) {
+  return Container(
+    width: 328,
+    height: 22,
+    child: Text(
+      text,
+      style: TextStyle(
+        color: Color(0xFF3D3D3D),
+        fontSize: 16,
+        fontFamily: 'Pretendard',
+        fontWeight: FontWeight.w500,
+        height: 1.4,
+        letterSpacing: -0.40,
+      ),
+    ),
+  );
+}
+
+
+
 // 저장하기 버튼
 Widget saveButton(String label, VoidCallback onPressed, Color backgroundColor) {
   return InkWell(
@@ -619,3 +728,5 @@ Widget saveButton(String label, VoidCallback onPressed, Color backgroundColor) {
     ),
   );
 }
+
+
