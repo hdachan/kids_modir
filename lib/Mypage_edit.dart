@@ -44,6 +44,10 @@ class _MyPageEditState extends State<MyPageEdit> {
   bool isFemaleSelected = false; // 여자 버튼 선택 상태
   bool isMaleSelected = false; // 남자 버튼 선택 상태
 
+  String loadedNickname = ''; // 로드한 닉네임
+  String loadedBirthDate = ''; // 로드한 생년월일
+  String loadedGender = ''; // 로드한 성별
+
   void selectFemale() {
     setState(() {
       isFemaleSelected = true;
@@ -58,58 +62,6 @@ class _MyPageEditState extends State<MyPageEdit> {
     });
   }
 
-  Future<void> _pickAndUploadImage() async {
-    // 갤러리에서 이미지 선택
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-
-    if (image != null) {
-      try {
-        String fileName = image.name;
-
-        // 현재 플랫폼이 웹인지 확인
-        if (html.window.navigator.userAgent.contains('Chrome')) {
-          // 웹에서 이미지 업로드
-          final reader = html.FileReader();
-          final file = html.File([await html.HttpRequest.request(image.path)], fileName); // Blob 생성
-
-          reader.readAsArrayBuffer(file); // ArrayBuffer로 읽기
-          reader.onLoadEnd.listen((e) async {
-            // Firebase Storage에 업로드
-            Uint8List fileData = reader.result as Uint8List; // Uint8List로 변환
-            await FirebaseStorage.instance.ref('profile_pictures/$fileName').putData(fileData);
-
-            // 업로드 완료 후 URL 가져오기
-            String downloadURL = await FirebaseStorage.instance.ref('profile_pictures/$fileName').getDownloadURL();
-            print('프로필 사진 URL: $downloadURL');
-            await _saveProfilePictureURL(downloadURL); // Firestore에 URL 저장
-          });
-        } else {
-          // 모바일 플랫폼에서 처리
-          final file = File(image.path); // 모바일에서는 File 사용 가능
-          await FirebaseStorage.instance.ref('profile_pictures/$fileName').putFile(file);
-
-          // 업로드 완료 후 URL 가져오기
-          String downloadURL = await FirebaseStorage.instance.ref('profile_pictures/$fileName').getDownloadURL();
-          print('프로필 사진 URL: $downloadURL');
-          await _saveProfilePictureURL(downloadURL); // Firestore에 URL 저장
-        }
-      } catch (e) {
-        print('업로드 중 오류 발생: $e');
-      }
-    }
-  }
-
-  Future<void> _saveProfilePictureURL(String url) async {
-    User? user = _auth.currentUser; // 현재 사용자 가져오기
-    if (user != null) {
-      String email = user.email!; // 사용자 이메일 가져오기
-      await FirebaseFirestore.instance.collection('users').doc(email).update({
-        'profile_picture': url,
-      });
-    } else {
-      print('사용자가 로그인하지 않았습니다.');
-    }
-  }
 
   Future<void> next() async {
     final String nickname = nicknameController.text;
@@ -121,9 +73,12 @@ class _MyPageEditState extends State<MyPageEdit> {
     }
 
     if (birthDate.trim().isEmpty) {
-      print('오류:생년월일을 입력해주세요.');
+      print('오류: 생년월일을 입력해주세요.');
       return;
     }
+
+    // 성별 선택 여부 확인
+    String gender = isMaleSelected ? '남자' : '여자'; // 선택된 성별
 
     try {
       final User? user = FirebaseAuth.instance.currentUser;
@@ -134,6 +89,7 @@ class _MyPageEditState extends State<MyPageEdit> {
         await userDoc.set({
           'nickname': nickname,
           'birthDate': birthDate,
+          'gender': gender, // 성별 추가
           'editData': FieldValue.serverTimestamp(), // 가입 날짜 저장
         }, SetOptions(merge: true));
 
@@ -151,6 +107,7 @@ class _MyPageEditState extends State<MyPageEdit> {
       } else {
         print('오류: 사용자가 로그인되어 있지 않습니다.');
       }
+
       Navigator.push(
         context,
         MaterialPageRoute(builder: (_) => Home_Screen()),
@@ -159,6 +116,7 @@ class _MyPageEditState extends State<MyPageEdit> {
       print('오류: 사용자 정보를 업데이트하는 데 실패했습니다. ${e.toString()}');
     }
   }
+
 
 
   @override
@@ -176,11 +134,19 @@ class _MyPageEditState extends State<MyPageEdit> {
         DocumentSnapshot userSnapshot = await userDoc.get();
 
         if (userSnapshot.exists) {
-          String nickname = userSnapshot['nickname'] ?? '';
-          String birthDate = userSnapshot['birthDate'] ?? '';
+          loadedNickname = userSnapshot['nickname'] ?? '';
+          loadedBirthDate = userSnapshot['birthDate'] ?? '';
+          loadedGender = userSnapshot['gender'] ?? ''; // 로드한 성별 저장
 
-          nicknameController.text = nickname;
-          birthDateController.text = birthDate;
+          nicknameController.text = loadedNickname;
+          birthDateController.text = loadedBirthDate;
+
+          // 성별에 따라 버튼 선택 상태 업데이트
+          if (loadedGender == '남자') {
+            selectMale(); // 남자 선택
+          } else if (loadedGender == '여자') {
+            selectFemale(); // 여자 선택
+          }
 
           print('사용자 정보가 성공적으로 로드되었습니다.');
         } else {
@@ -193,6 +159,7 @@ class _MyPageEditState extends State<MyPageEdit> {
       print('오류: 사용자 정보를 로드하는 데 실패했습니다. ${e.toString()}');
     }
   }
+
 
   int? selectedValue; // 선택된 값을 저장할 변수
   @override
@@ -251,7 +218,6 @@ class _MyPageEditState extends State<MyPageEdit> {
                                 child: InkWell(
                                   onTap: () {
                                     // 버튼 클릭 시 실행할 코드
-                                    _pickAndUploadImage();
                                   },
                                   child: Container(
                                     height: 32,
@@ -477,15 +443,40 @@ class _MyPageEditState extends State<MyPageEdit> {
                         ),
                       ),
                       SizedBox(height: 54),
-                      saveButton(
-                        '저장하기',
-                            () {
-                          next();
-                        },
-                        (nicknameController.text.trim().isNotEmpty && birthDateController.text.trim().isNotEmpty)
-                            ? Color(0xFF0095F6) // 입력이 모두 있을 때의 색상
-                            : Color(0xFFB0B0B0), // 입력이 없을 때의 색상
+                      AbsorbPointer(
+                        absorbing: !(nicknameController.text.trim().isNotEmpty &&
+                            birthDateController.text.trim().isNotEmpty &&
+                            (isMaleSelected || isFemaleSelected) &&
+                            (nicknameController.text != loadedNickname ||
+                                birthDateController.text != loadedBirthDate ||
+                                (isMaleSelected && loadedGender != '남자') ||
+                                (isFemaleSelected && loadedGender != '여자'))), // 회색일 때 비활성화
+                        child: saveButton(
+                          '저장하기',
+                              () {
+                            if (nicknameController.text.trim().isNotEmpty &&
+                                birthDateController.text.trim().isNotEmpty &&
+                                (isMaleSelected || isFemaleSelected) &&
+                                (nicknameController.text != loadedNickname ||
+                                    birthDateController.text != loadedBirthDate ||
+                                    (isMaleSelected && loadedGender != '남자') ||
+                                    (isFemaleSelected && loadedGender != '여자'))) {
+                              next();
+                            }
+                          },
+                          (nicknameController.text.trim().isNotEmpty &&
+                              birthDateController.text.trim().isNotEmpty &&
+                              (isMaleSelected || isFemaleSelected) &&
+                              (nicknameController.text != loadedNickname ||
+                                  birthDateController.text != loadedBirthDate ||
+                                  (isMaleSelected && loadedGender != '남자') ||
+                                  (isFemaleSelected && loadedGender != '여자')))
+                              ? Color(0xFF0095F6) // 입력이 모두 있고 변경된 경우의 색상
+                              : Color(0xFFB0B0B0), // 입력이 없거나 변경되지 않은 경우의 색상
+                        ),
                       ),
+
+
                     ],
                   ),
                 ),
