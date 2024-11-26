@@ -2772,10 +2772,17 @@ class MyPageScreen extends StatefulWidget {
 class _MyPageScreenState extends State<MyPageScreen>
     with SingleTickerProviderStateMixin {
   String _nickname = "로그인이 되어있지 않습니다";
-  String _babynickname = "";
+  String _babyNickname = "";
+  String _babyBirthDate = "";
+  String _babygender = "";
+  double _babyweight = 0.0;
+  double _babyheight = 0.0;
+
+
   String _formattedDate = "아직 작성된 스타일 정보가 없어요";
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
 
   late TabController _tabController;
 
@@ -2796,8 +2803,9 @@ class _MyPageScreenState extends State<MyPageScreen>
     User? user = _auth.currentUser;
     if (user != null) {
       try {
+        // 사용자 정보 로드
         DocumentSnapshot doc =
-            await _firestore.collection('users').doc(user.uid).get();
+        await _firestore.collection('users').doc(user.uid).get();
         if (doc.exists) {
           var data = doc.data() as Map<String, dynamic>?; // Map으로 캐스팅
           setState(() {
@@ -2808,9 +2816,54 @@ class _MyPageScreenState extends State<MyPageScreen>
             Timestamp? time = data?['time'];
             if (time != null) {
               _formattedDate =
-                  '작성일: ${DateFormat('yyyy.MM.dd').format(time.toDate())}';
+              '작성일: ${DateFormat('yyyy.MM.dd').format(time.toDate())}';
             }
           });
+        }
+
+        // 아기 정보 불러오기
+        QuerySnapshot babySnapshot = await _firestore
+            .collection('users')
+            .doc(user.uid)
+            .collection('baby')
+            .get();
+
+        if (babySnapshot.docs.isNotEmpty) {
+          // 첫 번째 아기 문서의 데이터를 가져와서 설정
+          var babyData = babySnapshot.docs.first.data() as Map<String, dynamic>;
+
+          // 디버깅: babyData의 내용을 출력
+          print("Baby Data: $babyData");
+
+          String babyNickname = babyData['nickname'] ?? '아기 정보 없음';
+          String babyBirthDate = babyData['BirthDate'] ?? '생일 정보 없음'; // BirthDate 추가
+          String babygender = babyData['gender'] ?? ''; // 수정된 부분
+
+          // 체중 및 키 정보 가져오기
+          double babyWeight = (babyData['weight'] is num)
+              ? (babyData['weight'] as num).toDouble()
+              : (babyData['weight'] is String)
+              ? double.tryParse(babyData['weight']) ?? 0.0
+              : 0.0; // 체중 정보 추가
+          double babyHeight = (babyData['height'] is num)
+              ? (babyData['height'] as num).toDouble()
+              : (babyData['height'] is String)
+              ? double.tryParse(babyData['height']) ?? 0.0
+              : 0.0; // 키 정보 추가
+
+          // 디버깅: babyWeight와 babyHeight 값을 출력
+          print("Weight: $babyWeight, Height: $babyHeight");
+
+          setState(() {
+            // 아기 닉네임과 생일 저장
+            _babyNickname = babyNickname;
+            _babyBirthDate = babyBirthDate;
+            _babygender = babygender;
+            _babyweight = babyWeight; // 체중 저장
+            _babyheight = babyHeight; // 키 저장
+          });
+        } else {
+          print('No baby info found for this user.');
         }
       } catch (e) {
         // 예외 처리
@@ -2818,6 +2871,8 @@ class _MyPageScreenState extends State<MyPageScreen>
       }
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -2964,7 +3019,13 @@ class _MyPageScreenState extends State<MyPageScreen>
                   child: TabBarView(
                     controller: _tabController,
                     children: [
-                      ProfileScreen(), // 프로필 화면 클래스 사용
+                      ProfileScreen(
+                        babyNickname: _babyNickname ?? '아기 정보 없음',
+                        babyBirthDate: _babyBirthDate ?? '아기 생일 정보 없음',
+                        babyGender: _babygender ?? '아기 성별 정보 없음',
+                        babyWeight: _babyweight, // 체중 정보 추가
+                        babyHeight: _babyheight, // 키 정보 추가
+                      ),
                       ShoppingScreen(), // 쇼핑 화면 클래스 사용
                     ],
                   ),
@@ -3179,6 +3240,21 @@ Widget title(String text) {
 
 // 프로필 화면
 class ProfileScreen extends StatelessWidget {
+  final String babyNickname; // 아기 닉네임을 위한 변수
+  final String babyBirthDate; // 아기 닉네임을 위한 변수
+  final String babyGender; // 추가된 부분
+  final double babyWeight; // 추가된 부분
+  final double babyHeight; // 추가된 부분
+
+  ProfileScreen({
+    required this.babyNickname,
+    required this.babyBirthDate,
+    required this.babyGender,
+    required this.babyWeight, // 추가된 부분
+    required this.babyHeight, // 추가된 부분
+  });
+
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -3264,7 +3340,7 @@ class ProfileScreen extends StatelessWidget {
                                 width: 236,
                                 height: 22,
                                 child: Text(
-                                  '하늘',
+                                  babyNickname,
                                   style: TextStyle(
                                     color: Color(0xFF5D5D5D),
                                     fontSize: 16,
@@ -3275,12 +3351,13 @@ class ProfileScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
+
                               SizedBox(height: 8), // 사이 간격
                               Container(
                                 width: 236,
                                 height: 18,
                                 child: Text(
-                                  '남아 / 2000. 08.16(25개월)',
+                                  '$babyGender / $babyBirthDate', // 아기 생일 정보를 포함
                                   style: TextStyle(
                                     color: Color(0xFF5D5D5D),
                                     fontSize: 14,
@@ -3296,7 +3373,7 @@ class ProfileScreen extends StatelessWidget {
                                 width: 236,
                                 height: 18,
                                 child: Text(
-                                  '87cm / 13kg',
+                                  '$babyHeight cm / $babyWeight kg', // 순서를 수정
                                   style: TextStyle(
                                     color: Color(0xFF5D5D5D),
                                     fontSize: 14,
@@ -3307,6 +3384,7 @@ class ProfileScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
+
                             ],
                           ),
                         ),
