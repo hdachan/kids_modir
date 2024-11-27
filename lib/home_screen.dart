@@ -16,6 +16,7 @@ import 'DesignerCollection.dart';
 import 'MyStyleInfo.dart';
 import 'Mypage_edit.dart';
 import 'heeeee.dart';
+import 'qqqqqqqqqqqqq.dart';
 import 'setting.dart';
 
 void main() async {
@@ -1946,15 +1947,31 @@ class _BookmarkScreenState extends State<CoreFunctionalityScreen> {
 /////////////////////////////////////////////////////////////////////
 // 커뮤/ 매거진 화면
 class CommunityScreen extends StatelessWidget {
-  // 클래스 이름 변경
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HomeAppBar(), // 앱바
       body: Center(
-        child: Text(
-          '커뮤니티', // 텍스트 변경
-          style: TextStyle(fontSize: 24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center, // 중앙 정렬
+          children: [
+            Text(
+              '커뮤니티', // 텍스트 변경
+              style: TextStyle(fontSize: 24),
+            ),
+            SizedBox(height: 20), // 텍스트와 버튼 사이의 간격
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MyHomePage1(), // MyHomePage1 화면으로 이동
+                  ),
+                );
+              },
+              child: Text('MyHomePage1로 이동'), // 버튼 텍스트
+            ),
+          ],
         ),
       ),
     );
@@ -2877,7 +2894,7 @@ class _MyPageScreenState extends State<MyPageScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyProfileAppBar(),
+      appBar: HomeAppBar1(),
       body: SingleChildScrollView(
         child: Center(
           child: SizedBox(
@@ -3102,70 +3119,32 @@ class _MyPageScreenState extends State<MyPageScreen>
   }
 }
 
-//마이페이지 - 앱바
-class MyProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MyProfileAppBar({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Align(
-        alignment: Alignment.center,
-        child: Container(
-          padding: EdgeInsets.only(left: 16),
-          color: Color(0xFF4F4F4F),
-          width: 360,
-          height: kToolbarHeight,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                  width: 222,
-                  height: 25,
-                  child: Text(
-                    '마이프로필',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontFamily: 'Pretendard',
-                      fontWeight: FontWeight.w700,
-                      height: 1.4,
-                      letterSpacing: -0.45,
-                    ),
-                  )),
-              SizedBox(width: 10),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.notifications_none),
-                iconSize: 24,
-                color: Colors.white,
-                style: OutlinedButton.styleFrom(minimumSize: Size.zero),
-              ),
-              SizedBox(width: 16),
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Setting()), // Test3 화면으로 이동
-                  );
-                },
-                icon: Icon(Icons.settings_outlined),
-                iconSize: 24,
-                color: Colors.white,
-                style: OutlinedButton.styleFrom(minimumSize: Size.zero),
-              ),
-            ],
-          ),
-        ),
+// 관심사 위젯
+Widget customTextContainer(String text) {
+  return Container(
+    height: 26,
+    padding: EdgeInsets.symmetric(horizontal: 8.0).copyWith(top: 4.0, bottom: 4.0), // 좌우 8, 위아래 4 패딩 추가
+    decoration: ShapeDecoration(
+      shape: RoundedRectangleBorder(
+        side: BorderSide(width: 1, color: Color(0xFF0095F6)),
+        borderRadius: BorderRadius.circular(4),
       ),
-    );
-  }
-
-  @override
-  Size get preferredSize => Size(360, kToolbarHeight);
+    ),
+    child: Text(
+      text,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        color: Color(0xFF0095F6),
+        fontSize: 14,
+        fontFamily: 'Pretendard',
+        fontWeight: FontWeight.w500,
+        height: 1.3,
+        letterSpacing: -0.35,
+      ),
+    ),
+  );
 }
+
 
 //마이페이지 - 설정버튼
 class MyProfileButton extends StatelessWidget {
@@ -3418,6 +3397,18 @@ class ProfileScreen extends StatelessWidget {
                           width: 328,
                           height: 26,
                           color: Colors.white, // 두 번째 박스 색상
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start, // 가로 왼쪽 정렬
+                            children: [
+                              customTextContainer('레이싱카'),
+                              SizedBox(width: 12),
+                              customTextContainer('퍼즐'),
+                              SizedBox(width: 12),
+                              customTextContainer('보드게임'),
+                              SizedBox(width: 12),
+                              customTextContainer('보드게임'),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -3440,7 +3431,6 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
-
 
 //쇼핑 화면
 class ShoppingScreen extends StatelessWidget {
@@ -3527,7 +3517,7 @@ Widget saveButton(String label, VoidCallback onPressed) {
 
 /* 공통 모듈 관리 */
 /////////////////////////////////////////////////////////////////////
-// 홈 / 기능 / 커뮤 / 예약 / 마이페이지 앱바
+// 홈 / 기능 / 커뮤 / 예약
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({Key? key}) : super(key: key);
 
@@ -3577,6 +3567,71 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                     size: 24, // 아이콘 크기
                   ),
                 ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => Size(360, kToolbarHeight);
+}
+
+//마이페이지 - 앱바
+class MyProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const MyProfileAppBar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Align(
+        alignment: Alignment.center,
+        child: Container(
+          padding: EdgeInsets.only(left: 16),
+          color: Color(0xFF4F4F4F),
+          width: 360,
+          height: kToolbarHeight,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                  width: 222,
+                  height: 25,
+                  child: Text(
+                    '마이프로필',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontFamily: 'Pretendard',
+                      fontWeight: FontWeight.w700,
+                      height: 1.4,
+                      letterSpacing: -0.45,
+                    ),
+                  )),
+              SizedBox(width: 10),
+              IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.notifications_none),
+                iconSize: 24,
+                color: Colors.white,
+                style: OutlinedButton.styleFrom(minimumSize: Size.zero),
+              ),
+              SizedBox(width: 16),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Setting()), // Test3 화면으로 이동
+                  );
+                },
+                icon: Icon(Icons.settings_outlined),
+                iconSize: 24,
+                color: Colors.white,
+                style: OutlinedButton.styleFrom(minimumSize: Size.zero),
               ),
             ],
           ),
@@ -4009,5 +4064,83 @@ Widget CompanyInfo() {
       ],
     ),
   );
+}
+
+// 마이페이지 앱바
+class HomeAppBar1 extends StatelessWidget implements PreferredSizeWidget {
+  const HomeAppBar1({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Align(
+        alignment: Alignment.center,
+        child: Container(
+          padding: EdgeInsets.only(left: 16),
+          width: 360,
+          height: kToolbarHeight,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 232,
+                height: 56,
+                child: Align(
+                  alignment: Alignment.centerLeft, // 왼쪽 정렬
+                  child: Image.asset(
+                    'assets/image/logo_modi.png', // 실제 로고 이미지
+                    width: 34,
+                    height: 34,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 56,
+                height: 56,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.settings_outlined,
+                    size: 24,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Setting(),
+                      ),
+                    );
+                  },
+                  padding: EdgeInsets.zero, // 패딩을 0으로 설정하여 아이콘을 중앙에 맞춤
+                  constraints: BoxConstraints(), // 기본 constraints 제거
+                ),
+              ),
+
+
+
+
+
+
+              SizedBox(
+                width: 56,
+                height: 56,
+                child: Padding(
+                  padding: EdgeInsets.all(16), // 패딩 값 설정
+                  child: Icon(
+                    Icons.notifications, // 검색 아이콘
+                    size: 24, // 아이콘 크기
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => Size(360, kToolbarHeight);
 }
 /////////////////////////////////////////////////////////////////////
