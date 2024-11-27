@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
+import 'Login.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -22,107 +25,24 @@ class _SettingState extends State<Setting> {
         child: Center(
           child: Container(
             width: 360,
-            color:Color(0xFFF6F6F6),
+            color:Colors.white,
             child: Column(
               children: [
-                memberInfoEditWidget('회원정보 수정'),
-                memberInfoEditWidget2('닉네임 변경', () {}),
-                memberInfoEditWidget2('비밀번호 변경', () {}),
-                SizedBox(height: 8),
                 memberInfoEditWidget('알림 설정'),
                 memberInfoEditWidget2('이벤트 혜택 알림', () {}),
-                memberInfoEditWidget2('분석 결과 알림', () {}),
                 SizedBox(height: 8),
                 memberInfoEditWidget('서비스 동의'),
                 memberInfoEditWidget2('약관 동의 및 개인정보 처리 동의', () {}),
                 memberInfoEditWidget2('개인정보 처리 방침', () {}),
-                SizedBox(height: 8),
-                memberInfoEditWidget2('환불 계좌 관리', () {}),
                 memberInfoEditWidget2('오픈 소스 라이브러리', () {}),
-                memberInfoEditWidget2('어플 버전', () {}),
-                Container(
-                  width: 360,
-                  height: 98,
-                  padding: EdgeInsets.only(top: 32,left: 16,right: 16,bottom: 48),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 146,
-                        height: 18,
-                        child: InkWell(
-                          onTap: () {
-                            // 여기에 로그아웃 기능을 추가하세요.
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end, // 오른쪽 정렬
-                            children: [
-                              Text(
-                                '로그아웃',
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                  color: Color(0xFFB0B0B0),
-                                  fontSize: 12,
-                                  fontFamily: 'Pretendard',
-                                  fontWeight: FontWeight.w400,
-                                  height: 1.5,
-                                  letterSpacing: -0.30,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 16),
-                      Container(
-                        width: 4,
-                        height: 12,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end, // 오른쪽 정렬
-                          children: [
-                            Text(
-                              '|',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                color: Color(0xFFB0B0B0),
-                                fontSize: 12,
-                                fontFamily: 'Pretendard',
-                                fontWeight: FontWeight.w400,
-                                height: 1.5,
-                                letterSpacing: -0.30,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: 16),
-                      Container(
-                        width: 146,
-                        height: 18,
-                        child: InkWell(
-                          onTap: () {
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start, // 오른쪽 정렬
-                            children: [
-                              Text(
-                                '회원탈퇴',
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                  color: Color(0xFFB0B0B0),
-                                  fontSize: 12,
-                                  fontFamily: 'Pretendard',
-                                  fontWeight: FontWeight.w400,
-                                  height: 1.5,
-                                  letterSpacing: -0.30,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
+                memberInfoEditWidget3('어플 버전', () {}),
+                SizedBox(height: 230),
+
+                logoutAndWithdrawalWidget(context, () {
+                  // 회원탈퇴 기능을 추가하세요.
+                }),
+
+
               ],
             ),
           ),
@@ -131,78 +51,209 @@ class _SettingState extends State<Setting> {
     );
   }
 
-  Widget memberInfoEditWidget(String text) {
-    return Container(
-      width: 360,
-      height: 57,
-      padding: EdgeInsets.only(top: 24, bottom: 16, left: 16, right: 16),
-      decoration: BoxDecoration(
-        color: Colors.white, // 배경색 추가
-        border: Border(
-          bottom: BorderSide(width: 1, color: Color(0xFFE7E7E7)), // 아래쪽 테두리 설정
-        ),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 16,
-          fontFamily: 'Pretendard',
-          fontWeight: FontWeight.w600,
-          height: 1.0,
-          letterSpacing: -0.40,
-        ),
-      ),
-    );
-  }
 
-  Widget memberInfoEditWidget2(String text, VoidCallback onTap) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        width: 360,
-        height: 56,
-        padding: EdgeInsets.only(
-          top: 12,
-          bottom: 12,
-          left: 16,
-          right: 16,
-        ),
-        decoration: BoxDecoration(
-          color: Colors.white, // 배경색 추가
-          border: Border(
-            bottom: BorderSide(
-              width: 1,
-              color: Color(0xFFE7E7E7), // 아래쪽 테두리 설정
+}
+
+
+//로그아웃,회원탈퇴
+Widget logoutAndWithdrawalWidget(BuildContext context, VoidCallback onWithdrawalTap) {
+  return Container(
+    width: 360,
+    height: 98,
+    padding: EdgeInsets.only(top: 32, left: 16, right: 16, bottom: 48),
+    child: Row(
+      children: [
+        Expanded(
+          child: InkWell(
+            onTap: () async {
+              // Firebase Auth 로그아웃
+              await FirebaseAuth.instance.signOut();
+
+              // 로그인 화면으로 이동
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => Login()), // Login 화면으로 이동
+              );
+            },
+            child: Text(
+              '로그아웃',
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                color: Color(0xFFB0B0B0),
+                fontSize: 12,
+                fontFamily: 'Pretendard',
+                fontWeight: FontWeight.w400,
+                height: 1.5,
+                letterSpacing: -0.30,
+              ),
             ),
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              text,
+        SizedBox(width: 16),
+        Text(
+          '|',
+          textAlign: TextAlign.right,
+          style: TextStyle(
+            color: Color(0xFFB0B0B0),
+            fontSize: 12,
+            fontFamily: 'Pretendard',
+            fontWeight: FontWeight.w400,
+            height: 1.5,
+            letterSpacing: -0.30,
+          ),
+        ),
+        SizedBox(width: 16),
+        Expanded(
+          child: InkWell(
+            onTap: onWithdrawalTap,
+            child: Text(
+              '회원탈퇴',
+              textAlign: TextAlign.left,
               style: TextStyle(
-                color: Colors.black,
-                fontSize: 14,
+                color: Color(0xFFB0B0B0),
+                fontSize: 12,
                 fontFamily: 'Pretendard',
-                fontWeight: FontWeight.w500,
-                height: 1.0,
-                letterSpacing: -0.35,
+                fontWeight: FontWeight.w400,
+                height: 1.5,
+                letterSpacing: -0.30,
               ),
             ),
-            SizedBox(width: 8), // 텍스트와 아이콘 사이의 간격
-            Icon(
-              Icons.arrow_forward,
-              size: 16, // 아이콘 크기
-              color: Colors.black, // 아이콘 색상
-            ),
-          ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+
+// 설정 타이틀
+Widget memberInfoEditWidget(String text) {
+  return Container(
+    width: 360,
+    height: 57,
+    padding: EdgeInsets.only(top: 24, bottom: 16, left: 16, right: 16),
+    decoration: BoxDecoration(
+      color: Colors.white, // 배경색 추가
+      border: Border(
+        bottom: BorderSide(width: 1, color: Color(0xFFE7E7E7)), // 아래쪽 테두리 설정
+      ),
+    ),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: Colors.black,
+        fontSize: 16,
+        fontFamily: 'Pretendard',
+        fontWeight: FontWeight.w600,
+        height: 1.0,
+        letterSpacing: -0.40,
+      ),
+    ),
+  );
+}
+
+// 설정 부 타이틀
+Widget memberInfoEditWidget2(String text, VoidCallback onTap) {
+  return InkWell(
+    onTap: onTap,
+    child: Container(
+      width: 360,
+      height: 56,
+      padding: EdgeInsets.only(
+        top: 12,
+        bottom: 12,
+        left: 16,
+        right: 16,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white, // 배경색 추가
+        border: Border(
+          bottom: BorderSide(
+            width: 1,
+            color: Color(0xFFE7E7E7), // 아래쪽 테두리 설정
+          ),
         ),
       ),
-    );
-  }
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            text,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 14,
+              fontFamily: 'Pretendard',
+              fontWeight: FontWeight.w500,
+              height: 1.0,
+              letterSpacing: -0.35,
+            ),
+          ),
+          SizedBox(width: 8), // 텍스트와 아이콘 사이의 간격
+          Icon(
+            Icons.arrow_forward,
+            size: 16, // 아이콘 크기
+            color: Colors.black, // 아이콘 색상
+          ),
+        ],
+      ),
+    ),
+  );
 }
+
+// 설정 어플 버전
+Widget memberInfoEditWidget3(String text, VoidCallback onTap) {
+  return InkWell(
+    onTap: onTap,
+    child: Container(
+      width: 360,
+      height: 56,
+      padding: EdgeInsets.only(
+        top: 12,
+        bottom: 12,
+        left: 16,
+        right: 16,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white, // 배경색 추가
+        border: Border(
+          bottom: BorderSide(
+            width: 1,
+            color: Color(0xFFE7E7E7), // 아래쪽 테두리 설정
+          ),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            text,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 14,
+              fontFamily: 'Pretendard',
+              fontWeight: FontWeight.w500,
+              height: 1.0,
+              letterSpacing: -0.35,
+            ),
+          ),
+          SizedBox(width: 8), // 텍스트와 버전 텍스트 사이의 간격
+          Text(
+            'v.0.0.0',
+            style: TextStyle(
+              color: Color(0xFFB0B0B0),
+              fontSize: 14,
+              fontFamily: 'Pretendard',
+              fontWeight: FontWeight.w500,
+              height: 1.0,
+              letterSpacing: -0.35,
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
 
 class MyProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyProfileAppBar({Key? key}) : super(key: key);
