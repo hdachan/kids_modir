@@ -6,10 +6,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:html' as html; // 웹에서 파일 처리
 import 'dart:typed_data'; // Uint8List 사용을 위한 import
 
 import 'home_screen.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -39,6 +39,7 @@ class _MyPageEditState extends State<MyPageEdit> {
 
   final ImagePicker _picker = ImagePicker(); // 필드로 정의
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  String? loadedImageUrl; // 이미지 URL을 저장할 변수
 
 
   bool isFemaleSelected = false; // 여자 버튼 선택 상태
@@ -137,6 +138,7 @@ class _MyPageEditState extends State<MyPageEdit> {
           loadedNickname = userSnapshot['nickname'] ?? '';
           loadedBirthDate = userSnapshot['birthDate'] ?? '';
           loadedGender = userSnapshot['gender'] ?? ''; // 로드한 성별 저장
+          loadedImageUrl = userSnapshot['imgUPL']; // imgUPL 불러오기
 
           nicknameController.text = loadedNickname;
           birthDateController.text = loadedBirthDate;
@@ -147,6 +149,10 @@ class _MyPageEditState extends State<MyPageEdit> {
           } else if (loadedGender == '여자') {
             selectFemale(); // 여자 선택
           }
+
+          setState(() {
+            // 상태 업데이트: 이미지를 설정하거나 다른 UI 요소를 업데이트
+          });
 
           print('사용자 정보가 성공적으로 로드되었습니다.');
         } else {
@@ -159,6 +165,44 @@ class _MyPageEditState extends State<MyPageEdit> {
       print('오류: 사용자 정보를 로드하는 데 실패했습니다. ${e.toString()}');
     }
   }
+
+
+  Future<void> _uploadImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      File imageFile = File(pickedFile.path);
+
+      try {
+        // Firebase Storage에 업로드
+        String filePath = 'uploads/${DateTime.now().millisecondsSinceEpoch}.jpg';
+        await FirebaseStorage.instance.ref(filePath).putFile(imageFile);
+
+        // 업로드한 이미지의 URL 가져오기
+        String downloadUrl = await FirebaseStorage.instance.ref(filePath).getDownloadURL();
+
+        // 현재 사용자 UID 가져오기
+        User? user = FirebaseAuth.instance.currentUser; // User? 타입으로 선언
+        if (user != null) { // null 체크
+          String uid = user.uid;
+
+          // Firestore에 이미지 URL 저장
+          await FirebaseFirestore.instance.collection('users').doc(uid).set({
+            'imgUPL': downloadUrl,
+          }, SetOptions(merge: true)); // merge: true로 기존 데이터와 병합
+
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('업로드 성공!')));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('사용자가 로그인하지 않았습니다.')));
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('업로드 실패: $e')));
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('이미지를 선택하지 않았습니다.')));
+    }
+  }
+
 
 
   int? selectedValue; // 선택된 값을 저장할 변수
@@ -201,44 +245,43 @@ class _MyPageEditState extends State<MyPageEdit> {
                                   ),
                                   ClipOval(
                                     // 이미지를 둥글게 잘라내기 위해 ClipOval 사용
-                                    child: Image.asset(
-                                      // 또는 Image.network() 사용 가능
-                                      'assets/image/profile img.png',
-                                      // 여기에 프로필 이미지 경로를 입력하세요
+                                    child: Image.network(
+                                      loadedImageUrl ?? 'assets/image/profile img.png', // imgUPL이 null일 경우 기본 이미지 사용
                                       height: 100,
                                       width: 100,
                                       fit: BoxFit.cover, // 이미지를 컨테이너에 맞게 자르기
                                     ),
                                   ),
+
                                 ],
                               ),
-                              Positioned(
-                                right: 0, // 오른쪽 위치
-                                bottom: 0, // 아래 위치
-                                child: InkWell(
-                                  onTap: () {
-                                    // 버튼 클릭 시 실행할 코드
-                                  },
-                                  child: Container(
-                                    height: 32,
-                                    width: 32,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFF0095F6),
-                                      borderRadius: BorderRadius.circular(100), // 모든 모서리를 둥글게 설정
-                                    ),
-                                    padding: EdgeInsets.only(
-                                      top: 8, left: 8, right: 8, bottom: 8,
-                                    ), // 위쪽에 8px 패딩 추가
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.photo_camera, // 카메라 아이콘
-                                        color: Colors.white, // 아이콘 색상
-                                        size: 16, // 아이콘 크기
+                                Positioned(
+                                  right: 0, // 오른쪽 위치
+                                  bottom: 0, // 아래 위치
+                                  child: InkWell(
+                                    onTap: () {
+                                      _uploadImage();
+                                    },
+                                    child: Container(
+                                      height: 32,
+                                      width: 32,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF0095F6),
+                                        borderRadius: BorderRadius.circular(100), // 모든 모서리를 둥글게 설정
+                                      ),
+                                      padding: EdgeInsets.only(
+                                        top: 8, left: 8, right: 8, bottom: 8,
+                                      ), // 위쪽에 8px 패딩 추가
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.photo_camera, // 카메라 아이콘
+                                          color: Colors.white, // 아이콘 색상
+                                          size: 16, // 아이콘 크기
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
                             ],
                           ),
                         ),

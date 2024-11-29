@@ -2141,7 +2141,6 @@ class _QuotationPageState extends State<QuotationPage>
 }
 
 // 예약화면 - 첫번째 탭 내용
-
 class TabContent1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -2794,6 +2793,7 @@ class _MyPageScreenState extends State<MyPageScreen>
   String _babygender = "";
   double _babyweight = 0.0;
   double _babyheight = 0.0;
+  String _imgUrl = ''; // imgUPL을 저장할 변수 추가
 
 
   String _formattedDate = "아직 작성된 스타일 정보가 없어요";
@@ -2835,6 +2835,9 @@ class _MyPageScreenState extends State<MyPageScreen>
               _formattedDate =
               '작성일: ${DateFormat('yyyy.MM.dd').format(time.toDate())}';
             }
+
+            // imgUPL 가져오기
+            _imgUrl = data?['imgUPL'] ?? ''; // imgUPL을 가져와서 저장
           });
         }
 
@@ -2911,14 +2914,19 @@ class _MyPageScreenState extends State<MyPageScreen>
                   ),
                   child: Row(
                     children: [
-                      Container(
+                    Container(
+                    width: 60,
+                    height: 60,
+                    child: ClipOval(
+                      child: Image.network(
+                        _imgUrl.isNotEmpty ? _imgUrl : 'assets/image/profile img.png', // 기본 이미지 경로
+                        fit: BoxFit.cover,
                         width: 60,
                         height: 60,
-                        decoration: BoxDecoration(
-                          color: Colors.blue, // 원하는 색상으로 변경
-                          borderRadius: BorderRadius.circular(100), // 둥글게 만들기
-                        ),
                       ),
+                    ),
+                  ),
+
 
                       SizedBox(width: 12), // 사이 간격 설정
                       Container(
@@ -3036,13 +3044,18 @@ class _MyPageScreenState extends State<MyPageScreen>
                   child: TabBarView(
                     controller: _tabController,
                     children: [
-                      ProfileScreen(
-                        babyNickname: _babyNickname ?? '아기 정보 없음',
-                        babyBirthDate: _babyBirthDate ?? '아기 생일 정보 없음',
-                        babyGender: _babygender ?? '아기 성별 정보 없음',
-                        babyWeight: _babyweight, // 체중 정보 추가
-                        babyHeight: _babyheight, // 키 정보 추가
-                      ),
+                      // 아기 정보가 있을 경우
+                      if (_babyNickname.isNotEmpty)
+                        ProfileScreen(
+                          babyNickname: _babyNickname ?? '아기 정보 없음',
+                          babyBirthDate: _babyBirthDate ?? '아기 생일 정보 없음',
+                          babyGender: _babygender ?? '아기 성별 정보 없음',
+                          babyWeight: _babyweight,
+                          babyHeight: _babyheight,
+                        )
+                      // 아기 정보가 없을 경우
+                      else
+                        NoBabyInfoScreen(), // 아기 정보가 없을 때 보여줄 화면
                       ShoppingScreen(), // 쇼핑 화면 클래스 사용
                     ],
                   ),
@@ -3414,7 +3427,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 24),
-                  saveButton('등록하기', () {
+                  saveButton('수정하기', () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -3439,6 +3452,98 @@ class ShoppingScreen extends StatelessWidget {
     return ListView();
   }
 }
+
+// 프로필 없을때 홤녀
+class NoBabyInfoScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal, // 수평 스크롤 가능하게 설정
+        child: Row(
+          children: [
+            Container(
+              width: 360,
+              height: 328,
+              padding: EdgeInsets.only(left: 16, top: 24, right: 16, bottom: 24),
+              color: Colors.white,
+              child: Column(
+                children: [
+                  Container(
+                    width: 328,
+                    height: 22,
+                    color: Colors.white,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // 양쪽 끝으로 배치
+                      children: [
+                        Container(
+                          width: 277,
+                          height: 22,
+                          child: Text(
+                            '우리 아이 정보',
+                            style: TextStyle(
+                              color: Color(0xFF5D5D5D),
+                              fontSize: 16,
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.w600,
+                              height: 1.4,
+                              letterSpacing: -0.40,
+                            ),
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.refresh, // 새로고침 아이콘
+                              size: 16, // 아이콘 크기
+                              color: Color(0xFFB0B0B0), // 아이콘 색상
+                            ),
+                            SizedBox(width: 4), // 아이콘과 텍스트 사이의 간격
+                            Text(
+                              '초기화',
+                              style: TextStyle(
+                                color: Color(0xFFB0B0B0),
+                                fontSize: 12,
+                                fontFamily: 'Pretendard',
+                                fontWeight: FontWeight.w400,
+                                height: 1.2,
+                                letterSpacing: -0.30,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 24),
+                  Container(
+                    width: 328,
+                    height: 148,
+                    color: Colors.red,
+                    child: Image.asset(
+                      'assets/image/noinformation img.png',
+                      fit: BoxFit.cover, // 이미지 크기를 컨테이너에 맞게 조절
+                    ),
+                  ),
+                  saveButton('등록하기', () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) =>
+                              BabymypageEdit()), // LoginPage는 본인의 로그인 페이지로 교체
+                    );
+                  }),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 
 //유저 버튼
 class UserInfoButton extends StatelessWidget {

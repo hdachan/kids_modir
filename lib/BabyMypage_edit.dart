@@ -326,6 +326,49 @@ class _MyPageEditState extends State<BabymypageEdit> {
                           ],
                         ),
                       ),
+
+                      //관심사
+                      Container(
+                        height: 200,
+                        width: 360,
+                        padding: EdgeInsets.only(
+                            left: 16, right: 16, top: 12, bottom: 24),
+                        child: Column(
+                          children: [
+                            SubTitle('관심사'),
+                            SizedBox(height: 12), // 사이즈 박스 8
+                            inputField3(weightController, '몸무게', (value) {
+                              setState(() {}); // 텍스트 변화 시 상태 업데이트
+                            }),
+                            SizedBox(height: 12), // 사이즈 박스 8
+                            Container(
+                              width: 328,
+                              height: 64,
+                              child: Container(
+                                width: 328,
+                                height: 26,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start, // 가로 왼쪽 정렬
+                                  children: [
+                                    customTextContainer('레이싱카 X'),
+                                    SizedBox(width: 12),
+                                    customTextContainer('퍼즐 X'),
+                                    SizedBox(width: 12),
+                                    customTextContainer('보드게임 X'),
+                                    SizedBox(width: 12),
+                                    customTextContainer('보드게임 X'),
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                          ],
+                        ),
+                      ),
+
+
+
+                      // 저장하기 삭제하기
                       Container(
                         width: 360,
                         height: 86,
@@ -388,7 +431,7 @@ class _MyPageEditState extends State<BabymypageEdit> {
                           ],
                         ),
                       ),
-
+                      //아이 추가하기
                       Container(
                         width: 360,
                         height: 90,
@@ -421,6 +464,8 @@ class _MyPageEditState extends State<BabymypageEdit> {
                         ),
                       ),
                       SizedBox(height: 54),
+
+
                     ],
                   ),
                 ),
@@ -433,6 +478,34 @@ class _MyPageEditState extends State<BabymypageEdit> {
     );
   }
 }
+
+// 관심사 버튼
+Widget customTextContainer(String text) {
+  return Container(
+    height: 26,
+    padding: EdgeInsets.symmetric(horizontal: 8.0).copyWith(top: 4.0, bottom: 4.0), // 좌우 8, 위아래 4 패딩 추가
+    decoration: ShapeDecoration(
+      shape: RoundedRectangleBorder(
+        side: BorderSide(width: 1, color: Color(0xFF0095F6)),
+        borderRadius: BorderRadius.circular(4),
+      ),
+    ),
+    child: Text(
+      text,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        color: Color(0xFF0095F6),
+        fontSize: 14,
+        fontFamily: 'Pretendard',
+        fontWeight: FontWeight.w500,
+        height: 1.3,
+        letterSpacing: -0.35,
+      ),
+    ),
+  );
+}
+
+
 
 //닉네임 위젯
 Widget inputField(TextEditingController controller, String hintText,

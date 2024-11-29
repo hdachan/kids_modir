@@ -101,6 +101,15 @@ flutter:
 
     - assets/image/profile img.png
     - assets/image/baby img.png
+
+    - assets/image/magazine img.png
+    - assets/image/magazine img2.png
+    - assets/image/magazine img3.png
+    - assets/image/magazine img4.png
+    - assets/image/magazine img5.png
+    - assets/image/magazine img6.png
+
+    - assets/image/noinformation img.png
   uses-material-design: true
   fonts:
     - family: Pretendard
