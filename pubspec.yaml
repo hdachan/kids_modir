@@ -110,6 +110,9 @@ flutter:
     - assets/image/magazine img6.png
 
     - assets/image/noinformation img.png
+
+    - assets/image/Mypage_iocn1 img.png
+    - assets/image/Mypage_iocn2 img.png
   uses-material-design: true
   fonts:
     - family: Pretendard

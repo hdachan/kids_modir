@@ -2795,11 +2795,9 @@ class _MyPageScreenState extends State<MyPageScreen>
   double _babyheight = 0.0;
   String _imgUrl = ''; // imgUPL을 저장할 변수 추가
 
-
   String _formattedDate = "아직 작성된 스타일 정보가 없어요";
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
 
   late TabController _tabController;
 
@@ -2822,7 +2820,7 @@ class _MyPageScreenState extends State<MyPageScreen>
       try {
         // 사용자 정보 로드
         DocumentSnapshot doc =
-        await _firestore.collection('users').doc(user.uid).get();
+            await _firestore.collection('users').doc(user.uid).get();
         if (doc.exists) {
           var data = doc.data() as Map<String, dynamic>?; // Map으로 캐스팅
           setState(() {
@@ -2833,7 +2831,7 @@ class _MyPageScreenState extends State<MyPageScreen>
             Timestamp? time = data?['time'];
             if (time != null) {
               _formattedDate =
-              '작성일: ${DateFormat('yyyy.MM.dd').format(time.toDate())}';
+                  '작성일: ${DateFormat('yyyy.MM.dd').format(time.toDate())}';
             }
 
             // imgUPL 가져오기
@@ -2856,20 +2854,21 @@ class _MyPageScreenState extends State<MyPageScreen>
           print("Baby Data: $babyData");
 
           String babyNickname = babyData['nickname'] ?? '아기 정보 없음';
-          String babyBirthDate = babyData['BirthDate'] ?? '생일 정보 없음'; // BirthDate 추가
+          String babyBirthDate =
+              babyData['BirthDate'] ?? '생일 정보 없음'; // BirthDate 추가
           String babygender = babyData['gender'] ?? ''; // 수정된 부분
 
           // 체중 및 키 정보 가져오기
           double babyWeight = (babyData['weight'] is num)
               ? (babyData['weight'] as num).toDouble()
               : (babyData['weight'] is String)
-              ? double.tryParse(babyData['weight']) ?? 0.0
-              : 0.0; // 체중 정보 추가
+                  ? double.tryParse(babyData['weight']) ?? 0.0
+                  : 0.0; // 체중 정보 추가
           double babyHeight = (babyData['height'] is num)
               ? (babyData['height'] as num).toDouble()
               : (babyData['height'] is String)
-              ? double.tryParse(babyData['height']) ?? 0.0
-              : 0.0; // 키 정보 추가
+                  ? double.tryParse(babyData['height']) ?? 0.0
+                  : 0.0; // 키 정보 추가
 
           // 디버깅: babyWeight와 babyHeight 값을 출력
           print("Weight: $babyWeight, Height: $babyHeight");
@@ -2892,8 +2891,6 @@ class _MyPageScreenState extends State<MyPageScreen>
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -2914,19 +2911,20 @@ class _MyPageScreenState extends State<MyPageScreen>
                   ),
                   child: Row(
                     children: [
-                    Container(
-                    width: 60,
-                    height: 60,
-                    child: ClipOval(
-                      child: Image.network(
-                        _imgUrl.isNotEmpty ? _imgUrl : 'assets/image/profile img.png', // 기본 이미지 경로
-                        fit: BoxFit.cover,
+                      Container(
                         width: 60,
                         height: 60,
+                        child: ClipOval(
+                          child: Image.network(
+                            _imgUrl.isNotEmpty
+                                ? _imgUrl
+                                : 'assets/image/profile img.png', // 기본 이미지 경로
+                            fit: BoxFit.cover,
+                            width: 60,
+                            height: 60,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-
 
                       SizedBox(width: 12), // 사이 간격 설정
                       Container(
@@ -3136,7 +3134,8 @@ class _MyPageScreenState extends State<MyPageScreen>
 Widget customTextContainer(String text) {
   return Container(
     height: 26,
-    padding: EdgeInsets.symmetric(horizontal: 8.0).copyWith(top: 4.0, bottom: 4.0), // 좌우 8, 위아래 4 패딩 추가
+    padding: EdgeInsets.symmetric(horizontal: 8.0)
+        .copyWith(top: 4.0, bottom: 4.0), // 좌우 8, 위아래 4 패딩 추가
     decoration: ShapeDecoration(
       shape: RoundedRectangleBorder(
         side: BorderSide(width: 1, color: Color(0xFF0095F6)),
@@ -3157,7 +3156,6 @@ Widget customTextContainer(String text) {
     ),
   );
 }
-
 
 //마이페이지 - 설정버튼
 class MyProfileButton extends StatelessWidget {
@@ -3246,7 +3244,6 @@ class ProfileScreen extends StatelessWidget {
     required this.babyHeight, // 추가된 부분
   });
 
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -3257,7 +3254,8 @@ class ProfileScreen extends StatelessWidget {
             Container(
               width: 360,
               height: 328,
-              padding: EdgeInsets.only(left: 16, top: 24, right: 16, bottom: 24),
+              padding:
+                  EdgeInsets.only(left: 16, top: 24, right: 16, bottom: 24),
               color: Colors.white,
               child: Column(
                 children: [
@@ -3349,7 +3347,8 @@ class ProfileScreen extends StatelessWidget {
                                 width: 236,
                                 height: 18,
                                 child: Text(
-                                  '$babyGender / $babyBirthDate', // 아기 생일 정보를 포함
+                                  '$babyGender / $babyBirthDate',
+                                  // 아기 생일 정보를 포함
                                   style: TextStyle(
                                     color: Color(0xFF5D5D5D),
                                     fontSize: 14,
@@ -3376,7 +3375,6 @@ class ProfileScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-
                             ],
                           ),
                         ),
@@ -3411,7 +3409,8 @@ class ProfileScreen extends StatelessWidget {
                           height: 26,
                           color: Colors.white, // 두 번째 박스 색상
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start, // 가로 왼쪽 정렬
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            // 가로 왼쪽 정렬
                             children: [
                               customTextContainer('레이싱카'),
                               SizedBox(width: 12),
@@ -3449,7 +3448,324 @@ class ProfileScreen extends StatelessWidget {
 class ShoppingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView();
+    return Center(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal, // 수평 스크롤 가능하게 설정
+        child: Column(
+          children: [
+            Container(
+              width: 360,
+              height: 128,
+              color: Colors.white,
+              padding: EdgeInsets.only(top: 24, left: 16, right: 16),
+              child: Column(
+                children: [
+                  Container(
+                    width: 328,
+                    height: 18,
+                    color: Colors.white,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // 양쪽 끝 정렬
+                      children: [
+                        Text(
+                          '내 주문/배송 진행상황',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Pretendard',
+                            fontWeight: FontWeight.w500,
+                            height: 1.0,
+                            letterSpacing: -0.35,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.access_time, // 시계 아이콘
+                              size: 14, // 아이콘 크기
+                              color: Color(0xFFB0B0B0), // 아이콘 색상
+                            ),
+                            SizedBox(width: 4), // 아이콘과 텍스트 간격
+                            Text(
+                              '(최근 1개월)',
+                              style: TextStyle(
+                                color: Color(0xFFB0B0B0),
+                                fontSize: 12,
+                                fontFamily: 'Pretendard',
+                                fontWeight: FontWeight.w400,
+                                height: 1.0,
+                                letterSpacing: -0.30,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 8), // 사이즈박스
+                  Container(
+                    width: 328,
+                    height: 78,
+                    color: Colors.white,
+                    // 박스 색상
+                    padding: EdgeInsets.only(top: 12, bottom: 20),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 56,
+                          height: 46,
+                          child: Column(
+                            children: [
+                              Container(
+                                width: 56,
+                                height: 24,
+                                child: Center(
+                                  child: Text(
+                                    '0',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Color(0xFF0095F6),
+                                      fontSize: 20,
+                                      fontFamily: 'Pretendard',
+                                      fontWeight: FontWeight.w600,
+                                      height: 1.2,
+                                      letterSpacing: -0.50,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Container(
+                                width: 56,
+                                height: 14,
+                                child: Text(
+                                  '입금대기',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Color(0xFF5D5D5D),
+                                    fontSize: 12,
+                                    fontFamily: 'Pretendard',
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.0,
+                                    letterSpacing: -0.25,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        arrowIcon(),
+                        Container(
+                          width: 56,
+                          height: 46,
+                          child: Column(
+                            children: [
+                              Container(
+                                width: 56,
+                                height: 24,
+                                child: Center(
+                                  child: Text(
+                                    '0',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Color(0xFF0095F6),
+                                      fontSize: 20,
+                                      fontFamily: 'Pretendard',
+                                      fontWeight: FontWeight.w600,
+                                      height: 1.2,
+                                      letterSpacing: -0.50,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Container(
+                                width: 56,
+                                height: 14,
+                                child: Text(
+                                  '입금대기',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Color(0xFF5D5D5D),
+                                    fontSize: 12,
+                                    fontFamily: 'Pretendard',
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.0,
+                                    letterSpacing: -0.25,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        arrowIcon(),
+                        Container(
+                          width: 56,
+                          height: 46,
+                          child: Column(
+                            children: [
+                              Container(
+                                width: 56,
+                                height: 24,
+                                child: Center(
+                                  child: Text(
+                                    '0',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Color(0xFF0095F6),
+                                      fontSize: 20,
+                                      fontFamily: 'Pretendard',
+                                      fontWeight: FontWeight.w600,
+                                      height: 1.2,
+                                      letterSpacing: -0.50,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Container(
+                                width: 56,
+                                height: 14,
+                                child: Text(
+                                  '입금대기',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Color(0xFF5D5D5D),
+                                    fontSize: 12,
+                                    fontFamily: 'Pretendard',
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.0,
+                                    letterSpacing: -0.25,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        arrowIcon(),
+                        Container(
+                          width: 56,
+                          height: 46,
+                          child: Column(
+                            children: [
+                              Container(
+                                width: 56,
+                                height: 24,
+                                child: Center(
+                                  child: Text(
+                                    '0',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Color(0xFF0095F6),
+                                      fontSize: 20,
+                                      fontFamily: 'Pretendard',
+                                      fontWeight: FontWeight.w600,
+                                      height: 1.2,
+                                      letterSpacing: -0.50,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Container(
+                                width: 56,
+                                height: 14,
+                                child: Text(
+                                  '입금대기',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Color(0xFF5D5D5D),
+                                    fontSize: 12,
+                                    fontFamily: 'Pretendard',
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.0,
+                                    letterSpacing: -0.25,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        arrowIcon(),
+                        Container(
+                          width: 56,
+                          height: 46,
+                          child: Column(
+                            children: [
+                              Container(
+                                width: 56,
+                                height: 24,
+                                child: Center(
+                                  child: Text(
+                                    '0',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Color(0xFF0095F6),
+                                      fontSize: 20,
+                                      fontFamily: 'Pretendard',
+                                      fontWeight: FontWeight.w600,
+                                      height: 1.2,
+                                      letterSpacing: -0.50,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Container(
+                                width: 56,
+                                height: 14,
+                                child: Text(
+                                  '입금대기',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Color(0xFF5D5D5D),
+                                    fontSize: 12,
+                                    fontFamily: 'Pretendard',
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.0,
+                                    letterSpacing: -0.25,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              width: 360,
+              height: 128,
+              color: Colors.white,
+              padding: EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // 박스들 사이의 간격 조정
+                children: [
+                  card_widget(
+                    'assets/image/Mypage_iocn1 img.png', // 이미지 경로
+                    '주문/배송 주문 내역', // 제목
+                    '주문내역을 빠르고 간편하게', // 설명
+                  ),
+                  SizedBox(width: 12), // 사이즈 박스 12
+                  card_widget(
+                    'assets/image/Mypage_iocn2 img.png', // 이미지 경로
+                    '취소/반품/교환 내역', // 제목
+                    '제대로 됐는지 불안하다면?', // 설명
+                  ),
+                ],
+              ),
+            ),
+            reviewContainer(),
+
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -3465,7 +3781,8 @@ class NoBabyInfoScreen extends StatelessWidget {
             Container(
               width: 360,
               height: 328,
-              padding: EdgeInsets.only(left: 16, top: 24, right: 16, bottom: 24),
+              padding:
+                  EdgeInsets.only(left: 16, top: 24, right: 16, bottom: 24),
               color: Colors.white,
               child: Column(
                 children: [
@@ -3544,7 +3861,6 @@ class NoBabyInfoScreen extends StatelessWidget {
   }
 }
 
-
 //유저 버튼
 class UserInfoButton extends StatelessWidget {
   @override
@@ -3618,6 +3934,211 @@ Widget saveButton(String label, VoidCallback onPressed) {
   );
 }
 
+Widget arrowIcon() {
+  return Center(
+    child: Container(
+      width: 12,
+      height: 12,
+      child: Icon(
+        Icons.chevron_right, // '>' 모양의 아이콘
+        size: 12, // 아이콘 크기
+        color: Colors.black, // 아이콘 색상
+      ),
+    ),
+  );
+}
+
+Widget card_widget(String imagePath, String title, String subtitle) {
+  return Container(
+    width: 158,
+    height: 96,
+    padding: EdgeInsets.fromLTRB(16, 8, 16, 6), // 패딩 추가
+    decoration: ShapeDecoration(
+      color: Color(0xFFF6F6F6), // 배경 색상
+      shape: RoundedRectangleBorder(
+        side: BorderSide(width: 1, color: Color(0xFFE7E7E7)), // 경계선
+        borderRadius: BorderRadius.circular(8), // 둥근 모서리
+      ),
+      shadows: [
+        BoxShadow(
+          color: Color(0x3FF6F6F6), // 그림자 색상
+          blurRadius: 12, // 흐림 반경
+          offset: Offset(0, 0), // 그림자 위치
+          spreadRadius: 0, // 그림자 확장
+        ),
+      ],
+    ),
+    child: Column(
+      children: [
+        Container(
+          width: 126,
+          height: 20,
+          child: Text(
+            title, // 제목을 매개변수로 사용
+            style: TextStyle(
+              color: Color(0xFF3D3D3D),
+              fontSize: 14,
+              fontFamily: 'Pretendard',
+              fontWeight: FontWeight.w700,
+              height: 1.4,
+              letterSpacing: -0.35,
+            ),
+          ),
+        ),
+        SizedBox(height: 8),
+        Container(
+          width: 127,
+          height: 12,
+          child: Text(
+            subtitle, // 설명을 매개변수로 사용
+            style: TextStyle(
+              color: Color(0xFF888888),
+              fontSize: 11,
+              fontFamily: 'Pretendard',
+              fontWeight: FontWeight.w500,
+              height: 1.0,
+              letterSpacing: -0.30,
+            ),
+          ),
+        ),
+        SizedBox(height: 8),
+        Container(
+          width: 126,
+          height: 32,
+          child: Row(
+            children: [
+              Container(
+                width: 40,
+                height: 32,
+                child: Image.asset(
+                  imagePath, // 이미지 경로를 매개변수로 사용
+                  fit: BoxFit.cover, // 이미지의 크기를 컨테이너에 맞게 조정
+                ),
+              ),
+              SizedBox(width: 12),
+              Center(
+                child: Container(
+                  width: 71,
+                  height: 20,
+                  decoration: ShapeDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment(1.00, -0.08),
+                      end: Alignment(-1, 0.08),
+                      colors: [
+                        Color(0xFF0095F6),
+                        Color(0xFF0091F0),
+                      ],
+                    ),
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(width: 1, color: Color(0xFF0095F6)),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    shadows: [
+                      BoxShadow(
+                        color: Color(0x330095F6),
+                        blurRadius: 8,
+                        offset: Offset(0, 0),
+                        spreadRadius: 0,
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Text(
+                      '확인하기 >',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontFamily: 'Pretendard',
+                        fontWeight: FontWeight.w500,
+                        height: 1.0,
+                        letterSpacing: -0.30,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget reviewContainer() {
+  return Container(
+    width: 360,
+    height: 66,
+    color: Colors.white,
+    child: Center( // 버튼을 중앙에 배치
+      child: Container(
+        width: 328,
+        height: 42,
+        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        decoration: ShapeDecoration(
+          color: Color(0xFF0095F6),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween, // 양쪽 정렬
+          children: [
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: '지금 ',
+                    style: TextStyle(
+                      color: Color(0xFFF6F6F6),
+                      fontSize: 14,
+                      fontFamily: 'Pretendard',
+                      fontWeight: FontWeight.w500,
+                      height: 1.0,
+                      letterSpacing: -0.35,
+                    ),
+                  ),
+                  TextSpan(
+                    text: '리뷰',
+                    style: TextStyle(
+                      color: Color(0xFFFFD51B),
+                      fontSize: 14,
+                      fontFamily: 'Pretendard',
+                      fontWeight: FontWeight.w500,
+                      height: 1.0,
+                      letterSpacing: -0.35,
+                    ),
+                  ),
+                  TextSpan(
+                    text: '를 관리해보세요',
+                    style: TextStyle(
+                      color: Color(0xFFF6F6F6),
+                      fontSize: 14,
+                      fontFamily: 'Pretendard',
+                      fontWeight: FontWeight.w500,
+                      height: 1.0,
+                      letterSpacing: -0.35,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Text(
+              '0건', // 오른쪽 텍스트 추가
+              style: TextStyle(
+                color: Color(0xFFF6F6F6),
+                fontSize: 14,
+                fontFamily: 'Pretendard',
+                fontWeight: FontWeight.w500,
+                height: 1.0,
+                letterSpacing: -0.35,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
 /////////////////////////////////////////////////////////////////////
 
 /* 공통 모듈 관리 */
@@ -3634,6 +4155,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Container(
           padding: EdgeInsets.only(left: 16),
           width: 360,
+          color: Colors.white,
           height: kToolbarHeight,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -4221,12 +4743,6 @@ class HomeAppBar1 extends StatelessWidget implements PreferredSizeWidget {
                   constraints: BoxConstraints(), // 기본 constraints 제거
                 ),
               ),
-
-
-
-
-
-
               SizedBox(
                 width: 56,
                 height: 56,
