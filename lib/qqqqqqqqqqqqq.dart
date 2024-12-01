@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MyApp());
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: 'AIzaSyDogzalL_f-tEOiqOrBSfN8Amzc64l_nLw',
+      appId: '1:531305378076:android:31a98cc7b8d92f337b4ad9',
+      messagingSenderId: '531305378076',
+      projectId: 'modir-d8182',
+      storageBucket: 'modir-d8182.appspot.com',
+    ),
+  );
+  runApp(MaterialApp(
+    home: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -22,10 +35,8 @@ class MyHomePage1 extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-
 class _MyHomePageState extends State<MyHomePage1>
     with SingleTickerProviderStateMixin {
-
   late TabController _tabController;
 
   @override
@@ -46,238 +57,172 @@ class _MyHomePageState extends State<MyHomePage1>
       appBar: AppBar(
         title: Text('개그우먼 홍현희 아들 준범의 일상룩'),
       ),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Center(
-                  child: Container(
-                    width: 360,
-                    height: 94,
-                    color: Colors.white,
-                    child: Column(
-                      children: [
-                        Container(
-                          width: 360,
-                          height: 44,
-                          padding: EdgeInsets.only(left: 16, right: 16),
-                          child: TabBar(
-                            controller: _tabController,
-                            isScrollable: true,
-                            tabAlignment: TabAlignment.start,
-                            tabs: [
-                              Tab(
-                                child: Text(
-                                  '전체',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Color(0xFF0095F6),
-                                    fontSize: 14,
-                                    fontFamily: 'Pretendard',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.3,
-                                    letterSpacing: -0.40,
-                                  ),
-                                ),
-                              ),
-                              Tab(
-                                child: Text(
-                                  '야외활동',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Color(0xFF0095F6),
-                                    fontSize: 14,
-                                    fontFamily: 'Pretendard',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.3,
-                                    letterSpacing: -0.40,
-                                  ),
-                                ),
-                              ),
-                              Tab(
-                                child: Text(
-                                  '실내활동',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Color(0xFF0095F6),
-                                    fontSize: 14,
-                                    fontFamily: 'Pretendard',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.3,
-                                    letterSpacing: -0.40,
-                                  ),
-                                ),
-                              ),
-                              Tab(
-                                child: Text(
-                                  '장난감',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Color(0xFF0095F6),
-                                    fontSize: 14,
-                                    fontFamily: 'Pretendard',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.3,
-                                    letterSpacing: -0.40,
-                                  ),
-                                ),
-                              ),
-                              Tab(
-                                child:Text(
-                                  '시설/행사',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Color(0xFF0095F6),
-                                    fontSize: 14,
-                                    fontFamily: 'Pretendard',
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.3,
-                                    letterSpacing: -0.40,
-                                  ),
-                                ),
-                              ),
-                            ],
-                            indicatorColor: Color(0xFF0095F6),
-                            indicatorSize: TabBarIndicatorSize.label,
-                            indicatorPadding: EdgeInsets.only(top: 12, bottom: 0),
-                            labelPadding: EdgeInsets.symmetric(horizontal: 8), // 탭 간의 간격을 넓히기 위해 수정된 부분
-                          ),
-                        ),
-                        Divider(
-                          color: Color(0xFFF6F6F6),
-                          height: 2.0,
-                          thickness: 2.0,
-                        ),
-                        Container(
-                          width: 360,
-                          height: 48,
-                          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                          color: Colors.red,
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 51,
-                                height: 18,
-                                child: Text(
-                                  '전체 놀이',
-                                  style: TextStyle(
-                                    color: Color(0xFF3D3D3D),
-                                    fontSize: 14,
-                                    fontFamily: 'Pretendard',
-                                    fontWeight: FontWeight.w400,
-                                    height: 1.0,
-                                    letterSpacing: -0.35,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 4),
-                              Container(
-                                width: 273,
-                                height: 18,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start, // 왼쪽 정렬
-                                  children: [
-                                    Text(
-                                      '12,110개',
-                                      style: TextStyle(
-                                        color: Color(0xFF3D3D3D),
-                                        fontSize: 14,
-                                        fontFamily: 'Pretendard',
-                                        fontWeight: FontWeight.w400,
-                                        height: 1.0,
-                                        letterSpacing: -0.35,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-
-                            ],
-                          ),
-                        ),
-
-
-                      ],
-                    ),
-                  ),
-                ),
-                // TabBarView를 추가하여 탭에 따른 내용을 표시
-                Container(
-                  height: 540, // 적절한 높이 설정
-                  child: TabBarView(
-                    controller: _tabController,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Center(
+                child: Container(
+                  width: 360,
+                  height: 94,
+                  color: Colors.white,
+                  child: Column(
                     children: [
-                      TabContent(tabIndex: 1),
-                      Center(child: Text('2')),
-                      Center(child: Text('3')), // 실내활동 탭 내용
-                      Center(child: Text('장난감 탭 내용')), // 장난감 탭 내용
-                      Center(child: Text('시설/행사 탭 내용')), // 시설/행사 탭 내용
+                      Container(
+                        width: 360,
+                        height: 44,
+                        padding: EdgeInsets.only(left: 16, right: 16),
+                        child: TabBar(
+                          controller: _tabController,
+                          isScrollable: true,
+                          tabAlignment: TabAlignment.start,
+                          tabs: [
+                            Tab(
+                              child: Text(
+                                '전체',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xFF0095F6),
+                                  fontSize: 14,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3,
+                                  letterSpacing: -0.40,
+                                ),
+                              ),
+                            ),
+                            Tab(
+                              child: Text(
+                                '야외활동',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xFF0095F6),
+                                  fontSize: 14,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3,
+                                  letterSpacing: -0.40,
+                                ),
+                              ),
+                            ),
+                            Tab(
+                              child: Text(
+                                '실내활동',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xFF0095F6),
+                                  fontSize: 14,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3,
+                                  letterSpacing: -0.40,
+                                ),
+                              ),
+                            ),
+                            Tab(
+                              child: Text(
+                                '장난감',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xFF0095F6),
+                                  fontSize: 14,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3,
+                                  letterSpacing: -0.40,
+                                ),
+                              ),
+                            ),
+                            Tab(
+                              child: Text(
+                                '시설/행사',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xFF0095F6),
+                                  fontSize: 14,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3,
+                                  letterSpacing: -0.40,
+                                ),
+                              ),
+                            ),
+                          ],
+                          indicatorColor: Color(0xFF0095F6),
+                          indicatorSize: TabBarIndicatorSize.label,
+                          indicatorPadding: EdgeInsets.only(top: 12, bottom: 0),
+                          labelPadding: EdgeInsets.symmetric(
+                              horizontal: 8), // 탭 간의 간격을 넓히기 위해 수정된 부분
+                        ),
+                      ),
+                      Divider(
+                        color: Color(0xFFF6F6F6),
+                        height: 2.0,
+                        thickness: 2.0,
+                      ),
+                      Container(
+                        width: 360,
+                        height: 48,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                        color: Colors.red,
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 51,
+                              height: 18,
+                              child: Text(
+                                '전체 놀이',
+                                style: TextStyle(
+                                  color: Color(0xFF3D3D3D),
+                                  fontSize: 14,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.0,
+                                  letterSpacing: -0.35,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 4),
+                            Container(
+                              width: 273,
+                              height: 18,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                // 왼쪽 정렬
+                                children: [
+                                  Text(
+                                    '12,110개',
+                                    style: TextStyle(
+                                      color: Color(0xFF3D3D3D),
+                                      fontSize: 14,
+                                      fontFamily: 'Pretendard',
+                                      fontWeight: FontWeight.w400,
+                                      height: 1.0,
+                                      letterSpacing: -0.35,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              ],
-            ),
-          ),
-        ),
-
-    );
-  }
-}
-
-
-
-class TabContent extends StatelessWidget {
-  final int tabIndex;
-
-  TabContent({required this.tabIndex});
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Center(
-        child: SizedBox(
-          width: 360,
-          child: Column(
-            children: [
-              Container(
-                width: 360,
-                height: 334,
-                padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
-                color: Colors.cyan,
-                child: Row(
-                  children: [
-                    Container(
-                      width: 162,
-                      height: 318,
-                      color: Colors.cyanAccent,
-                    ),
-                    SizedBox(width: 4),
-                    Container(
-                      width: 162,
-                      height: 318,
-                      color: Colors.cyanAccent,
-                    ),
-                  ],
-                ),
               ),
+              // TabBarView를 추가하여 탭에 따른 내용을 표시
               Container(
-                width: 360,
-                height: 334,
-                padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
-                color: Colors.cyan,
-                child: Row(
+                height: 540, // 적절한 높이 설정
+                child: TabBarView(
+                  controller: _tabController,
                   children: [
-                    Container(
-                      width: 162,
-                      height: 318,
-                      color: Colors.cyanAccent,
-                    ),
-                    SizedBox(width: 4),
-                    Container(
-                      width: 162,
-                      height: 318,
-                      color: Colors.cyanAccent,
-                    ),
+                    TabContent(),
+                    Center(child: Text('2')),
+                    Center(child: Text('3')), // 실내활동 탭 내용
+                    Center(child: Text('장난감 탭 내용')), // 장난감 탭 내용
+                    Center(child: Text('시설/행사 탭 내용')), // 시설/행사 탭 내용
                   ],
                 ),
               ),
@@ -288,6 +233,405 @@ class TabContent extends StatelessWidget {
     );
   }
 }
+class Info {
+  final String classification;
+  final String writer;
+  final String age;
+  final String title;
+
+  Info({
+    required this.classification,
+    required this.writer,
+    required this.age,
+    required this.title,
+  });
+}
+
+class TabContent extends StatelessWidget {
+  Future<List<Info>> fetchInfoList() async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    QuerySnapshot querySnapshot = await firestore.collection('babyplay').get();
+    List<Info> infoList = [];
+
+    for (var doc in querySnapshot.docs) {
+      String classification = doc['Classification'] ?? '';
+      String writer = doc['Writer'] ?? '';
+      String age = doc['age'] ?? '';
+      String title = doc['title'] ?? '';
+      infoList.add(Info(
+        classification: classification,
+        writer: writer,
+        age: age,
+        title: title,
+      ));
+    }
+
+    return infoList;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<Info>>(
+      future: fetchInfoList(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator()); // 로딩 인디케이터
+        } else if (snapshot.hasError) {
+          return Center(child: Text('오류가 발생했습니다: ${snapshot.error}'));
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Center(child: Text('정보가 없습니다.'));
+        } else {
+          List<Info> infoList = snapshot.data!;
+
+          return SingleChildScrollView(
+            child: Container(
+              width: 360,
+              child: Column(
+                children: [
+                  for (int i = 0; i < infoList.length; i += 2)
+                    Container(
+                      width: 360,
+                      color: Colors.white,
+                      padding: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                      child: Row(
+                        children: [
+                          // 첫 번째 컨테이너
+                          Expanded(
+                            child: Container(
+                              height: 344,
+                              color: Colors.white,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: 162,
+                                    height: 42,
+                                    padding: EdgeInsets.all(4),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          width: 32,
+                                          height: 32,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey, // 배경 색상
+                                            borderRadius: BorderRadius.circular(100), // 라운드 설정
+                                          ),
+                                        ),
+                                        SizedBox(width: 8),
+                                        Container(
+                                          width: 114,
+                                          height: 34,
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                width: 114,
+                                                height: 16,
+                                                alignment: Alignment.centerLeft, // 중앙 왼쪽 정렬
+                                                child: Text(
+                                                  infoList[i].writer,
+                                                  style: TextStyle(
+                                                    color: Color(0xFF3D3D3D),
+                                                    fontSize: 12,
+                                                    fontFamily: 'Pretendard',
+                                                    fontWeight: FontWeight.w500,
+                                                    height: 1.3,
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(height: 4),
+                                              Container(
+                                                width: 114,
+                                                height: 14,
+                                                alignment: Alignment.centerLeft, // 중앙 왼쪽 정렬
+                                                child: Text(
+                                                  '실내활동',
+                                                  style: TextStyle(
+                                                    color: Color(0xFF3D3D3D),
+                                                    fontSize: 12,
+                                                    fontFamily: 'Pretendard',
+                                                    fontWeight: FontWeight.w400,
+                                                    height: 1.0,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 162,
+                                    height: 216,
+                                    color: Colors.cyan,
+                                  ),
+                                  Container(
+                                    width: 162,
+                                    height: 86,
+                                    padding: EdgeInsets.only(top: 12, bottom: 8, left: 4, right: 4),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          width: 154,
+                                          height: 18,
+                                          child: Text(
+                                            infoList[i].title, // 제목을 infoList[i]에서 가져옴
+                                            style: TextStyle(
+                                              color: Color(0xFF3D3D3D),
+                                              fontSize: 14,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w500,
+                                              height: 1.3,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(height: 12),
+                                        Container(
+                                          width: 154,
+                                          height: 36,
+                                          color: Colors.white,
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                width: 122,
+                                                height: 36,
+                                                child: Column(
+                                                  children: [
+                                                    Container(
+                                                      width: 122,
+                                                      height: 14,
+                                                      child: Text(
+                                                        '추천 나이 : ${infoList[i].age}',
+                                                        style: TextStyle(
+                                                          color: Color(0xFF5D5D5D),
+                                                          fontSize: 12,
+                                                          fontFamily: 'Pretendard',
+                                                          fontWeight: FontWeight.w400,
+                                                          height: 1.3,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 8),
+                                                    Container(
+                                                      width: 122,
+                                                      height: 14,
+                                                      child: Text(
+                                                        '종류 : ${infoList[i].classification}',
+                                                        style: TextStyle(
+                                                          color: Color(0xFF5D5D5D),
+                                                          fontSize: 12,
+                                                          fontFamily: 'Pretendard',
+                                                          fontWeight: FontWeight.w400,
+                                                          height: 1.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(width: 8),
+                                              Container(
+                                                width: 24,
+                                                height: 36,
+                                                child: Center( // 아이콘을 중앙에 배치
+                                                  child: Icon(
+                                                    Icons.favorite_outline, // 하트 아이콘
+                                                    size: 24, // 아이콘 크기
+                                                    color: Colors.black, // 아이콘 색상
+                                                  ),
+                                                ),
+                                              ),
+
+
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 4),
+                          // 두 번째 컨테이너, 배열의 범위를 넘지 않는 경우에만 생성
+                          if (i + 1 < infoList.length)
+                            Expanded(
+                              child: Container(
+                                height: 344,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      width: 162,
+                                      height: 42,
+                                      padding: EdgeInsets.all(4),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            width: 32,
+                                            height: 32,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey, // 배경 색상
+                                              borderRadius: BorderRadius.circular(100), // 라운드 설정
+                                            ),
+                                          ),
+                                          SizedBox(width: 8),
+                                          Container(
+                                            width: 114,
+                                            height: 34,
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  width: 114,
+                                                  height: 16,
+                                                  alignment: Alignment.centerLeft, // 중앙 왼쪽 정렬
+                                                  child: Text(
+                                                    infoList[i+1].writer,
+                                                    style: TextStyle(
+                                                      color: Color(0xFF3D3D3D),
+                                                      fontSize: 12,
+                                                      fontFamily: 'Pretendard',
+                                                      fontWeight: FontWeight.w500,
+                                                      height: 1.3,
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(height: 4),
+                                                Container(
+                                                  width: 114,
+                                                  height: 14,
+                                                  alignment: Alignment.centerLeft, // 중앙 왼쪽 정렬
+                                                  child: Text(
+                                                    '실내활동',
+                                                    style: TextStyle(
+                                                      color: Color(0xFF3D3D3D),
+                                                      fontSize: 12,
+                                                      fontFamily: 'Pretendard',
+                                                      fontWeight: FontWeight.w400,
+                                                      height: 1.0,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 162,
+                                      height: 216,
+                                      color: Colors.cyan,
+                                    ),
+                                    Container(
+                                      width: 162,
+                                      height: 86,
+                                      padding: EdgeInsets.only(top: 12, bottom: 8, left: 4, right: 4),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            width: 154,
+                                            height: 18,
+                                            child: Text(
+                                              infoList[i+1].title, // 제목을 infoList[i]에서 가져옴
+                                              style: TextStyle(
+                                                color: Color(0xFF3D3D3D),
+                                                fontSize: 14,
+                                                fontFamily: 'Pretendard',
+                                                fontWeight: FontWeight.w500,
+                                                height: 1.3,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(height: 12),
+                                          Container(
+                                            width: 154,
+                                            height: 36,
+                                            color: Colors.white,
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  width: 122,
+                                                  height: 36,
+                                                  child: Column(
+                                                    children: [
+                                                      Container(
+                                                        width: 122,
+                                                        height: 14,
+                                                        child: Text(
+                                                          '추천 나이 : ${infoList[i+1].age}',
+                                                          style: TextStyle(
+                                                            color: Color(0xFF5D5D5D),
+                                                            fontSize: 12,
+                                                            fontFamily: 'Pretendard',
+                                                            fontWeight: FontWeight.w400,
+                                                            height: 1.3,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(height: 8),
+                                                      Container(
+                                                        width: 122,
+                                                        height: 14,
+                                                        child: Text(
+                                                          '종류 : ${infoList[i].classification}',
+                                                          style: TextStyle(
+                                                            color: Color(0xFF5D5D5D),
+                                                            fontSize: 12,
+                                                            fontFamily: 'Pretendard',
+                                                            fontWeight: FontWeight.w400,
+                                                            height: 1.0,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(width: 8),
+                                                Container(
+                                                  width: 24,
+                                                  height: 36,
+                                                  child: Center( // 아이콘을 중앙에 배치
+                                                    child: Icon(
+                                                      Icons.favorite_outline, // 하트 아이콘
+                                                      size: 24, // 아이콘 크기
+                                                      color: Colors.black, // 아이콘 색상
+                                                    ),
+                                                  ),
+                                                ),
+
+
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          else
+                          // 홀수일 때 빈 공간을 유지하기 위한 컨테이너
+                            Expanded(
+                              child: Container(
+                                height: 344,
+                                color: Colors.transparent,
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          );
+        }
+      },
+    );
+  }
+}
+
 
 Widget imageContainer(String imagePath) {
   return Container(
@@ -343,7 +687,6 @@ Widget commentWidget({required IconData icon, required String text}) {
     ),
   );
 }
-
 
 // Container(
 //   width: 360,

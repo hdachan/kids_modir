@@ -16,6 +16,8 @@ import 'DesignerCollection.dart';
 import 'MyStyleInfo.dart';
 import 'Mypage_edit.dart';
 import 'heeeee.dart';
+import 'qqqqqqqq2.dart';
+import 'qqqqqqqqqq3.dart';
 import 'qqqqqqqqqqqqq.dart';
 import 'setting.dart';
 
@@ -92,13 +94,13 @@ class _Home_ScreenState extends State<Home_Screen> {
               icon: _currentIndex == 1
                   ? Icon(Icons.lightbulb) // 선택된 상태에서 전구 아이콘
                   : Icon(Icons.lightbulb_outline), // 선택되지 않은 상태에서 전구 아이콘
-              label: '육아팁',
+              label: '놀이정보',
             ),
             BottomNavigationBarItem(
               icon: _currentIndex == 2
-                  ? Icon(Icons.favorite) // 선택된 상태에서 즐겨찾기 아이콘
-                  : Icon(Icons.favorite_border), // 선택되지 않은 상태에서 즐겨찾기 아이콘
-              label: '콘텐츠',
+                  ? Icon(Icons.article) // 선택된 상태에서 즐겨찾기 아이콘
+                  : Icon(Icons.article), // 선택되지 않은 상태에서 즐겨찾기 아이콘
+              label: '매거진',
             ),
             BottomNavigationBarItem(
               icon: _currentIndex == 3
@@ -161,6 +163,27 @@ class _HomePageState extends State<_HomePage> {
     super.dispose();
   }
 
+  void _showPopup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('알림'),
+          content: Text('현재 상품 기능은 준비 중입니다.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('확인'),
+              onPressed: () {
+                Navigator.of(context).pop(); // 팝업 닫기
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -220,25 +243,25 @@ class _HomePageState extends State<_HomePage> {
                                   IconCard(
                                     imagePath: 'assets/image/card img.png',
                                     text: '패션용품',
-                                    onPressed: () {},
+                                    onPressed: () => _showPopup(context), // context를 전달
                                   ),
                                   SizedBox(width: 16),
                                   IconCard(
                                     imagePath: 'assets/image/card img (1).png',
                                     text: '육아용품',
-                                    onPressed: () {},
+                                    onPressed: () => _showPopup(context),
                                   ),
                                   SizedBox(width: 16),
                                   IconCard(
                                     imagePath: 'assets/image/card img (2).png',
                                     text: '장난감',
-                                    onPressed: () {},
+                                    onPressed: () => _showPopup(context),
                                   ),
                                   SizedBox(width: 16), // 사이즈 박스 추가
                                   IconCard(
                                     imagePath: 'assets/image/card img (3).png',
                                     text: '학용품',
-                                    onPressed: () {},
+                                    onPressed: () => _showPopup(context),
                                   ),
                                 ],
                               ),
@@ -256,7 +279,7 @@ class _HomePageState extends State<_HomePage> {
                                     // 이미지 경로
                                     text: '스킨케어',
                                     // 텍스트 내용
-                                    onPressed: () {},
+                                    onPressed: () => _showPopup(context),
                                   ),
                                   SizedBox(width: 16), // 사이즈 박스 추가
                                   IconCard(
@@ -264,7 +287,7 @@ class _HomePageState extends State<_HomePage> {
                                     // 이미지 경로
                                     text: '기획전',
                                     // 텍스트 내용
-                                    onPressed: () {},
+                                    onPressed: () => _showPopup(context),
                                   ),
                                   SizedBox(width: 16), // 사이즈 박스 추가
                                   IconCard(
@@ -272,7 +295,7 @@ class _HomePageState extends State<_HomePage> {
                                     // 이미지 경로
                                     text: '이벤트',
                                     // 텍스트 내용
-                                    onPressed: () {},
+                                    onPressed: () => _showPopup(context),
                                   ),
                                   SizedBox(width: 16), // 사이즈 박스 추가
                                   IconCard(
@@ -280,7 +303,7 @@ class _HomePageState extends State<_HomePage> {
                                     // 이미지 경로
                                     text: '쿠폰',
                                     // 텍스트 내용
-                                    onPressed: () {},
+                                    onPressed: () => _showPopup(context),
                                   ),
                                 ],
                               ),
@@ -302,8 +325,8 @@ class _HomePageState extends State<_HomePage> {
 
                       // 모디랑 피드글씨
                       createFeedWidget(
-                        '리뷰로 보는 상품',
-                        '리뷰를 통해 아이에게 필요한 용품을 찾아 보세요',
+                        '모디랑 놀이',
+                        '다양한 놀이 방법을 통해 아이와 즐거운 추억을 만드세요',
                       ),
                       // 모디랑 피드 그림
                       Container(
@@ -320,14 +343,14 @@ class _HomePageState extends State<_HomePage> {
                               // 1번째 위젯
                               Container(
                                 width: 240,
-                                height: 412,
+                                height: 430,
                                 child: Column(
                                   children: [
                                     Container(
                                       width: 240,
-                                      height: 52,
+                                      height: 44,
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: 8, vertical: 8),
+                                          horizontal: 4, vertical: 4),
                                       child: Row(
                                         children: [
                                           Container(
@@ -408,78 +431,101 @@ class _HomePageState extends State<_HomePage> {
                                     ),
                                     Container(
                                       width: 240,
-                                      height: 60,
+                                      height: 86,
                                       padding: EdgeInsets.only(
                                           top: 12,
-                                          left: 4,
+                                          bottom: 8,
                                           right: 4,
-                                          bottom: 8),
-                                      child: Container(
-                                        width: 232,
-                                        height: 100,
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              width: 204,
-                                              height: 40,
-                                              child: Column(
-                                                children: [
-                                                  Container(
-                                                    width: 204,
-                                                    height: 18,
-                                                    child: Text(
-                                                      '육아하면서 가장 잘 산 육아템 중하나라고 생각해요!!',
-                                                      style: TextStyle(
-                                                        color:
-                                                            Color(0xFF5D5D5D),
-                                                        fontSize: 14,
-                                                        fontFamily:
-                                                            'Pretendard',
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        height: 1.0,
-                                                      ),
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      maxLines: 1, // 최대 한 줄로 제한
-                                                    ),
-                                                  ),
-                                                  SizedBox(height: 8),
-                                                  // 사이 간격 8
-                                                  Container(
-                                                    width: 204,
-                                                    height: 14,
-                                                    child: Text(
-                                                      '2세 87cm 13kg',
-                                                      style: TextStyle(
-                                                        color:
-                                                            Color(0xFF888888),
-                                                        fontSize: 12,
-                                                        fontFamily:
-                                                            'Pretendard',
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        height: 1.0,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
+                                          left: 4),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            width: 232,
+                                            height: 18,
+                                            child: Text(
+                                              '우리집이 워터파크 ?',
+                                              style: TextStyle(
+                                                color: Color(0xFF3D3D3D),
+                                                fontSize: 14,
+                                                fontFamily: 'Pretendard',
+                                                fontWeight: FontWeight.w500,
+                                                height: 1.3,
                                               ),
                                             ),
-                                            SizedBox(width: 4),
-                                            Container(
-                                              width: 24,
-                                              height: 40,
-                                              color: Colors.white, // 내부 박스 색상
-                                              child: Center(
-                                                child: Icon(
-                                                  Icons.favorite_border,
-                                                  size: 24, // 아이콘 크기 조정
+                                          ),
+
+                                          SizedBox(width: 12), // 사이즈 박스
+                                          Container(
+                                            width: 232,
+                                            height: 36,
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  width: 200,
+                                                  height: 36,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .start, // 위쪽 정렬
+                                                    children: [
+                                                      Container(
+                                                        width: 200,
+                                                        height: 14,
+                                                        child: Text(
+                                                          '추천 나이 : 3세 이상',
+                                                          style: TextStyle(
+                                                            color: Color(
+                                                                0xFF5D5D5D),
+                                                            fontSize: 12,
+                                                            fontFamily:
+                                                                'Pretendard',
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            height: 1.2,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(height: 8),
+                                                      // 사이즈 박스
+                                                      Container(
+                                                        width: 200,
+                                                        height: 14,
+                                                        child: Text(
+                                                          '종류 : 물놀이',
+                                                          style: TextStyle(
+                                                            color: Color(
+                                                                0xFF5D5D5D),
+                                                            fontSize: 12,
+                                                            fontFamily:
+                                                                'Pretendard',
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            height: 1.2,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
+
+                                                SizedBox(width: 8),
+                                                // 사이즈 박스 (가로 간격)
+                                                Container(
+                                                  width: 24,
+                                                  height: 36,
+                                                  child: Center(
+                                                    child: Icon(
+                                                      Icons.favorite, // 하트 아이콘
+                                                      size: 24, // 아이콘 크기
+                                                      color:
+                                                          Colors.red, // 아이콘 색상
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
@@ -489,14 +535,14 @@ class _HomePageState extends State<_HomePage> {
                               // 2번째 위젯
                               Container(
                                 width: 240,
-                                height: 412,
+                                height: 430,
                                 child: Column(
                                   children: [
                                     Container(
                                       width: 240,
-                                      height: 52,
+                                      height: 44,
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: 8, vertical: 8),
+                                          horizontal: 4, vertical: 4),
                                       child: Row(
                                         children: [
                                           Container(
@@ -577,82 +623,95 @@ class _HomePageState extends State<_HomePage> {
                                     ),
                                     Container(
                                       width: 240,
-                                      height: 60,
+                                      height: 86,
                                       padding: EdgeInsets.only(
                                           top: 12,
-                                          left: 4,
+                                          bottom: 8,
                                           right: 4,
-                                          bottom: 8),
-                                      child: Container(
-                                        width: 232,
-                                        height: 100,
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              width: 204,
-                                              height: 40,
-                                              child: Column(
-                                                children: [
-                                                  Container(
-                                                    width: 204,
-                                                    height: 18,
-                                                    child: Text(
-                                                      '육아하면서 가장 잘 산 육아템 중하나라고 생각해요!!',
-                                                      style: TextStyle(
-                                                        color:
-                                                            Color(0xFF5D5D5D),
-                                                        fontSize: 14,
-                                                        fontFamily:
-                                                            'Pretendard',
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        height: 1.0,
-                                                      ),
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      // 텍스트가 넘칠 경우 ...으로 표시
-                                                      maxLines: 1, // 최대 한 줄로 제한
-                                                    ),
-                                                  ),
-                                                  SizedBox(height: 8),
-                                                  // 사이 간격 8
-                                                  Container(
-                                                    width: 204,
-                                                    height: 14,
-                                                    child: Text(
-                                                      '2세 87cm 13kg',
-                                                      style: TextStyle(
-                                                        color:
-                                                            Color(0xFF888888),
-                                                        fontSize: 12,
-                                                        fontFamily:
-                                                            'Pretendard',
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        height: 1.0,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
+                                          left: 4),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            width: 232,
+                                            height: 18,
+                                            child: Text(
+                                              '우리집이 워터파크 ?',
+                                              style: TextStyle(
+                                                color: Color(0xFF3D3D3D),
+                                                fontSize: 14,
+                                                fontFamily: 'Pretendard',
+                                                fontWeight: FontWeight.w500,
+                                                height: 1.3,
                                               ),
                                             ),
+                                          ),
 
-                                            SizedBox(width: 4),
-                                            // 내부 박스와 아래 박스 사이의 간격
-                                            Container(
-                                              width: 24,
-                                              height: 40,
-                                              color: Colors.white, // 내부 박스 색상
-                                              child: Center(
-                                                child: Icon(
-                                                  Icons.favorite_border,
-                                                  // 하트 아이콘
-                                                  size: 24, // 아이콘 크기 조정
+                                          SizedBox(width: 12), // 사이즈 박스
+                                          Container(
+                                            width: 232,
+                                            height: 36,
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  width: 200,
+                                                  height: 36,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .start, // 위쪽 정렬
+                                                    children: [
+                                                      Container(
+                                                        width: 200,
+                                                        height: 14,
+                                                        child: Text(
+                                                          '추천 나이 : 3세 이상',
+                                                          style: TextStyle(
+                                                            color: Color(
+                                                                0xFF5D5D5D),
+                                                            fontSize: 12,
+                                                            fontFamily:
+                                                                'Pretendard',
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            height: 1.2,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(height: 8),
+                                                      // 사이즈 박스
+                                                      Container(
+                                                        width: 200,
+                                                        height: 14,
+                                                        child: Text(
+                                                          '종류 : 물놀이',
+                                                          style: TextStyle(
+                                                            color: Color(
+                                                                0xFF5D5D5D),
+                                                            fontSize: 12,
+                                                            fontFamily:
+                                                                'Pretendard',
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            height: 1.2,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
+
+                                                SizedBox(width: 8),
+                                                // 사이즈 박스 (가로 간격)
+                                                Container(
+                                                  width: 24,
+                                                  height: 36,
+                                                  color:
+                                                      Colors.grey, // 두 번째 박스 색상
+                                                ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
@@ -664,8 +723,8 @@ class _HomePageState extends State<_HomePage> {
                       ),
                       // 모디랑 육아팁
                       createFeedWidget(
-                        '모디랑 육아팁',
-                        '모든 가정에 행복이 가득했으면 하는 맘으로 모아봤어요',
+                        '모디랑 매거진',
+                        '육아에 대한 최신 트렌드 자료를 모았어요',
                       ),
                       // 모디랑 육아팁 그림
                       Container(
@@ -721,7 +780,7 @@ class _HomePageState extends State<_HomePage> {
                                             width: 216, // 너비 216
                                             height: 24, // 높이 24
                                             child: Text(
-                                              '아이가 잠을 안자요',
+                                              '김나영의 자랑스런 두아들, 신우 · 이준',
                                               style: TextStyle(
                                                 color: Color(0xFF3D3D3D),
                                                 fontSize: 20,
@@ -1532,411 +1591,176 @@ class CoreFunctionalityScreen extends StatefulWidget {
 }
 
 // 기능화면
-class _BookmarkScreenState extends State<CoreFunctionalityScreen> {
-  int _selectedIndex = 0;
-  String _selectedCategory = '전체';
+class _BookmarkScreenState extends State<CoreFunctionalityScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
 
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  List<String> _names = [];
-  List<String> _introductions = [];
-  List<String> classification = [];
-  List<String> _prices = [];
-  List<String> _imageUrls = [];
-  List<String> _designerIds = [];
-  List<int> _reviewCounts = [];
-  List<String> _titles = [];
-  List<String> _gender = [];
-
-  @override // 처음생성될때 위젯들을 불러옴
+  @override
   void initState() {
     super.initState();
-    _fetchDesignerData();
+    _tabController = TabController(length: 5, vsync: this); // 탭의 개수 설정
   }
 
-  Future<void> _fetchDesignerData() async {
-    try {
-      QuerySnapshot snapshot = await _firestore.collection('designer').get();
-      print('Documents fetched: ${snapshot.docs.length}'); // 문서 수 로그
-
-      setState(() {
-        _designerIds = snapshot.docs.map((doc) => doc.id).toList();
-        _names = snapshot.docs.map((doc) => doc['name'] as String).toList();
-        _introductions =
-            snapshot.docs.map((doc) => doc['introduction'] as String).toList();
-        classification = snapshot.docs
-            .map((doc) => doc['classification'] as String)
-            .toList();
-        _prices = snapshot.docs.map((doc) => doc['price'].toString()).toList();
-        _imageUrls =
-            snapshot.docs.map((doc) => doc['imageUrl'] as String).toList();
-        _titles = snapshot.docs.map((doc) => doc['title'] as String).toList();
-        _gender = snapshot.docs.map((doc) => doc['gender'] as String).toList();
-        _reviewCounts = snapshot.docs.map((doc) {
-          // reviewCount가 문자열일 경우 변환
-          var reviewCountValue = doc['reviewCount'];
-          if (reviewCountValue is String) {
-            return int.tryParse(reviewCountValue) ?? 0; // 변환 실패 시 0 반환
-          }
-          return reviewCountValue as int; // int로 간주
-        }).toList();
-      });
-    } catch (e) {
-      print('Error fetching designer data: $e'); // 오류 로그
-    }
+  @override
+  void dispose() {
+    _tabController.dispose(); // 리소스 해제
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: HomeAppBar(),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Center(
-                  child: Container(
-                    width: 360,
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 56,
-                          width: 360,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                left: 16, right: 16, top: 12, bottom: 12),
-                            child: Row(
-                              children: [
-                                _buildButton(0, '전체', 48),
-                                SizedBox(width: 8),
-                                _buildButton(1, '인기순', 78),
-                                SizedBox(width: 8),
-                                _buildButton(2, '분야', 66),
-                                SizedBox(width: 8),
-                                _buildButton(3, '성별', 66),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 428,
-                          child: _buildListView(),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildButton(int index, String text, double width) {
-    bool isSelected = _selectedIndex == index;
-    return InkWell(
-      onTap: () {
-        setState(() {
-          _selectedIndex = index;
-        });
-        if (index == 0) {
-          _selectedCategory = '전체';
-        }
-        if (index == 2) {
-          _showCategoryBottomSheet();
-        }
-        print('$text 버튼 클릭됨!');
-      },
-      borderRadius: BorderRadius.circular(100),
-      splashColor: Colors.grey.withOpacity(0.5),
-      highlightColor: Colors.transparent,
-      child: Container(
-        height: 32,
-        width: width,
-        decoration: BoxDecoration(
-          color: isSelected ? Color(0xFF3D3D3D) : Colors.transparent,
-          border: isSelected
-              ? null
-              : Border.all(width: 1, color: Color(0xFFE7E7E7)),
-          borderRadius: BorderRadius.circular(100),
-        ),
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                text,
-                style: TextStyle(
-                  color: isSelected ? Colors.white : Colors.black,
-                  fontSize: 14,
-                  fontFamily: 'Pretendard',
-                  fontWeight: FontWeight.w400,
-                  height: 1,
-                  letterSpacing: -0.35,
-                ),
-              ),
-              if (index > 0) ...[
-                SizedBox(width: 2),
-                Icon(
-                  Icons.arrow_drop_down,
-                  color: isSelected ? Colors.white : Colors.black,
-                  size: 16,
-                ),
-              ],
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _showCategoryBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (BuildContext context) {
-        return Padding(
-          padding: EdgeInsets.all(16),
+    return Scaffold(
+      appBar: HomeAppBar(),
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
-            mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                '카테고리 선택',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              Center(
+                child: Container(
+                  width: 360,
+                  height: 94,
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 360,
+                        height: 44,
+                        padding: EdgeInsets.only(left: 16, right: 16),
+                        child: TabBar(
+                          controller: _tabController,
+                          isScrollable: true,
+                          tabAlignment: TabAlignment.start,
+                          tabs: [
+                            Tab(
+                              child: Text(
+                                '전체',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xFF0095F6),
+                                  fontSize: 14,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3,
+                                  letterSpacing: -0.40,
+                                ),
+                              ),
+                            ),
+                            Tab(
+                              child: Text(
+                                '야외활동',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xFF0095F6),
+                                  fontSize: 14,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3,
+                                  letterSpacing: -0.40,
+                                ),
+                              ),
+                            ),
+                            Tab(
+                              child: Text(
+                                '실내활동',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xFF0095F6),
+                                  fontSize: 14,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3,
+                                  letterSpacing: -0.40,
+                                ),
+                              ),
+                            ),
+                            Tab(
+                              child: Text(
+                                '장난감',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xFF0095F6),
+                                  fontSize: 14,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3,
+                                  letterSpacing: -0.40,
+                                ),
+                              ),
+                            ),
+                            Tab(
+                              child: Text(
+                                '시설/행사',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xFF0095F6),
+                                  fontSize: 14,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3,
+                                  letterSpacing: -0.40,
+                                ),
+                              ),
+                            ),
+                          ],
+                          indicatorColor: Color(0xFF0095F6),
+                          indicatorSize: TabBarIndicatorSize.label,
+                          indicatorPadding: EdgeInsets.only(top: 12, bottom: 0),
+                          labelPadding: EdgeInsets.symmetric(
+                              horizontal: 8), // 탭 간의 간격을 넓히기 위해 수정된 부분
+                        ),
+                      ),
+                      Divider(
+                        color: Color(0xFFF6F6F6),
+                        height: 2.0,
+                        thickness: 2.0,
+                      ),
+                      Container(
+                        width: 360,
+                        height: 48,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 81,
+                              height: 18,
+                              child: Text(
+                                '전체 놀이 1건',
+                                style: TextStyle(
+                                  color: Color(0xFF3D3D3D),
+                                  fontSize: 14,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.0,
+                                  letterSpacing: -0.35,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 4),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              SizedBox(height: 20),
-              ListTile(
-                title: Text('전체'),
-                onTap: () {
-                  setState(() {
-                    _selectedCategory = '전체';
-                  });
-                  Navigator.of(context).pop();
-                },
-              ),
-              ListTile(
-                title: Text('빈티지'),
-                onTap: () {
-                  setState(() {
-                    _selectedCategory = '빈티지';
-                  });
-                  Navigator.of(context).pop();
-                },
-              ),
-              ListTile(
-                title: Text('아메카지'),
-                onTap: () {
-                  setState(() {
-                    _selectedCategory = '아메카지';
-                  });
-                  Navigator.of(context).pop();
-                },
-              ),
-              ListTile(
-                title: Text('포멀'),
-                onTap: () {
-                  setState(() {
-                    _selectedCategory = '포멀';
-                  });
-                  Navigator.of(context).pop();
-                },
-              ),
-              SizedBox(height: 20),
-              TextButton(
-                child: Text('닫기'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
+              // TabBarView를 추가하여 탭에 따른 내용을 표시
+              Container(
+                height: 540, // 적절한 높이 설정
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    TabContent(),
+                    Center(child: Text('2')),
+                    Center(child: Text('3')), // 실내활동 탭 내용
+                    Center(child: Text('장난감 탭 내용')), // 장난감 탭 내용
+                    Center(child: Text('시설/행사 탭 내용')), // 시설/행사 탭 내용
+                  ],
+                ),
               ),
             ],
           ),
-        );
-      },
-    );
-  }
-
-  Widget _buildListView() {
-    List<int> filteredIndices = [];
-    for (int i = 0; i < classification.length; i++) {
-      if (_selectedCategory == '전체' ||
-          classification[i].contains(_selectedCategory)) {
-        filteredIndices.add(i);
-      }
-    }
-
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            width: 1,
-            color: Color(0xFFE7E7E7),
-          ),
         ),
-      ),
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
-        itemCount: filteredIndices.length,
-        itemBuilder: (context, index) {
-          final itemIndex = filteredIndices[index];
-          return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DesignerDetailScreen(
-                    designerId: _designerIds[itemIndex],
-                    name: _names[itemIndex],
-                    introduction: _introductions[itemIndex],
-                    classification: classification[itemIndex],
-                    price: _prices[itemIndex],
-                    imageUrl: _imageUrls[itemIndex],
-                    reviewCount: _reviewCounts[itemIndex],
-                    gender: _gender[itemIndex],
-                  ),
-                ),
-              );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.zero,
-                  border: Border(
-                      bottom: BorderSide(width: 1, color: Color(0xFFE7E7E7)))),
-              height: 128,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 96,
-                    height: 96,
-                    margin: EdgeInsets.only(right: 16.0, left: 16.0),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(_imageUrls[itemIndex]),
-                        fit: BoxFit.cover,
-                      ),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          _titles[itemIndex],
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Pretendard',
-                            fontWeight: FontWeight.w700,
-                            height: 1.2,
-                            letterSpacing: -0.35,
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          _names[itemIndex],
-                          style: TextStyle(
-                            color: Color(0xFF5D5D5D),
-                            fontSize: 12,
-                            fontFamily: 'Pretendard',
-                            fontWeight: FontWeight.w400,
-                            height: 1.2,
-                            letterSpacing: -0.30,
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        Row(
-                          children: [
-                            Icon(Icons.star, size: 14, color: Colors.yellow),
-                            SizedBox(width: 4),
-                            Text(
-                              '4.9',
-                              style: TextStyle(
-                                color: Color(0xFF5D5D5D),
-                                fontSize: 12,
-                                fontFamily: 'Pretendard',
-                                fontWeight: FontWeight.w400,
-                                height: 1.2,
-                                letterSpacing: -0.30,
-                              ),
-                            ),
-                            SizedBox(width: 2),
-                            Text(
-                              '(${_reviewCounts[itemIndex]})',
-                              style: TextStyle(
-                                color: Color(0xFF5D5D5D),
-                                fontSize: 12,
-                                fontFamily: 'Pretendard',
-                                fontWeight: FontWeight.w400,
-                                height: 1.2,
-                                letterSpacing: -0.30,
-                              ),
-                            ),
-                            SizedBox(width: 4),
-                            Container(
-                              width: 1,
-                              height: 12,
-                              decoration:
-                                  BoxDecoration(color: Color(0xFF888888)),
-                            ),
-                            SizedBox(width: 4),
-                            Text(
-                              '${classification[itemIndex]}',
-                              style: TextStyle(
-                                color: Color(0xFF5D5D5D),
-                                fontSize: 12,
-                                fontFamily: 'Pretendard',
-                                fontWeight: FontWeight.w400,
-                                height: 1.2,
-                                letterSpacing: -0.30,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 8),
-                        Row(
-                          children: [
-                            Text(
-                              '${_prices[itemIndex]}',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontFamily: 'Pretendard',
-                                fontWeight: FontWeight.w600,
-                                height: 1.3,
-                                letterSpacing: -0.35,
-                              ),
-                            ),
-                            SizedBox(width: 4),
-                            Text(
-                              '원',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 12,
-                                fontFamily: 'Pretendard',
-                                fontWeight: FontWeight.w400,
-                                height: 1.3,
-                                letterSpacing: -0.35,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
       ),
     );
   }
@@ -1946,38 +1770,187 @@ class _BookmarkScreenState extends State<CoreFunctionalityScreen> {
 /* 커뮤/매거진 화면 관리 */
 /////////////////////////////////////////////////////////////////////
 // 커뮤/ 매거진 화면
-class CommunityScreen extends StatelessWidget {
+
+class CommunityScreen extends StatefulWidget {
+  @override
+  _CommunityScreenState createState() => _CommunityScreenState();
+}
+
+class _CommunityScreenState extends State<CommunityScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 1, vsync: this); // 탭의 개수 설정
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose(); // 리소스 해제
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HomeAppBar(), // 앱바
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, // 중앙 정렬
-          children: [
-            Text(
-              '커뮤니티', // 텍스트 변경
-              style: TextStyle(fontSize: 24),
-            ),
-            SizedBox(height: 20), // 텍스트와 버튼 사이의 간격
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MyHomePage1(), // MyHomePage1 화면으로 이동
+      appBar: HomeAppBar(),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Center(
+                child: Container(
+                  width: 360,
+                  height: 94,
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 360,
+                        height: 44,
+                        padding: EdgeInsets.only(left: 16, right: 16),
+                        child: TabBar(
+                          controller: _tabController,
+                          isScrollable: true,
+                          tabAlignment: TabAlignment.start,
+                          tabs: [
+                            Tab(
+                              child: Text(
+                                '전체',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xFF0095F6),
+                                  fontSize: 14,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3,
+                                  letterSpacing: -0.40,
+                                ),
+                              ),
+                            ),
+                          ],
+                          indicatorColor: Color(0xFF0095F6),
+                          indicatorSize: TabBarIndicatorSize.label,
+                          indicatorPadding: EdgeInsets.only(top: 12, bottom: 0),
+                          labelPadding: EdgeInsets.symmetric(
+                              horizontal: 8), // 탭 간의 간격을 넓히기 위해 수정된 부분
+                        ),
+                      ),
+                      Divider(
+                        color: Color(0xFFF6F6F6),
+                        height: 2.0,
+                        thickness: 2.0,
+                      ),
+                      Container(
+                        width: 360,
+                        height: 48,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                        color: Colors.white,
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 71,
+                              height: 18,
+                              child: Text(
+                                '총 2건',
+                                style: TextStyle(
+                                  color: Color(0xFF3D3D3D),
+                                  fontSize: 14,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.0,
+                                  letterSpacing: -0.35,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                );
-              },
-              child: Text('MyHomePage1로 이동'), // 버튼 텍스트
-            ),
-          ],
+                ),
+              ),
+              // TabBarView를 추가하여 탭에 따른 내용을 표시
+              Container(
+                height: 540, // 적절한 높이 설정
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    TabContent111(),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
+class TabContent111 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Center(
+          child: Container(
+            width: 360,
+            height: 740,
+            color: Colors.white,
+            child: Column(
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyHomePage2()),
+                    );
+                  },
+                  child: Container(
+                    width: 328,
+                    height: 180,
+                    padding: EdgeInsets.only(left: 16, right: 16, top: 24),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8), // 모서리 둥글게
+                      child: Image.asset(
+                        'assets/image/joonbam111 img.png', // 이미지 경로
+                        fit: BoxFit.cover, // 이미지를 Container에 맞게 조절
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyHomePage3()),
+                    );
+                  },
+                  child: Container(
+                    width: 328,
+                    height: 180,
+                    padding: EdgeInsets.only(left: 16, right: 16, top: 24),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8), // 모서리 둥글게
+                      child: Image.asset(
+                        'assets/image/joonbam222 img.png', // 이미지 경로
+                        fit: BoxFit.cover, // 이미지를 Container에 맞게 조절
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 /////////////////////////////////////////////////////////////////////
 
 /* 예약화면 화면 관리 */
@@ -1991,19 +1964,8 @@ class QuotationPage extends StatefulWidget {
 // 예약화면
 class _QuotationPageState extends State<QuotationPage>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
 
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 3, vsync: this); // 탭의 개수 설정
-  }
 
-  @override
-  void dispose() {
-    _tabController.dispose(); // 리소스 해제
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -2011,129 +1973,6 @@ class _QuotationPageState extends State<QuotationPage>
       home: SafeArea(
         child: Scaffold(
           appBar: HomeAppBar(),
-          //AppBar(
-          //   leading: IconButton(
-          //     icon: Icon(Icons.arrow_back),
-          //     onPressed: () => Navigator.of(context).pop(),
-          //   ),
-          //   title: Text(
-          //     '스타일링 내역',
-          //     style: TextStyle(
-          //       color: Color(0xFF3D3D3D),
-          //       fontSize: 18,
-          //       fontFamily: 'Pretendard',
-          //       fontWeight: FontWeight.w700,
-          //       height: 1.4,
-          //       letterSpacing: -0.45,
-          //     ),
-          //   ),
-          //   actions: [
-          //     Padding(
-          //       padding: const EdgeInsets.only(right: 4),
-          //       child: IconButton(
-          //           onPressed: () {},
-          //           icon: Icon(Icons.home_outlined),
-          //           iconSize: 24),
-          //     )
-          //   ],
-          // ),
-          body: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Center(
-                    child: Container(
-                      width: 360,
-                      height: 120,
-                      child: Column(
-                        children: [
-                          Container(
-                            width: 360,
-                            height: 44,
-                          ),
-                          Divider(
-                            color: Color(0xFFF6F6F6),
-                            height: 2.0,
-                            thickness: 2.0,
-                          ),
-                          Container(
-                            width: 360,
-                            height: 66,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 12),
-                            child: Center(
-                              // 자식 컨테이너를 중앙 정렬
-                              child: Container(
-                                width: 328,
-                                height: 42,
-                                color: Color(0xFFF6F6F6),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 8),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      width: 18,
-                                      height: 18,
-                                      child: Icon(
-                                        Icons.search,
-                                        size: 18, // 아이콘 크기 설정
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    SizedBox(width: 4),
-                                    Container(
-                                      width: 274,
-                                      height: 18,
-                                      child: TextField(
-                                        decoration: InputDecoration(
-                                          hintText: '제목 및 디자이너, 스타일로 검색해 보세요',
-                                          hintStyle: TextStyle(
-                                            color: Color(0xFF888888),
-                                            // 힌트 텍스트
-                                            fontSize: 14,
-                                            // 글자 크기
-                                            fontFamily: 'Pretendard',
-                                            // 폰트 패밀리
-                                            fontWeight: FontWeight.w400,
-                                            // 글자 두께
-                                            height: 1.2,
-                                            // 줄 높이
-                                            letterSpacing: -0.35, // 글자 사이 간격
-                                          ),
-                                          border: InputBorder.none, // 밑줄 없애기
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 360,
-                            height: 8,
-                            color: Color(0xFFF6F6F6),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  // 여기 아래에 TabBarView를 추가하여 탭에 따른 내용을 표시할 수 있습니다.
-                  Container(
-                    height: 540, // 적절한 높이 설정
-
-                    child: TabBarView(
-                      controller: _tabController,
-                      children: [
-                        TabContent1(),
-                        TabContent2(),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
         ),
       ),
     );
@@ -3761,7 +3600,6 @@ class ShoppingScreen extends StatelessWidget {
               ),
             ),
             reviewContainer(),
-
           ],
         ),
       ),
@@ -3952,7 +3790,8 @@ Widget card_widget(String imagePath, String title, String subtitle) {
   return Container(
     width: 158,
     height: 96,
-    padding: EdgeInsets.fromLTRB(16, 8, 16, 6), // 패딩 추가
+    padding: EdgeInsets.fromLTRB(16, 8, 16, 6),
+    // 패딩 추가
     decoration: ShapeDecoration(
       color: Color(0xFFF6F6F6), // 배경 색상
       shape: RoundedRectangleBorder(
@@ -4070,7 +3909,8 @@ Widget reviewContainer() {
     width: 360,
     height: 66,
     color: Colors.white,
-    child: Center( // 버튼을 중앙에 배치
+    child: Center(
+      // 버튼을 중앙에 배치
       child: Container(
         width: 328,
         height: 42,
@@ -4320,7 +4160,7 @@ Widget CompanyInfo() {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  '대표이사  :  황대찬  |  사업자등록번호  :  123-45-67891',
+                  '대표이사  :  황대찬  |  사업자등록번호  :  비공개',
                   style: TextStyle(
                     color: Color(0xFF5D5D5D),
                     fontSize: 11,
@@ -4380,7 +4220,7 @@ Widget CompanyInfo() {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  '호스팅서비스제공자  :  (주)모디랑',
+                  '호스팅서비스제공자  : Firebase Hosting - Google  ',
                   style: TextStyle(
                     color: Color(0xFF5D5D5D),
                     fontSize: 11,

@@ -108,11 +108,19 @@ flutter:
     - assets/image/magazine img4.png
     - assets/image/magazine img5.png
     - assets/image/magazine img6.png
+    - assets/image/magazine2 img.png
+    - assets/image/magazine2 img2.png
+    - assets/image/magazine2 img3.png
+    - assets/image/magazine2 img4.png
+    - assets/image/magazine2 img5.png
 
     - assets/image/noinformation img.png
 
     - assets/image/Mypage_iocn1 img.png
     - assets/image/Mypage_iocn2 img.png
+
+    - assets/image/joonbam111 img.png
+    - assets/image/joonbam222 img.png
   uses-material-design: true
   fonts:
     - family: Pretendard

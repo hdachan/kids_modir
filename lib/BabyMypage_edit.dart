@@ -32,6 +32,7 @@ class _MyPageEditState extends State<BabymypageEdit> {
   final TextEditingController BirthDateController = TextEditingController(); // Gender
   final TextEditingController heightController = TextEditingController(); // Height
   final TextEditingController weightController = TextEditingController(); // Weight
+  final TextEditingController qqqqController = TextEditingController(); // Weight
 
 
   bool isFemaleSelected = false; // 여자 버튼 선택 상태
@@ -337,7 +338,7 @@ class _MyPageEditState extends State<BabymypageEdit> {
                           children: [
                             SubTitle('관심사'),
                             SizedBox(height: 12), // 사이즈 박스 8
-                            inputField3(weightController, '몸무게', (value) {
+                            inputField3(qqqqController, '현재 관심사 기능은 준비중입니다', (value) {
                               setState(() {}); // 텍스트 변화 시 상태 업데이트
                             }),
                             SizedBox(height: 12), // 사이즈 박스 8

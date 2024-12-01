@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'Id_Making.dart';
+import 'Mypage_edit.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -88,7 +89,7 @@ class _SignupPageState extends State<SignupPage> {
       });
 
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => IdMaking()));
+          context, MaterialPageRoute(builder: (context) => MyPageEdit()));
     } on FirebaseAuthException catch (e) {
       setState(() {
         if (e.code == 'unknown') {

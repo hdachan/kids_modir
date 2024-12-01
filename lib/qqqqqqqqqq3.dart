@@ -12,17 +12,17 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage2(),
+      home: MyHomePage3(),
     );
   }
 }
 
-class MyHomePage2 extends StatefulWidget {
+class MyHomePage3 extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage2> {
+class _MyHomePageState extends State<MyHomePage3> {
   bool _isExpanded = false; // 텍스트가 확장되었는지 여부
   int? _selectedIndex= 2; // 현재 선택된 버튼의 인덱스
 
@@ -48,12 +48,11 @@ class _MyHomePageState extends State<MyHomePage2> {
                     // PageView로 변경
                     scrollDirection: Axis.horizontal, // 수평 스크롤 방향 설정
                     children: [
-                      imageContainer('assets/image/magazine img.png'),
-                      imageContainer('assets/image/magazine img2.png'),
-                      imageContainer('assets/image/magazine img3.png'),
-                      imageContainer('assets/image/magazine img4.png'),
-                      imageContainer('assets/image/magazine img5.png'),
-                      imageContainer('assets/image/magazine img6.png'),
+                      imageContainer('assets/image/magazine2 img.png'),
+                      imageContainer('assets/image/magazine2 img2.png'),
+                      imageContainer('assets/image/magazine2 img3.png'),
+                      imageContainer('assets/image/magazine2 img4.png'),
+                      imageContainer('assets/image/magazine2 img5.png'),
                     ],
                   ),
                 ),
@@ -62,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage2> {
                   height: 68,
                   color: Colors.white,
                   padding:
-                      EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 12),
+                  EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 12),
                   // 패딩 설정
                   child: Row(
                     children: [
@@ -143,8 +142,8 @@ class _MyHomePageState extends State<MyHomePage2> {
                 ] else if (_selectedIndex == 2) ...[
                   PostCard(
                     author: 'Modir',
-                    content: '개그우먼 홍현희씨의 아들 준범이의 일상룩을 살펴 보았습니다\n모디랑에서 뽑은 최고의 코디입니다.\n1. 진주 목걸이로 포인트를 준 동원룩\n2. 세상에서 제일 귀여운 플러팅\n3. 소라게 포즈의 정석\n4. 보넷이 어울리는 남자',
-                    date: '2024. 11. 27',
+                    content: '김나영의 두 아들을 신우와 이준의 룩을 통해 김나영의 독특한 취향을 확인하자!!평소 화려한 컬러감이 돋보이는 스타일의 옷들을 소화한 김나영은 두 아들 신우와 이준에게도 입히는걸로 유명하다.',
+                    date: '2024. 11. 29',
                   ),
                 ] else if (_selectedIndex == 3) ...[
                   PostCard(
