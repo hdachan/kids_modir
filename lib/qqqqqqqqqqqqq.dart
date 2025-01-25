@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+
+import 'qqqqqqqqqq3.dart';
+import 'shopping.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -312,8 +315,15 @@ class TabContent extends StatelessWidget {
                                           width: 32,
                                           height: 32,
                                           decoration: BoxDecoration(
-                                            color: Colors.grey, // 배경 색상
                                             borderRadius: BorderRadius.circular(100), // 라운드 설정
+                                          ),
+                                          child: ClipOval( // 이미지를 원형으로 자르기 위해 ClipOval 사용
+                                            child: Image.asset(
+                                              'assets/image/titie img.png', // 이미지 경로
+                                              fit: BoxFit.cover, // 이미지가 컨테이너에 맞춰 잘리거나 늘어나는 방식
+                                              width: 32, // 원하는 너비
+                                              height: 32, // 원하는 높이
+                                            ),
                                           ),
                                         ),
                                         SizedBox(width: 8),
@@ -343,7 +353,7 @@ class TabContent extends StatelessWidget {
                                                 height: 14,
                                                 alignment: Alignment.centerLeft, // 중앙 왼쪽 정렬
                                                 child: Text(
-                                                  '실내활동',
+                                                  '야외활동/실내활동',
                                                   style: TextStyle(
                                                     color: Color(0xFF3D3D3D),
                                                     fontSize: 12,
@@ -359,11 +369,28 @@ class TabContent extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  Container(
-                                    width: 162,
-                                    height: 216,
-                                    color: Colors.cyan,
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => MyHomePage4()),
+                                      );
+                                    },
+                                    child: Container(
+                                      width: 162,
+                                      height: 216,
+                                      color: Colors.cyan,
+                                      child: Center( // 이미지를 중앙에 배치
+                                        child: Image.asset(
+                                          'assets/image/play_shop1.png', // 이미지 경로
+                                          fit: BoxFit.cover, // 이미지가 컨테이너에 맞춰 잘리거나 늘어나는 방식
+                                          width: 162, // 원하는 너비
+                                          height: 216, // 원하는 높이
+                                        ),
+                                      ),
+                                    ),
                                   ),
+
                                   Container(
                                     width: 162,
                                     height: 86,
@@ -502,7 +529,7 @@ class TabContent extends StatelessWidget {
                                                   height: 14,
                                                   alignment: Alignment.centerLeft, // 중앙 왼쪽 정렬
                                                   child: Text(
-                                                    '실내활동',
+                                                    '실내/실외활동',
                                                     style: TextStyle(
                                                       color: Color(0xFF3D3D3D),
                                                       fontSize: 12,

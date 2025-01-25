@@ -30,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage3> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('개그우먼 홍현희 아들 준범의 일상룩'), // 앱바 제목 설정
+        title: Text('김나영의 두 아들을 신우와 이준의 룩'), // 앱바 제목 설정
       ),
       body: SingleChildScrollView(
         child: Center(

@@ -20,6 +20,7 @@ import 'qqqqqqqq2.dart';
 import 'qqqqqqqqqq3.dart';
 import 'qqqqqqqqqqqqq.dart';
 import 'setting.dart';
+import 'shopping.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -224,7 +225,7 @@ class _HomePageState extends State<_HomePage> {
                           ],
                         ),
                       ),
-                      announcement('쿠폰 받으러 가기'),
+                      announcement('현재 프로토타입입니다. 일부기능이 제외됩니다'),
 
                       Container(
                         height: 240,
@@ -323,12 +324,12 @@ class _HomePageState extends State<_HomePage> {
                       //                   },
                       SizedBox(height: 8),
 
-                      // 모디랑 피드글씨
+                      // 모디랑 놀이 피드글씨
                       createFeedWidget(
                         '모디랑 놀이',
                         '다양한 놀이 방법을 통해 아이와 즐거운 추억을 만드세요',
                       ),
-                      // 모디랑 피드 그림
+                      // 모디랑 놀이 컨테아너
                       Container(
                         width: 360,
                         decoration: BoxDecoration(
@@ -341,380 +342,345 @@ class _HomePageState extends State<_HomePage> {
                           child: Row(
                             children: [
                               // 1번째 위젯
-                              Container(
-                                width: 240,
-                                height: 430,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      width: 240,
-                                      height: 44,
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 4, vertical: 4),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            width: 36,
-                                            height: 36,
-                                            decoration: BoxDecoration(
-                                              color: Colors.red,
-                                              // 원하는 색상으로 변경 가능
-                                              shape:
-                                                  BoxShape.circle, // 동그란 형태로 설정
-                                            ),
-                                            child: ClipOval(
-                                              child: Image.asset(
-                                                'assets/image/titie img.png',
-                                                // 이미지 경로
-                                                fit: BoxFit.cover, // 이미지 비율 유지
-                                                width: 36,
-                                                height: 36,
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => MyHomePage4()),
+                                  );
+                                },
+                                child: Container(
+                                  width: 240,
+                                  height: 430,
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        width: 240,
+                                        height: 44,
+                                        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              width: 36,
+                                              height: 36,
+                                              decoration: BoxDecoration(
+                                                color: Colors.red,
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: ClipOval(
+                                                child: Image.asset(
+                                                  'assets/image/titie img.png',
+                                                  fit: BoxFit.cover,
+                                                  width: 36,
+                                                  height: 36,
+                                                ),
                                               ),
                                             ),
-                                          ),
-
-                                          SizedBox(width: 8), // 사이즈 박스 8 추가
-                                          Container(
-                                            width: 180,
-                                            height: 36,
-                                            child: Column(
-                                              children: [
-                                                Container(
-                                                  width: 180,
-                                                  height: 18,
-                                                  child: Text(
-                                                    '무호흡 이유식 딜링',
-                                                    style: TextStyle(
-                                                      color: Color(0xFF3D3D3D),
-                                                      fontSize: 14,
-                                                      fontFamily: 'Pretendard',
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      height: 1.3,
+                                            SizedBox(width: 8),
+                                            Container(
+                                              width: 180,
+                                              height: 36,
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    width: 180,
+                                                    height: 18,
+                                                    child: Text(
+                                                      'Modir',
+                                                      style: TextStyle(
+                                                        color: Color(0xFF3D3D3D),
+                                                        fontSize: 14,
+                                                        fontFamily: 'Pretendard',
+                                                        fontWeight: FontWeight.w500,
+                                                        height: 1.3,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                SizedBox(height: 4),
-                                                // 사이즈 박스 4 추가
-                                                Container(
-                                                  width: 180,
-                                                  height: 14,
-                                                  child: Text(
-                                                    '클린바이브하우스',
-                                                    style: TextStyle(
-                                                      color: Color(0xFF3D3D3D),
-                                                      fontSize: 12,
-                                                      fontFamily: 'Pretendard',
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      height: 1.2,
+                                                  SizedBox(height: 4),
+                                                  Container(
+                                                    width: 180,
+                                                    height: 14,
+                                                    child: Text(
+                                                      '야외활동',
+                                                      style: TextStyle(
+                                                        color: Color(0xFF3D3D3D),
+                                                        fontSize: 12,
+                                                        fontFamily: 'Pretendard',
+                                                        fontWeight: FontWeight.w400,
+                                                        height: 1.2,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 240,
-                                      height: 300,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                              'assets/image/content.png'),
-                                          // 이미지 경로
-                                          fit: BoxFit.cover, // 이미지 꽉 차게
+                                          ],
                                         ),
                                       ),
-                                    ),
-                                    Container(
-                                      width: 240,
-                                      height: 86,
-                                      padding: EdgeInsets.only(
-                                          top: 12,
-                                          bottom: 8,
-                                          right: 4,
-                                          left: 4),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            width: 232,
-                                            height: 18,
-                                            child: Text(
-                                              '우리집이 워터파크 ?',
-                                              style: TextStyle(
-                                                color: Color(0xFF3D3D3D),
-                                                fontSize: 14,
-                                                fontFamily: 'Pretendard',
-                                                fontWeight: FontWeight.w500,
-                                                height: 1.3,
+                                      Container(
+                                        width: 240,
+                                        height: 300,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: AssetImage('assets/image/content3.png'),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 240,
+                                        height: 86,
+                                        padding: EdgeInsets.only(top: 12, bottom: 8, right: 4, left: 4),
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              width: 232,
+                                              height: 18,
+                                              child: Text(
+                                                '우리집이 워터파크 ?',
+                                                style: TextStyle(
+                                                  color: Color(0xFF3D3D3D),
+                                                  fontSize: 14,
+                                                  fontFamily: 'Pretendard',
+                                                  fontWeight: FontWeight.w500,
+                                                  height: 1.3,
+                                                ),
                                               ),
                                             ),
-                                          ),
-
-                                          SizedBox(width: 12), // 사이즈 박스
-                                          Container(
-                                            width: 232,
-                                            height: 36,
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                  width: 200,
-                                                  height: 36,
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .start, // 위쪽 정렬
-                                                    children: [
-                                                      Container(
-                                                        width: 200,
-                                                        height: 14,
-                                                        child: Text(
-                                                          '추천 나이 : 3세 이상',
-                                                          style: TextStyle(
-                                                            color: Color(
-                                                                0xFF5D5D5D),
-                                                            fontSize: 12,
-                                                            fontFamily:
-                                                                'Pretendard',
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            height: 1.2,
+                                            SizedBox(width: 12),
+                                            Container(
+                                              width: 232,
+                                              height: 36,
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    width: 200,
+                                                    height: 36,
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          width: 200,
+                                                          height: 14,
+                                                          child: Text(
+                                                            '추천 나이 : 3세 이상',
+                                                            style: TextStyle(
+                                                              color: Color(0xFF5D5D5D),
+                                                              fontSize: 12,
+                                                              fontFamily: 'Pretendard',
+                                                              fontWeight: FontWeight.w400,
+                                                              height: 1.2,
+                                                            ),
                                                           ),
                                                         ),
-                                                      ),
-                                                      SizedBox(height: 8),
-                                                      // 사이즈 박스
-                                                      Container(
-                                                        width: 200,
-                                                        height: 14,
-                                                        child: Text(
-                                                          '종류 : 물놀이',
-                                                          style: TextStyle(
-                                                            color: Color(
-                                                                0xFF5D5D5D),
-                                                            fontSize: 12,
-                                                            fontFamily:
-                                                                'Pretendard',
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            height: 1.2,
+                                                        SizedBox(height: 8),
+                                                        Container(
+                                                          width: 200,
+                                                          height: 14,
+                                                          child: Text(
+                                                            '종류 : 물놀이',
+                                                            style: TextStyle(
+                                                              color: Color(0xFF5D5D5D),
+                                                              fontSize: 12,
+                                                              fontFamily: 'Pretendard',
+                                                              fontWeight: FontWeight.w400,
+                                                              height: 1.2,
+                                                            ),
                                                           ),
                                                         ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-
-                                                SizedBox(width: 8),
-                                                // 사이즈 박스 (가로 간격)
-                                                Container(
-                                                  width: 24,
-                                                  height: 36,
-                                                  child: Center(
-                                                    child: Icon(
-                                                      Icons.favorite, // 하트 아이콘
-                                                      size: 24, // 아이콘 크기
-                                                      color:
-                                                          Colors.red, // 아이콘 색상
+                                                      ],
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                  SizedBox(width: 8),
+                                                  Container(
+                                                    width: 24,
+                                                    height: 36,
+                                                    child: Center(
+                                                      child: Icon(
+                                                        Icons.favorite,
+                                                        size: 24,
+                                                        color: Colors.red,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                               SizedBox(width: 15),
                               // 2번째 위젯
-                              Container(
-                                width: 240,
-                                height: 430,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      width: 240,
-                                      height: 44,
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 4, vertical: 4),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            width: 36,
-                                            height: 36,
-                                            decoration: BoxDecoration(
-                                              color: Colors.red,
-                                              // 원하는 색상으로 변경 가능
-                                              shape:
-                                                  BoxShape.circle, // 동그란 형태로 설정
-                                            ),
-                                            child: ClipOval(
-                                              child: Image.asset(
-                                                'assets/image/titie img.png',
-                                                // 이미지 경로
-                                                fit: BoxFit.cover, // 이미지 비율 유지
-                                                width: 36,
-                                                height: 36,
+                              InkWell(
+                                onTap: () {
+                                  _showPopup(context);
+                                },
+                                child: Container(
+                                  width: 240,
+                                  height: 430,
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        width: 240,
+                                        height: 44,
+                                        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              width: 36,
+                                              height: 36,
+                                              decoration: BoxDecoration(
+                                                color: Colors.red,
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: ClipOval(
+                                                child: Image.asset(
+                                                  'assets/image/titie img.png',
+                                                  fit: BoxFit.cover,
+                                                  width: 36,
+                                                  height: 36,
+                                                ),
                                               ),
                                             ),
-                                          ),
-
-                                          SizedBox(width: 8), // 사이즈 박스 8 추가
-                                          Container(
-                                            width: 180,
-                                            height: 36,
-                                            child: Column(
-                                              children: [
-                                                Container(
-                                                  width: 180,
-                                                  height: 18,
-                                                  child: Text(
-                                                    '무호흡 이유식 딜링',
-                                                    style: TextStyle(
-                                                      color: Color(0xFF3D3D3D),
-                                                      fontSize: 14,
-                                                      fontFamily: 'Pretendard',
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      height: 1.3,
+                                            SizedBox(width: 8),
+                                            Container(
+                                              width: 180,
+                                              height: 36,
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    width: 180,
+                                                    height: 18,
+                                                    child: Text(
+                                                      'Modir',
+                                                      style: TextStyle(
+                                                        color: Color(0xFF3D3D3D),
+                                                        fontSize: 14,
+                                                        fontFamily: 'Pretendard',
+                                                        fontWeight: FontWeight.w500,
+                                                        height: 1.3,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                SizedBox(height: 4),
-                                                // 사이즈 박스 4 추가
-                                                Container(
-                                                  width: 180,
-                                                  height: 14,
-                                                  child: Text(
-                                                    '클린바이브하우스',
-                                                    style: TextStyle(
-                                                      color: Color(0xFF3D3D3D),
-                                                      fontSize: 12,
-                                                      fontFamily: 'Pretendard',
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      height: 1.2,
+                                                  SizedBox(height: 4),
+                                                  Container(
+                                                    width: 180,
+                                                    height: 14,
+                                                    child: Text(
+                                                      '시설/행사',
+                                                      style: TextStyle(
+                                                        color: Color(0xFF3D3D3D),
+                                                        fontSize: 12,
+                                                        fontFamily: 'Pretendard',
+                                                        fontWeight: FontWeight.w400,
+                                                        height: 1.2,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 240,
-                                      height: 300,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                              'assets/image/content.png'),
-                                          // 이미지 경로
-                                          fit: BoxFit.cover, // 이미지 꽉 차게
+                                          ],
                                         ),
                                       ),
-                                    ),
-                                    Container(
-                                      width: 240,
-                                      height: 86,
-                                      padding: EdgeInsets.only(
-                                          top: 12,
-                                          bottom: 8,
-                                          right: 4,
-                                          left: 4),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            width: 232,
-                                            height: 18,
-                                            child: Text(
-                                              '우리집이 워터파크 ?',
-                                              style: TextStyle(
-                                                color: Color(0xFF3D3D3D),
-                                                fontSize: 14,
-                                                fontFamily: 'Pretendard',
-                                                fontWeight: FontWeight.w500,
-                                                height: 1.3,
+                                      Container(
+                                        width: 240,
+                                        height: 300,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: AssetImage('assets/image/content4.png'),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 240,
+                                        height: 86,
+                                        padding: EdgeInsets.only(top: 12, bottom: 8, right: 4, left: 4),
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              width: 232,
+                                              height: 18,
+                                              child: Text(
+                                                '가족과 함께하는 머드축제',
+                                                style: TextStyle(
+                                                  color: Color(0xFF3D3D3D),
+                                                  fontSize: 14,
+                                                  fontFamily: 'Pretendard',
+                                                  fontWeight: FontWeight.w500,
+                                                  height: 1.3,
+                                                ),
                                               ),
                                             ),
-                                          ),
-
-                                          SizedBox(width: 12), // 사이즈 박스
-                                          Container(
-                                            width: 232,
-                                            height: 36,
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                  width: 200,
-                                                  height: 36,
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .start, // 위쪽 정렬
-                                                    children: [
-                                                      Container(
-                                                        width: 200,
-                                                        height: 14,
-                                                        child: Text(
-                                                          '추천 나이 : 3세 이상',
-                                                          style: TextStyle(
-                                                            color: Color(
-                                                                0xFF5D5D5D),
-                                                            fontSize: 12,
-                                                            fontFamily:
-                                                                'Pretendard',
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            height: 1.2,
+                                            SizedBox(width: 12),
+                                            Container(
+                                              width: 232,
+                                              height: 36,
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    width: 200,
+                                                    height: 36,
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          width: 200,
+                                                          height: 14,
+                                                          child: Text(
+                                                            '추천 나이 : 6세 이상',
+                                                            style: TextStyle(
+                                                              color: Color(0xFF5D5D5D),
+                                                              fontSize: 12,
+                                                              fontFamily: 'Pretendard',
+                                                              fontWeight: FontWeight.w400,
+                                                              height: 1.2,
+                                                            ),
                                                           ),
                                                         ),
-                                                      ),
-                                                      SizedBox(height: 8),
-                                                      // 사이즈 박스
-                                                      Container(
-                                                        width: 200,
-                                                        height: 14,
-                                                        child: Text(
-                                                          '종류 : 물놀이',
-                                                          style: TextStyle(
-                                                            color: Color(
-                                                                0xFF5D5D5D),
-                                                            fontSize: 12,
-                                                            fontFamily:
-                                                                'Pretendard',
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            height: 1.2,
+                                                        SizedBox(height: 8),
+                                                        Container(
+                                                          width: 200,
+                                                          height: 14,
+                                                          child: Text(
+                                                            '종류 : 시설/행사',
+                                                            style: TextStyle(
+                                                              color: Color(0xFF5D5D5D),
+                                                              fontSize: 12,
+                                                              fontFamily: 'Pretendard',
+                                                              fontWeight: FontWeight.w400,
+                                                              height: 1.2,
+                                                            ),
                                                           ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-
-                                                SizedBox(width: 8),
-                                                // 사이즈 박스 (가로 간격)
-                                                Container(
-                                                  width: 24,
-                                                  height: 36,
-                                                  color:
-                                                      Colors.grey, // 두 번째 박스 색상
-                                                ),
-                                              ],
+                                                  SizedBox(width: 8),
+                                                  Container(
+                                                    width: 24,
+                                                    height: 36,
+                                                    child: Center(
+                                                      child: Icon(
+                                                        Icons.favorite,
+                                                        size: 24,
+                                                        color: Colors.red,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
@@ -726,7 +692,7 @@ class _HomePageState extends State<_HomePage> {
                         '모디랑 매거진',
                         '육아에 대한 최신 트렌드 자료를 모았어요',
                       ),
-                      // 모디랑 육아팁 그림
+                      // 모디랑 매거진
                       Container(
                         height: 336,
                         decoration: BoxDecoration(color: Colors.white),
@@ -737,644 +703,618 @@ class _HomePageState extends State<_HomePage> {
                           child: Row(
                             children: [
                               // 1컨텐츠
-                              Container(
-                                width: 240, // 너비 240
-                                height: 300, // 높이 300
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                        'assets/image/content.png'), // 이미지 경로
-                                    fit: BoxFit.cover, // 이미지의 크기를 컨테이너에 맞춤
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => MyHomePage3()),
+                                  );
+                                },
+                                child: Container(
+                                  width: 240, // 너비 240
+                                  height: 300, // 높이 300
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage('assets/image/content.png'), // 이미지 경로
+                                      fit: BoxFit.cover, // 이미지의 크기를 컨테이너에 맞춤
+                                    ),
                                   ),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  // 맨 바닥에 위치
-                                  children: [
-                                    Container(
-                                      width: 240,
-                                      // 너비 240
-                                      height: 140,
-                                      // 높이 140
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                          begin: Alignment(0.00, -1.00),
-                                          end: Alignment(0, 1),
-                                          colors: [
-                                            Colors.white.withOpacity(0),
-                                            Colors.white.withOpacity(
-                                                0.6000000238418579),
-                                            Colors.white
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end, // 맨 바닥에 위치
+                                    children: [
+                                      Container(
+                                        width: 240, // 너비 240
+                                        height: 140, // 높이 140
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            begin: Alignment(0.00, -1.00),
+                                            end: Alignment(0, 1),
+                                            colors: [
+                                              Colors.white.withOpacity(0),
+                                              Colors.white.withOpacity(0.6),
+                                              Colors.white,
+                                            ],
+                                          ),
+                                        ),
+                                        padding: EdgeInsets.only(top: 48, bottom: 12, left: 16, right: 8), // 패딩값 설정
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              width: 216, // 너비 216
+                                              height: 24, // 높이 24
+                                              child: Text(
+                                                '김나영의 자랑스런 두아들, 신우 · 이준',
+                                                style: TextStyle(
+                                                  color: Color(0xFF3D3D3D),
+                                                  fontSize: 20,
+                                                  fontFamily: 'Pretendard',
+                                                  fontWeight: FontWeight.w700,
+                                                  height: 1.2,
+                                                ),
+                                                overflow: TextOverflow.ellipsis, // 텍스트가 넘칠 경우 ...으로 표시
+                                              ),
+                                            ),
+                                            SizedBox(height: 8),
+                                            Container(
+                                              width: 216,
+                                              height: 48,
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    width: 168,
+                                                    height: 48,
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+                                                          width: 168,
+                                                          height: 20,
+                                                          child: Text(
+                                                            '여행을 떠나는 아이들의 미소가 반짝인다.',
+                                                            style: TextStyle(
+                                                              color: Color(0xFF3D3D3D),
+                                                              fontSize: 14,
+                                                              fontFamily: 'Pretendard',
+                                                              fontWeight: FontWeight.w500,
+                                                              height: 1.4,
+                                                              letterSpacing: -0.35,
+                                                            ),
+                                                            overflow: TextOverflow.ellipsis,
+                                                          ),
+                                                        ),
+                                                        SizedBox(height: 8),
+                                                        Container(
+                                                          width: 168, // 너비 168
+                                                          height: 20, // 높이 20
+                                                          child: Text(
+                                                            '2024. 11. 29',
+                                                            style: TextStyle(
+                                                              color: Color(0xFF888888),
+                                                              fontSize: 12,
+                                                              fontFamily: 'Pretendard',
+                                                              fontWeight: FontWeight.w400,
+                                                              height: 1.7,
+                                                              letterSpacing: -0.30,
+                                                            ),
+                                                            overflow: TextOverflow.ellipsis, // 텍스트가 넘칠 경우 ...으로 표시
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width: 48,
+                                                    height: 48,
+                                                    padding: EdgeInsets.all(8),
+                                                    child: Center(
+                                                      child: Icon(
+                                                        Icons.bookmark_border,
+                                                        size: 32, // 아이콘 크기
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),
-                                      padding: EdgeInsets.only(
-                                          top: 48,
-                                          bottom: 12,
-                                          left: 16,
-                                          right: 8),
-                                      // 패딩값 설정
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            width: 216, // 너비 216
-                                            height: 24, // 높이 24
-                                            child: Text(
-                                              '김나영의 자랑스런 두아들, 신우 · 이준',
-                                              style: TextStyle(
-                                                color: Color(0xFF3D3D3D),
-                                                fontSize: 20,
-                                                fontFamily: 'Pretendard',
-                                                fontWeight: FontWeight.w700,
-                                                height: 1.2,
-                                              ),
-                                              overflow: TextOverflow
-                                                  .ellipsis, // 텍스트가 넘칠 경우 ...으로 표시
-                                            ),
-                                          ),
-                                          SizedBox(height: 8),
-                                          Container(
-                                            width: 216,
-                                            height: 48,
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                  width: 168,
-                                                  height: 48,
-                                                  child: Column(
-                                                    children: [
-                                                      Container(
-                                                        width: 168,
-                                                        height: 20,
-                                                        child: Text(
-                                                          '아기가 평소 잠을 안자나요? 그럼 이렇게 해보세요',
-                                                          style: TextStyle(
-                                                            color: Color(
-                                                                0xFF3D3D3D),
-                                                            fontSize: 14,
-                                                            fontFamily:
-                                                                'Pretendard',
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            height: 1.4,
-                                                            letterSpacing:
-                                                                -0.35,
-                                                          ),
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                        ),
-                                                      ),
-                                                      SizedBox(height: 8),
-                                                      Container(
-                                                        width: 168, // 너비 168
-                                                        height: 20, // 높이 20
-                                                        child: Text(
-                                                          '2024. 11. 16',
-                                                          style: TextStyle(
-                                                            color: Color(
-                                                                0xFF888888),
-                                                            fontSize: 12,
-                                                            fontFamily:
-                                                                'Pretendard',
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            height: 1.7,
-                                                            letterSpacing:
-                                                                -0.30,
-                                                          ),
-                                                          overflow: TextOverflow
-                                                              .ellipsis, // 텍스트가 넘칠 경우 ...으로 표시
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Container(
-                                                  width: 48,
-                                                  height: 48,
-                                                  padding: EdgeInsets.all(8),
-                                                  child: Center(
-                                                    child: Icon(
-                                                      Icons.bookmark_border,
-                                                      size: 32, // 아이콘 크기
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                               SizedBox(width: 16),
                               // 2컨텐츠
-                              Container(
-                                width: 240, // 너비 240
-                                height: 300, // 높이 300
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                        'assets/image/content.png'), // 이미지 경로
-                                    fit: BoxFit.cover, // 이미지의 크기를 컨테이너에 맞춤
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => MyHomePage2()),
+                                  );
+                                },
+                                child: Container(
+                                  width: 240, // 너비 240
+                                  height: 300, // 높이 300
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage('assets/image/content2.png'), // 이미지 경로
+                                      fit: BoxFit.cover, // 이미지의 크기를 컨테이너에 맞춤
+                                    ),
                                   ),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  // 맨 바닥에 위치
-                                  children: [
-                                    Container(
-                                      width: 240,
-                                      // 너비 240
-                                      height: 140,
-                                      // 높이 140
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                          begin: Alignment(0.00, -1.00),
-                                          end: Alignment(0, 1),
-                                          colors: [
-                                            Colors.white.withOpacity(0),
-                                            Colors.white.withOpacity(
-                                                0.6000000238418579),
-                                            Colors.white
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end, // 맨 바닥에 위치
+                                    children: [
+                                      Container(
+                                        width: 240, // 너비 240
+                                        height: 140, // 높이 140
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            begin: Alignment(0.00, -1.00),
+                                            end: Alignment(0, 1),
+                                            colors: [
+                                              Colors.white.withOpacity(0),
+                                              Colors.white.withOpacity(0.6),
+                                              Colors.white,
+                                            ],
+                                          ),
+                                        ),
+                                        padding: EdgeInsets.only(top: 48, bottom: 12, left: 16, right: 8), // 패딩값 설정
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              width: 216, // 너비 216
+                                              height: 24, // 높이 24
+                                              child: Text(
+                                                '홍현희 아들 준범의 일상룩',
+                                                style: TextStyle(
+                                                  color: Color(0xFF3D3D3D),
+                                                  fontSize: 20,
+                                                  fontFamily: 'Pretendard',
+                                                  fontWeight: FontWeight.w700,
+                                                  height: 1.2,
+                                                ),
+                                                overflow: TextOverflow.ellipsis, // 텍스트가 넘칠 경우 ...으로 표시
+                                              ),
+                                            ),
+                                            SizedBox(height: 8),
+                                            Container(
+                                              width: 216,
+                                              height: 48,
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    width: 168,
+                                                    height: 48,
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+                                                          width: 168,
+                                                          height: 20,
+                                                          child: Text(
+                                                            '평소에 어떻게 입을까요? 저희 모디랑이 찾아 봤습니다',
+                                                            style: TextStyle(
+                                                              color: Color(0xFF3D3D3D),
+                                                              fontSize: 14,
+                                                              fontFamily: 'Pretendard',
+                                                              fontWeight: FontWeight.w500,
+                                                              height: 1.4,
+                                                              letterSpacing: -0.35,
+                                                            ),
+                                                            overflow: TextOverflow.ellipsis,
+                                                          ),
+                                                        ),
+                                                        SizedBox(height: 8),
+                                                        Container(
+                                                          width: 168, // 너비 168
+                                                          height: 20, // 높이 20
+                                                          child: Text(
+                                                            '2024. 11. 27',
+                                                            style: TextStyle(
+                                                              color: Color(0xFF888888),
+                                                              fontSize: 12,
+                                                              fontFamily: 'Pretendard',
+                                                              fontWeight: FontWeight.w400,
+                                                              height: 1.7,
+                                                              letterSpacing: -0.30,
+                                                            ),
+                                                            overflow: TextOverflow.ellipsis, // 텍스트가 넘칠 경우 ...으로 표시
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width: 48,
+                                                    height: 48,
+                                                    padding: EdgeInsets.all(8),
+                                                    child: Center(
+                                                      child: Icon(
+                                                        Icons.bookmark_border,
+                                                        size: 32, // 아이콘 크기
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),
-                                      padding: EdgeInsets.only(
-                                          top: 48,
-                                          bottom: 12,
-                                          left: 16,
-                                          right: 8),
-                                      // 패딩값 설정
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            width: 216, // 너비 216
-                                            height: 24, // 높이 24
-                                            child: Text(
-                                              '아이가 잠을 안자요',
-                                              style: TextStyle(
-                                                color: Color(0xFF3D3D3D),
-                                                fontSize: 20,
-                                                fontFamily: 'Pretendard',
-                                                fontWeight: FontWeight.w700,
-                                                height: 1.2,
-                                              ),
-                                              overflow: TextOverflow
-                                                  .ellipsis, // 텍스트가 넘칠 경우 ...으로 표시
-                                            ),
-                                          ),
-                                          SizedBox(height: 8),
-                                          Container(
-                                            width: 216,
-                                            height: 48,
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                  width: 168,
-                                                  height: 48,
-                                                  child: Column(
-                                                    children: [
-                                                      Container(
-                                                        width: 168,
-                                                        height: 20,
-                                                        child: Text(
-                                                          '아기가 평소 잠을 안자나요? 그럼 이렇게 해보세요',
-                                                          style: TextStyle(
-                                                            color: Color(
-                                                                0xFF3D3D3D),
-                                                            fontSize: 14,
-                                                            fontFamily:
-                                                                'Pretendard',
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            height: 1.4,
-                                                            letterSpacing:
-                                                                -0.35,
-                                                          ),
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                        ),
-                                                      ),
-                                                      SizedBox(height: 8),
-                                                      Container(
-                                                        width: 168, // 너비 168
-                                                        height: 20, // 높이 20
-                                                        child: Text(
-                                                          '2024. 11. 16',
-                                                          style: TextStyle(
-                                                            color: Color(
-                                                                0xFF888888),
-                                                            fontSize: 12,
-                                                            fontFamily:
-                                                                'Pretendard',
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            height: 1.7,
-                                                            letterSpacing:
-                                                                -0.30,
-                                                          ),
-                                                          overflow: TextOverflow
-                                                              .ellipsis, // 텍스트가 넘칠 경우 ...으로 표시
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Container(
-                                                  width: 48,
-                                                  height: 48,
-                                                  padding: EdgeInsets.all(8),
-                                                  child: Center(
-                                                    child: Icon(
-                                                      Icons.bookmark_border,
-                                                      size: 32, // 아이콘 크기
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      // 모디랑 상품 글씨
-                      Container(
-                        height: 88,
-                        padding: EdgeInsets.only(
-                            top: 24, bottom: 11, right: 8, left: 16),
-                        decoration: BoxDecoration(
-                          color: Colors.white, // 원하는 색상으로 변경
-                          border: Border(
-                            bottom: BorderSide(
-                                width: 1,
-                                color: Color(0xFFE7E7E7)), // 아래쪽 테두리 추가
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 300,
-                              height: 52,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                // 중앙 정렬
-                                children: [
-                                  Container(
-                                    width: 300,
-                                    height: 24,
-                                    child: Text(
-                                      '모디랑 상품',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontFamily: 'Pretendard',
-                                        fontWeight: FontWeight.w600,
-                                        height: 1.2,
-                                      ),
-                                    ),
+                                    ],
                                   ),
-                                  SizedBox(height: 8),
-                                  Container(
-                                    width: 300,
-                                    height: 20,
-                                    child: Text(
-                                      '우리 아이에게 딱 맞는 상품들로 준비했어요!!',
-                                      style: TextStyle(
-                                        color: Color(0xFF888888),
-                                        fontSize: 14,
-                                        fontFamily: 'Pretendard',
-                                        fontWeight: FontWeight.w400,
-                                        height: 1.4,
-                                      ),
-                                      overflow: TextOverflow
-                                          .ellipsis, // 텍스트가 넘칠 경우 생략 기호 표시
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(width: 4),
-                            Container(
-                              width: 32,
-                              height: 52,
-                              child: Center(
-                                // 아이콘을 중앙에 배치
-                                child: Icon(
-                                  Icons.chevron_right, // '>' 아이콘
-                                  size: 20, // 아이콘 크기
-                                  color:
-                                      Colors.black, // 아이콘 색상 (원하는 색상으로 변경 가능)
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      // 모디랑 상품 -버튼
-                      Container(
-                        height: 46,
-                        width: 360,
-                        padding: EdgeInsets.only(
-                            left: 16, right: 16, top: 8, bottom: 8),
-                        decoration: BoxDecoration(color: Colors.white),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              _buildButton2(0, '3~5살'),
-                              SizedBox(width: 8),
-                              _buildButton2(1, '5~7살'),
-                              SizedBox(width: 8),
-                              _buildButton2(2, '7~9살'),
-                              SizedBox(width: 8),
-                              _buildButton2(3, '9~11살'),
-                              SizedBox(width: 8),
-                              _buildButton2(4, '11~12살'),
                             ],
                           ),
                         ),
                       ),
-                      // 모디랑 상품 사진
-                      Container(
-                        width: 360,
-                        height: 256,
-                        padding: EdgeInsets.only(
-                            top: 12, bottom: 24, right: 16, left: 16),
-                        decoration: BoxDecoration(color: Colors.white),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              //1번컨텐츠
-                              Container(
-                                height: 220,
-                                width: 140,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  // 위에서부터 쌓기
-                                  children: [
-                                    Container(
-                                      height: 140,
-                                      width: 140,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                              'assets/image/content.png'),
-                                          // 이미지 경로
-                                          fit: BoxFit
-                                              .cover, // 이미지가 컨테이너 크기에 맞추도록 조정
-                                        ),
-                                        borderRadius: BorderRadius.circular(
-                                            4), // 모서리를 4픽셀로 둥글게 설정
-                                      ),
-                                    ),
-
-                                    SizedBox(height: 12), // 12픽셀 간격
-                                    Container(
-                                      height: 68,
-                                      width: 140,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start, // 위에서부터 쌓기
-                                        children: [
-                                          Container(
-                                            height: 17,
-                                            width: 140,
-                                            child: Text(
-                                              'Hang Dea Chan',
-                                              style: TextStyle(
-                                                color: Color(0xFF3D3D3D),
-                                                fontSize: 14,
-                                                fontFamily: 'Pretendard',
-                                                fontWeight: FontWeight.w400,
-                                                height: 1.2,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(height: 8), // 8픽셀 간격
-                                          Container(
-                                            height: 17,
-                                            width: 140,
-                                            child: Text(
-                                              '9월 15일 생',
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 14,
-                                                fontFamily: 'Pretendard',
-                                                fontWeight: FontWeight.w500,
-                                                height: 1.2,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(height: 8), // 8픽셀 간격
-                                          Container(
-                                            height: 18,
-                                            width: 140,
-                                            // 원하는 색상으로 변경 가능
-                                            child: Text(
-                                              '25,000 원',
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 14,
-                                                fontFamily: 'Pretendard',
-                                                fontWeight: FontWeight.w600,
-                                                height: 1.3,
-                                                letterSpacing: -0.35,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(width: 12),
-                              //2번컨텐츠
-                              Container(
-                                height: 220,
-                                width: 140,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  // 위에서부터 쌓기
-                                  children: [
-                                    Container(
-                                      height: 140,
-                                      width: 140,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                              'assets/image/content.png'),
-                                          // 이미지 경로
-                                          fit: BoxFit
-                                              .cover, // 이미지가 컨테이너 크기에 맞추도록 조정
-                                        ),
-                                        borderRadius: BorderRadius.circular(
-                                            4), // 모서리를 4픽셀로 둥글게 설정
-                                      ),
-                                    ),
-
-                                    SizedBox(height: 12), // 12픽셀 간격
-                                    Container(
-                                      height: 68,
-                                      width: 140,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start, // 위에서부터 쌓기
-                                        children: [
-                                          Container(
-                                            height: 17,
-                                            width: 140,
-                                            child: Text(
-                                              'Hang Dea Chan',
-                                              style: TextStyle(
-                                                color: Color(0xFF3D3D3D),
-                                                fontSize: 14,
-                                                fontFamily: 'Pretendard',
-                                                fontWeight: FontWeight.w400,
-                                                height: 1.2,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(height: 8), // 8픽셀 간격
-                                          Container(
-                                            height: 17,
-                                            width: 140,
-                                            child: Text(
-                                              '9월 15일 생',
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 14,
-                                                fontFamily: 'Pretendard',
-                                                fontWeight: FontWeight.w500,
-                                                height: 1.2,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(height: 8), // 8픽셀 간격
-                                          Container(
-                                            height: 18,
-                                            width: 140,
-                                            // 원하는 색상으로 변경 가능
-                                            child: Text(
-                                              '25,000 원',
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 14,
-                                                fontFamily: 'Pretendard',
-                                                fontWeight: FontWeight.w600,
-                                                height: 1.3,
-                                                letterSpacing: -0.35,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(width: 12),
-                              //3번컨텐츠
-                              Container(
-                                height: 220,
-                                width: 140,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  // 위에서부터 쌓기
-                                  children: [
-                                    Container(
-                                      height: 140,
-                                      width: 140,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                              'assets/image/content.png'),
-                                          // 이미지 경로
-                                          fit: BoxFit
-                                              .cover, // 이미지가 컨테이너 크기에 맞추도록 조정
-                                        ),
-                                        borderRadius: BorderRadius.circular(
-                                            4), // 모서리를 4픽셀로 둥글게 설정
-                                      ),
-                                    ),
-
-                                    SizedBox(height: 12), // 12픽셀 간격
-                                    Container(
-                                      height: 68,
-                                      width: 140,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start, // 위에서부터 쌓기
-                                        children: [
-                                          Container(
-                                            height: 17,
-                                            width: 140,
-                                            child: Text(
-                                              'Hang Dea Chan',
-                                              style: TextStyle(
-                                                color: Color(0xFF3D3D3D),
-                                                fontSize: 14,
-                                                fontFamily: 'Pretendard',
-                                                fontWeight: FontWeight.w400,
-                                                height: 1.2,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(height: 8), // 8픽셀 간격
-                                          Container(
-                                            height: 17,
-                                            width: 140,
-                                            child: Text(
-                                              '9월 15일 생',
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 14,
-                                                fontFamily: 'Pretendard',
-                                                fontWeight: FontWeight.w500,
-                                                height: 1.2,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(height: 8), // 8픽셀 간격
-                                          Container(
-                                            height: 18,
-                                            width: 140,
-                                            // 원하는 색상으로 변경 가능
-                                            child: Text(
-                                              '25,000 원',
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 14,
-                                                fontFamily: 'Pretendard',
-                                                fontWeight: FontWeight.w600,
-                                                height: 1.3,
-                                                letterSpacing: -0.35,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(width: 12),
-                            ],
-                          ),
-                        ),
-                      ),
+                      // // 모디랑 상품 글씨
+                      // Container(
+                      //   height: 88,
+                      //   padding: EdgeInsets.only(
+                      //       top: 24, bottom: 11, right: 8, left: 16),
+                      //   decoration: BoxDecoration(
+                      //     color: Colors.white, // 원하는 색상으로 변경
+                      //     border: Border(
+                      //       bottom: BorderSide(
+                      //           width: 1,
+                      //           color: Color(0xFFE7E7E7)), // 아래쪽 테두리 추가
+                      //     ),
+                      //   ),
+                      //   child: Row(
+                      //     children: [
+                      //       Container(
+                      //         width: 300,
+                      //         height: 52,
+                      //         child: Column(
+                      //           mainAxisAlignment: MainAxisAlignment.center,
+                      //           // 중앙 정렬
+                      //           children: [
+                      //             Container(
+                      //               width: 300,
+                      //               height: 24,
+                      //               child: Text(
+                      //                 '모디랑 상품',
+                      //                 style: TextStyle(
+                      //                   color: Colors.black,
+                      //                   fontSize: 20,
+                      //                   fontFamily: 'Pretendard',
+                      //                   fontWeight: FontWeight.w600,
+                      //                   height: 1.2,
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //             SizedBox(height: 8),
+                      //             Container(
+                      //               width: 300,
+                      //               height: 20,
+                      //               child: Text(
+                      //                 '우리 아이에게 딱 맞는 상품들로 준비했어요!!',
+                      //                 style: TextStyle(
+                      //                   color: Color(0xFF888888),
+                      //                   fontSize: 14,
+                      //                   fontFamily: 'Pretendard',
+                      //                   fontWeight: FontWeight.w400,
+                      //                   height: 1.4,
+                      //                 ),
+                      //                 overflow: TextOverflow
+                      //                     .ellipsis, // 텍스트가 넘칠 경우 생략 기호 표시
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //       ),
+                      //       SizedBox(width: 4),
+                      //       Container(
+                      //         width: 32,
+                      //         height: 52,
+                      //         child: Center(
+                      //           // 아이콘을 중앙에 배치
+                      //           child: Icon(
+                      //             Icons.chevron_right, // '>' 아이콘
+                      //             size: 20, // 아이콘 크기
+                      //             color:
+                      //                 Colors.black, // 아이콘 색상 (원하는 색상으로 변경 가능)
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      //
+                      // // 모디랑 상품 -버튼
+                      // Container(
+                      //   height: 46,
+                      //   width: 360,
+                      //   padding: EdgeInsets.only(
+                      //       left: 16, right: 16, top: 8, bottom: 8),
+                      //   decoration: BoxDecoration(color: Colors.white),
+                      //   child: SingleChildScrollView(
+                      //     scrollDirection: Axis.horizontal,
+                      //     child: Row(
+                      //       children: [
+                      //         _buildButton2(0, '3~5살'),
+                      //         SizedBox(width: 8),
+                      //         _buildButton2(1, '5~7살'),
+                      //         SizedBox(width: 8),
+                      //         _buildButton2(2, '7~9살'),
+                      //         SizedBox(width: 8),
+                      //         _buildButton2(3, '9~11살'),
+                      //         SizedBox(width: 8),
+                      //         _buildButton2(4, '11~12살'),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      // // 모디랑 상품 사진
+                      // Container(
+                      //   width: 360,
+                      //   height: 256,
+                      //   padding: EdgeInsets.only(
+                      //       top: 12, bottom: 24, right: 16, left: 16),
+                      //   decoration: BoxDecoration(color: Colors.white),
+                      //   child: SingleChildScrollView(
+                      //     scrollDirection: Axis.horizontal,
+                      //     child: Row(
+                      //       children: [
+                      //         //1번컨텐츠
+                      //         Container(
+                      //           height: 220,
+                      //           width: 140,
+                      //           child: Column(
+                      //             mainAxisAlignment: MainAxisAlignment.start,
+                      //             // 위에서부터 쌓기
+                      //             children: [
+                      //               Container(
+                      //                 height: 140,
+                      //                 width: 140,
+                      //                 decoration: BoxDecoration(
+                      //                   image: DecorationImage(
+                      //                     image: AssetImage(
+                      //                         'assets/image/content.png'),
+                      //                     // 이미지 경로
+                      //                     fit: BoxFit
+                      //                         .cover, // 이미지가 컨테이너 크기에 맞추도록 조정
+                      //                   ),
+                      //                   borderRadius: BorderRadius.circular(
+                      //                       4), // 모서리를 4픽셀로 둥글게 설정
+                      //                 ),
+                      //               ),
+                      //
+                      //               SizedBox(height: 12), // 12픽셀 간격
+                      //               Container(
+                      //                 height: 68,
+                      //                 width: 140,
+                      //                 child: Column(
+                      //                   mainAxisAlignment:
+                      //                       MainAxisAlignment.start, // 위에서부터 쌓기
+                      //                   children: [
+                      //                     Container(
+                      //                       height: 17,
+                      //                       width: 140,
+                      //                       child: Text(
+                      //                         'Hang Dea Chan',
+                      //                         style: TextStyle(
+                      //                           color: Color(0xFF3D3D3D),
+                      //                           fontSize: 14,
+                      //                           fontFamily: 'Pretendard',
+                      //                           fontWeight: FontWeight.w400,
+                      //                           height: 1.2,
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                     SizedBox(height: 8), // 8픽셀 간격
+                      //                     Container(
+                      //                       height: 17,
+                      //                       width: 140,
+                      //                       child: Text(
+                      //                         '9월 15일 생',
+                      //                         style: TextStyle(
+                      //                           color: Colors.black,
+                      //                           fontSize: 14,
+                      //                           fontFamily: 'Pretendard',
+                      //                           fontWeight: FontWeight.w500,
+                      //                           height: 1.2,
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                     SizedBox(height: 8), // 8픽셀 간격
+                      //                     Container(
+                      //                       height: 18,
+                      //                       width: 140,
+                      //                       // 원하는 색상으로 변경 가능
+                      //                       child: Text(
+                      //                         '25,000 원',
+                      //                         style: TextStyle(
+                      //                           color: Colors.black,
+                      //                           fontSize: 14,
+                      //                           fontFamily: 'Pretendard',
+                      //                           fontWeight: FontWeight.w600,
+                      //                           height: 1.3,
+                      //                           letterSpacing: -0.35,
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //               ),
+                      //             ],
+                      //           ),
+                      //         ),
+                      //         SizedBox(width: 12),
+                      //         //2번컨텐츠
+                      //         Container(
+                      //           height: 220,
+                      //           width: 140,
+                      //           child: Column(
+                      //             mainAxisAlignment: MainAxisAlignment.start,
+                      //             // 위에서부터 쌓기
+                      //             children: [
+                      //               Container(
+                      //                 height: 140,
+                      //                 width: 140,
+                      //                 decoration: BoxDecoration(
+                      //                   image: DecorationImage(
+                      //                     image: AssetImage(
+                      //                         'assets/image/content.png'),
+                      //                     // 이미지 경로
+                      //                     fit: BoxFit
+                      //                         .cover, // 이미지가 컨테이너 크기에 맞추도록 조정
+                      //                   ),
+                      //                   borderRadius: BorderRadius.circular(
+                      //                       4), // 모서리를 4픽셀로 둥글게 설정
+                      //                 ),
+                      //               ),
+                      //
+                      //               SizedBox(height: 12), // 12픽셀 간격
+                      //               Container(
+                      //                 height: 68,
+                      //                 width: 140,
+                      //                 child: Column(
+                      //                   mainAxisAlignment:
+                      //                       MainAxisAlignment.start, // 위에서부터 쌓기
+                      //                   children: [
+                      //                     Container(
+                      //                       height: 17,
+                      //                       width: 140,
+                      //                       child: Text(
+                      //                         'Hang Dea Chan',
+                      //                         style: TextStyle(
+                      //                           color: Color(0xFF3D3D3D),
+                      //                           fontSize: 14,
+                      //                           fontFamily: 'Pretendard',
+                      //                           fontWeight: FontWeight.w400,
+                      //                           height: 1.2,
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                     SizedBox(height: 8), // 8픽셀 간격
+                      //                     Container(
+                      //                       height: 17,
+                      //                       width: 140,
+                      //                       child: Text(
+                      //                         '9월 15일 생',
+                      //                         style: TextStyle(
+                      //                           color: Colors.black,
+                      //                           fontSize: 14,
+                      //                           fontFamily: 'Pretendard',
+                      //                           fontWeight: FontWeight.w500,
+                      //                           height: 1.2,
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                     SizedBox(height: 8), // 8픽셀 간격
+                      //                     Container(
+                      //                       height: 18,
+                      //                       width: 140,
+                      //                       // 원하는 색상으로 변경 가능
+                      //                       child: Text(
+                      //                         '25,000 원',
+                      //                         style: TextStyle(
+                      //                           color: Colors.black,
+                      //                           fontSize: 14,
+                      //                           fontFamily: 'Pretendard',
+                      //                           fontWeight: FontWeight.w600,
+                      //                           height: 1.3,
+                      //                           letterSpacing: -0.35,
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //               ),
+                      //             ],
+                      //           ),
+                      //         ),
+                      //         SizedBox(width: 12),
+                      //         //3번컨텐츠
+                      //         Container(
+                      //           height: 220,
+                      //           width: 140,
+                      //           child: Column(
+                      //             mainAxisAlignment: MainAxisAlignment.start,
+                      //             // 위에서부터 쌓기
+                      //             children: [
+                      //               Container(
+                      //                 height: 140,
+                      //                 width: 140,
+                      //                 decoration: BoxDecoration(
+                      //                   image: DecorationImage(
+                      //                     image: AssetImage(
+                      //                         'assets/image/content.png'),
+                      //                     // 이미지 경로
+                      //                     fit: BoxFit
+                      //                         .cover, // 이미지가 컨테이너 크기에 맞추도록 조정
+                      //                   ),
+                      //                   borderRadius: BorderRadius.circular(
+                      //                       4), // 모서리를 4픽셀로 둥글게 설정
+                      //                 ),
+                      //               ),
+                      //
+                      //               SizedBox(height: 12), // 12픽셀 간격
+                      //               Container(
+                      //                 height: 68,
+                      //                 width: 140,
+                      //                 child: Column(
+                      //                   mainAxisAlignment:
+                      //                       MainAxisAlignment.start, // 위에서부터 쌓기
+                      //                   children: [
+                      //                     Container(
+                      //                       height: 17,
+                      //                       width: 140,
+                      //                       child: Text(
+                      //                         'Hang Dea Chan',
+                      //                         style: TextStyle(
+                      //                           color: Color(0xFF3D3D3D),
+                      //                           fontSize: 14,
+                      //                           fontFamily: 'Pretendard',
+                      //                           fontWeight: FontWeight.w400,
+                      //                           height: 1.2,
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                     SizedBox(height: 8), // 8픽셀 간격
+                      //                     Container(
+                      //                       height: 17,
+                      //                       width: 140,
+                      //                       child: Text(
+                      //                         '9월 15일 생',
+                      //                         style: TextStyle(
+                      //                           color: Colors.black,
+                      //                           fontSize: 14,
+                      //                           fontFamily: 'Pretendard',
+                      //                           fontWeight: FontWeight.w500,
+                      //                           height: 1.2,
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                     SizedBox(height: 8), // 8픽셀 간격
+                      //                     Container(
+                      //                       height: 18,
+                      //                       width: 140,
+                      //                       // 원하는 색상으로 변경 가능
+                      //                       child: Text(
+                      //                         '25,000 원',
+                      //                         style: TextStyle(
+                      //                           color: Colors.black,
+                      //                           fontSize: 14,
+                      //                           fontFamily: 'Pretendard',
+                      //                           fontWeight: FontWeight.w600,
+                      //                           height: 1.3,
+                      //                           letterSpacing: -0.35,
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //               ),
+                      //             ],
+                      //           ),
+                      //         ),
+                      //         SizedBox(width: 12),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
 
                       //하단 (주) 모디랑 법적 고지사항
                       CompanyInfo(),
@@ -1751,10 +1691,10 @@ class _BookmarkScreenState extends State<CoreFunctionalityScreen>
                   controller: _tabController,
                   children: [
                     TabContent(),
-                    Center(child: Text('2')),
-                    Center(child: Text('3')), // 실내활동 탭 내용
-                    Center(child: Text('장난감 탭 내용')), // 장난감 탭 내용
-                    Center(child: Text('시설/행사 탭 내용')), // 시설/행사 탭 내용
+                    TabContent(),
+                    TabContent(),
+                    Center(child: Text('자료없음')), // 장난감 탭 내용
+                    Center(child: Text('자료없음')), // 시설/행사 탭 내용
                   ],
                 ),
               ),
@@ -1783,7 +1723,7 @@ class _CommunityScreenState extends State<CommunityScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 1, vsync: this); // 탭의 개수 설정
+    _tabController = TabController(length: 3, vsync: this); // 탭의 개수 설정
   }
 
   @override
@@ -1819,6 +1759,34 @@ class _CommunityScreenState extends State<CommunityScreen>
                             Tab(
                               child: Text(
                                 '전체',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xFF0095F6),
+                                  fontSize: 14,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3,
+                                  letterSpacing: -0.40,
+                                ),
+                              ),
+                            ),
+                            Tab(
+                              child: Text(
+                                '패션',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xFF0095F6),
+                                  fontSize: 14,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3,
+                                  letterSpacing: -0.40,
+                                ),
+                              ),
+                            ),
+                            Tab(
+                              child: Text(
+                                '지원활동',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Color(0xFF0095F6),
@@ -1880,6 +1848,8 @@ class _CommunityScreenState extends State<CommunityScreen>
                   controller: _tabController,
                   children: [
                     TabContent111(),
+                    TabContent111(),
+                    Center(child: Text('자료 없음')),
                   ],
                 ),
               ),
@@ -1973,6 +1943,31 @@ class _QuotationPageState extends State<QuotationPage>
       home: SafeArea(
         child: Scaffold(
           appBar: HomeAppBar(),
+          body: SingleChildScrollView(
+            child: Center(
+              child: Container(
+                width: 360,
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    Container(
+                      width: 328,
+                      height: 468,
+
+                      padding: EdgeInsets.only(left: 16, right: 16, top: 80 ,bottom:80),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/image/test_shopping.png'),
+                          fit: BoxFit.cover, // 이미지 크기를 조절하는 방법 (cover, contain 등 선택 가능)
+                        ),
+                      ),
+                    ),
+
+                  ],
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );

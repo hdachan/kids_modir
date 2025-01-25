@@ -27,15 +27,15 @@ class OnboardContent {
 List<OnboardContent> contents = [
   OnboardContent(
     image: "assets/image/on1.png",
-    text: "쉽고 간단하게\n커뮤니티 정보를 제공합니다.",
+    text: "일상에 도움이 되는\n최신 육아 트렌트 정보 확인!",
   ),
   OnboardContent(
     image: "assets/image/on2.png",
-    text: "당신을 위해 준비한\n맞춤형 교육 정보",
+    text: "부모님들과 소통하면\n다양한 놀이 정보를 얻고",
   ),
   OnboardContent(
     image: "assets/image/on3.png",
-    text: "당신의 잠재력을\n모디랑과 함께 깨워 보세요",
+    text: "아이에게 소중한\n추억을 만들어 주세요",
   ),
 ];
 

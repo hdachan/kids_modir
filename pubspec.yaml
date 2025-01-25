@@ -42,6 +42,8 @@ dev_dependencies:
   image_picker: ^1.1.2 #이미지 고르는 라이브러리
   url_launcher: ^6.0.20 #url 이동 라이브러리
 
+  table_calendar: ^3.0.0 # 이건 나중에 지울거 달력
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -98,6 +100,10 @@ flutter:
 
     - assets/image/titie img.png
     - assets/image/content.png
+    - assets/image/content2.png
+    - assets/image/content3.png
+    - assets/image/content4.png
+
 
     - assets/image/profile img.png
     - assets/image/baby img.png
@@ -121,6 +127,34 @@ flutter:
 
     - assets/image/joonbam111 img.png
     - assets/image/joonbam222 img.png
+
+    - assets/image/test_shopping.png
+
+    - assets/image/water img.png
+    - assets/image/play img.png
+    - assets/image/play1 img.png
+    - assets/image/play2 img.png
+
+    - assets/image/icon_error1.png
+    - assets/image/icon_error2.png
+    - assets/image/icon_error3.png
+    - assets/image/icon_error4.png
+    - assets/image/icon_error5.png
+    - assets/image/icon_error6.png
+    - assets/image/icon_error7.png
+    - assets/image/icon_error8.png
+    - assets/image/icon_error9.png
+
+    - assets/image/play_shop1.png
+    - assets/image/play_shop2.png
+    - assets/image/play_shop3.png
+
+    - assets/image/play_shop4.png
+    - assets/image/play_shop5.png
+    - assets/image/play_shop6.png
+    - assets/image/play_shop7.png
+    - assets/image/play_shop8.png
+
   uses-material-design: true
   fonts:
     - family: Pretendard

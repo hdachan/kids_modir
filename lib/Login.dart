@@ -5,6 +5,31 @@ import 'Agree_Page.dart';
 import 'New_Password.dart';
 import 'home_screen.dart';
 
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(); // Firebase 초기화
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return LoadingOverlay(); // 로딩 중일 때
+          } else if (snapshot.hasData) {
+            return Home_Screen(); // 로그인된 경우 홈 화면으로 이동
+          } else {
+            return Login(); // 로그인되지 않은 경우 로그인 화면
+          }
+        },
+      ),
+    );
+  }
+}
 
 class LoadingOverlay extends StatelessWidget {
   @override
@@ -30,7 +55,6 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   bool _isLoading = false; // 로딩 상태 변수
 
-
   void _setLoading(bool loading) {
     setState(() {
       _isLoading = loading;
@@ -41,7 +65,8 @@ class _LoginState extends State<Login> {
       showDialog(
         context: context,
         barrierDismissible: false, // 바깥 터치로 닫지 않도록 설정
-        builder: (BuildContext context) { //대화 상자를 생성할 때 사용할 위젯
+        builder: (BuildContext context) {
+          //대화 상자를 생성할 때 사용할 위젯
           return LoadingOverlay(); // builder 표시할 위젯을 반환하는 함수
         },
       );
@@ -50,10 +75,6 @@ class _LoginState extends State<Login> {
       Navigator.of(context).pop();
     }
   }
-
-
-
-
 
   String errorMessage = '';
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -65,7 +86,6 @@ class _LoginState extends State<Login> {
 
   final FocusNode _passwordFocusNode = FocusNode();
   Color _passwordBorderColor = Color(0xFFD1D1D1); // 기본 테두리 색상
-
 
   @override
   void initState() {
@@ -86,25 +106,23 @@ class _LoginState extends State<Login> {
   void _onFocusChange() {
     setState(() {
       _emailborderColor =
-      _emailfocusNode.hasFocus ? Color(0xFF4B0FFF) : Color(0xFFD1D1D1);
+          _emailfocusNode.hasFocus ? Color(0xFF4B0FFF) : Color(0xFFD1D1D1);
     });
   }
 
   void _onPasswordFocusChange() {
     setState(() {
       _passwordBorderColor =
-      _passwordFocusNode.hasFocus ? Color(0xFF4B0FFF) : Color(0xFFD1D1D1);
+          _passwordFocusNode.hasFocus ? Color(0xFF4B0FFF) : Color(0xFFD1D1D1);
     });
   }
 
-
   Future<UserCredential?> signIn(String email, String password) async {
     try {
-      final UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email.trim(),
         password: password.trim(),
-
-
       );
       return userCredential;
     } on FirebaseAuthException catch (e) {
@@ -135,8 +153,7 @@ class _LoginState extends State<Login> {
           errorMessage = '계정이 비활성화 되었습니다.';
           _emailborderColor = Color(0xFFFF3333);
           print('계정이 비활성화 되었습니다.');
-        }
-        else {
+        } else {
           print('오류 코드: ${e.code}');
           print('오류 메시지: ${e.message}');
         }
@@ -160,11 +177,13 @@ class _LoginState extends State<Login> {
     }
   }
 
-  Future<UserCredential?> signInWithErrorCodes(String email, String password) async {
+  Future<UserCredential?> signInWithErrorCodes(
+      String email, String password) async {
     _setLoading(true); // 로딩 시작
 
     try {
-      final UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email.trim(),
         password: password.trim(),
       );
@@ -221,8 +240,6 @@ class _LoginState extends State<Login> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -231,7 +248,7 @@ class _LoginState extends State<Login> {
           child: Center(
             child: Container(
               width: 428,
-              height: 299,
+              height: 500, //299,
               padding: EdgeInsets.symmetric(horizontal: 24),
               child: Column(
                 children: [
@@ -249,7 +266,7 @@ class _LoginState extends State<Login> {
                         height: 48,
                         width: 428,
                         padding:
-                        EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                            EdgeInsets.symmetric(vertical: 12, horizontal: 12),
                         decoration: ShapeDecoration(
                           shape: RoundedRectangleBorder(
                               side: BorderSide(
@@ -288,14 +305,14 @@ class _LoginState extends State<Login> {
                               ),
                               suffixIcon: _textController.text.isNotEmpty
                                   ? IconButton(
-                                  onPressed: () {
-                                    _textController.clear();
-                                    setState(() {});
-                                  },
-                                  padding:
-                                  EdgeInsets.only(bottom: 10, left: 60),
-                                  icon: Icon(Icons.cancel,
-                                      color: Color(0xFF888888)))
+                                      onPressed: () {
+                                        _textController.clear();
+                                        setState(() {});
+                                      },
+                                      padding:
+                                          EdgeInsets.only(bottom: 10, left: 60),
+                                      icon: Icon(Icons.cancel,
+                                          color: Color(0xFF888888)))
                                   : null),
                         ),
                       ),
@@ -304,7 +321,7 @@ class _LoginState extends State<Login> {
                         height: 48,
                         width: 428,
                         padding:
-                        EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                            EdgeInsets.symmetric(vertical: 12, horizontal: 12),
                         decoration: ShapeDecoration(
                           shape: RoundedRectangleBorder(
                               side: BorderSide(
@@ -385,16 +402,17 @@ class _LoginState extends State<Login> {
                         width: 428,
                         child: MaterialButton(
                           onPressed: () async {
-                            UserCredential? user =
-                            await signInWithErrorCodes(  //여기
+                            UserCredential? user = await signInWithErrorCodes(
+                                //여기
                                 _textController.text,
                                 _textController2.text);
                             if (user != null) {
                               print("Login Successful");
-                              Navigator.push(
+                              Navigator.pushAndRemoveUntil(
                                 context,
-                                //MaterialPageRoute(builder: (context) => Home_Screen()), // BottomBar로 이동
-                                MaterialPageRoute(builder: (context) => Home_Screen()), // BottomBar로 이동
+                                MaterialPageRoute(
+                                    builder: (context) => Home_Screen()),
+                                (route) => false, // 모든 이전 경로 제거
                               );
                             } else {
                               print("Login Failed");
@@ -450,7 +468,7 @@ class _LoginState extends State<Login> {
                                     style: OutlinedButton.styleFrom(
                                         minimumSize: Size.zero,
                                         padding:
-                                        EdgeInsets.only(top: 3, bottom: 3)),
+                                            EdgeInsets.only(top: 3, bottom: 3)),
                                     child: Text(
                                       "회원가입",
                                       textAlign: TextAlign.center,
@@ -481,7 +499,7 @@ class _LoginState extends State<Login> {
                                     style: OutlinedButton.styleFrom(
                                         minimumSize: Size.zero,
                                         padding:
-                                        EdgeInsets.only(top: 3, bottom: 3)),
+                                            EdgeInsets.only(top: 3, bottom: 3)),
                                     child: Text(
                                       '비밀번호 찾기',
                                       textAlign: TextAlign.center,
@@ -503,6 +521,41 @@ class _LoginState extends State<Login> {
                       )
                     ],
                   ),
+                  SizedBox(height: 50),
+                  Container(
+                    width: 294,
+                    height: 40,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center, // 중앙 정렬
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Home_Screen()),
+                                  (route) => false, // 모든 이전 경로 제거
+                            );
+                          },
+                          child: Text(
+                            '로그인 없이 둘러보기',
+                            textAlign: TextAlign.center, // 텍스트 중앙 정렬
+                            style: TextStyle(
+                              color: Color(0xFF0095F6),
+                              fontSize: 14,
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.w500,
+                              height: 1.0,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+
+
+
                 ],
               ),
             ),
